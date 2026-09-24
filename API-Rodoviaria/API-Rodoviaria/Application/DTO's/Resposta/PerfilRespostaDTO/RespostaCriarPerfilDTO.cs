@@ -1,6 +1,6 @@
-﻿namespace API_Rodoviaria.Application.UseCase.PerfilCasosDeUso.CriarPerfil
+﻿namespace API_Rodoviaria.Application.UseCase.PerfilCasosDeUso.CriarPerfil;
+
+public class RespostaCriarPerfilDTO
 {
-    public class RespostaCriarPerfilDTO
-    {
-    }
+      
 }

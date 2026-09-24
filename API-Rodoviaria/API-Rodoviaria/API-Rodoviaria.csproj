@@ -20,9 +20,6 @@
   </ItemGroup>
 
   <ItemGroup>
-    <Folder Include="Application\DTO%27s\Requisicao\ViagemRequisicaoDTO\" />
-    <Folder Include="Application\DTO%27s\Requisicao\RotaRequisicaoDTO\" />
-    <Folder Include="Application\DTO%27s\Requisicao\UsuarioRequisicaoDTO\" />
     <Folder Include="Application\DTO%27s\Resposta\MotoristaRespostaDTO\" />
     <Folder Include="Application\DTO%27s\Resposta\CadeiraRespostaDTO\" />
     <Folder Include="Application\DTO%27s\Resposta\ReservaCadeiraRespostaDTO\" />
