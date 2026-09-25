@@ -12,7 +12,7 @@ namespace API_Rodoviaria.Application.UseCase.PerfilCasosDeUso.CriarPerfil
             Perfil perfil = new Perfil
             {
                 Id = 1,
-                Nome = "Administrador"
+                Cargo = "Administrador"
             };
 
             await _repositorio.CriarPerfil(perfil);
