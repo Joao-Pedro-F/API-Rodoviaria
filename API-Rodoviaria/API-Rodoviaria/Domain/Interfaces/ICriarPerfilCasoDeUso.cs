@@ -1,5 +1,4 @@
-﻿
-namespace API_Rodoviaria.Application.UseCase.PerfilCasosDeUso.CriarPerfil
+﻿namespace API_Rodoviaria.Domain.Interfaces
 {
     public interface ICriarPerfilCasoDeUso
     {

@@ -1,4 +1,5 @@
 using API_Rodoviaria.Application.UseCase.PerfilCasosDeUso.CriarPerfil;
+using API_Rodoviaria.Domain.Interfaces;
 using API_Rodoviaria.Infrastructure.DataAccess;
 using API_Rodoviaria.Infrastructure.DataAccess.Repository.RepositorioPerfil;
 

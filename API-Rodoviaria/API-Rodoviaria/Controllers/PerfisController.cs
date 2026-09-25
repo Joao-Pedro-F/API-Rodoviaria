@@ -1,4 +1,4 @@
-﻿using API_Rodoviaria.Application.UseCase.PerfilCasosDeUso.CriarPerfil;
+﻿using API_Rodoviaria.Domain.Interfaces;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 

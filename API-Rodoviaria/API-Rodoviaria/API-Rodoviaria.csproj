@@ -25,20 +25,18 @@
     <Folder Include="Application\DTO%27s\Resposta\RotaRespostaDTO\" />
     <Folder Include="Application\UseCase\CadeiraCasosDeUso\CriarCadeira\" />
     <Folder Include="Application\UseCase\MotoristaCasosDeUso\CriarMotorista\" />
-    <Folder Include="Application\UseCase\Onibus\CriarOnibus\" />
     <Folder Include="Application\UseCase\ReservaCadeiraCasosDeUso\CriarReservaCadeira\" />
     <Folder Include="Application\UseCase\ReservaCasosDeUso\CriarReserva\" />
     <Folder Include="Application\UseCase\RotaCasoDeUso\CriarRota\" />
     <Folder Include="Application\UseCase\UsuarioCasosDeUso\CriarUsuario\" />
     <Folder Include="Application\UseCase\VIagemCasosDeUso\CriarViagem\" />
     <Folder Include="Domain\Enums\" />
+    <Folder Include="Infrastructure\DataAccess\Repository\RepositorioMotorista\" />
     <Folder Include="Infrastructure\DataAccess\Repository\RepositorioReservaCadeira\" />
     <Folder Include="Infrastructure\DataAccess\Repository\RepositorioCadeira\" />
     <Folder Include="Infrastructure\DataAccess\Repository\RepositorioRota\" />
     <Folder Include="Infrastructure\DataAccess\Repository\RepositorioReserva\" />
     <Folder Include="Infrastructure\DataAccess\Repository\RepositorioViagem\" />
-    <Folder Include="Infrastructure\DataAccess\Repository\RepositorioOnibus\" />
-    <Folder Include="Infrastructure\DataAccess\Repository\RepositorioMotorista\" />
   </ItemGroup>
 
 </Project>
