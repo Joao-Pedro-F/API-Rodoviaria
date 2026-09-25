@@ -2,6 +2,7 @@
 using API_Rodoviaria.Domain.Models;
 using API_Rodoviaria.Infrastructure.DataAccess.Repository;
 using API_Rodoviaria.Application.DTO_s.Resposta;
+using API_Rodoviaria.Domain.Exceptions;
 using API_Rodoviaria.Application.DTO_s.Resposta.OnibusRespostaDTO;
 using API_Rodoviaria.Infrastructure.DataAccess.Repository.RepositorioOnibus;
 using API_Rodoviaria.Application.DTO_s.Requisicao.OnibusRequisicaoDTO;
@@ -52,8 +53,11 @@ public class CriarOnibusCasodeUso
             Cadeiras = Enumerable.Range(1, requisicao.CapacidadeTotal)
                        .Select(numero => new Cadeira { Numero = numero })
                        .ToList()
-
         };
+       
+           
+
+        
 
         var viagem = new Viagem
         {

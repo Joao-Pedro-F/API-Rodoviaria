@@ -7,6 +7,7 @@ using System.Threading.Tasks;
 using Microsoft.AspNetCore.Http.HttpResults;
 using API_Rodoviaria.Infrastructure.DataAccess.Repository.RepositorioUsuario;
 using API_Rodoviaria.Infrastructure.Security;
+using API_Rodoviaria.Domain.Exceptions;
 
 namespace API_Rodoviaria.Application.UseCase.UsuarioCasosDeUso.Login
 {
@@ -29,7 +30,7 @@ namespace API_Rodoviaria.Application.UseCase.UsuarioCasosDeUso.Login
             var usuario = await _repositorioUsuario.ObterPorUsernameAsync(requisicao.Username);
 
             if (usuario is null || !_hash.VerificarSenha(requisicao.Password, usuario.Password))
-                throw new UnauthorizedAccessException("Usuário ou senha inválidos.");
+                throw new ExcecaoDeNegocio("Usuário ou senha inválidos.");
 
             var token =_servicoToken.GerarToken(usuario);
 
