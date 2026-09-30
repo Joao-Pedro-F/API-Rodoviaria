@@ -27,16 +27,15 @@
     <Folder Include="Application\UseCase\ReservaCadeiraCasosDeUso\CriarReservaCadeira\" />
     <Folder Include="Application\UseCase\RotaCasoDeUso\CriarRota\" />
     <Folder Include="Application\UseCase\UsuarioCasosDeUso\CriarUsuario\" />
-    <Folder Include="Application\UseCase\ViagemCasosDeUso\CriarViagem\" />
+    <Folder Include="Application\UseCase\VIagemCasosDeUso\CriarViagem\" />
+    <Folder Include="Application\UseCase\ViagemCasosDeUso\ListarViagens\" />
     <Folder Include="Domain\Enums\" />
     <Folder Include="Domain\Interfaces\ICadeira\" />
     <Folder Include="Domain\Interfaces\IRota\" />
     <Folder Include="Domain\Interfaces\IReservaCadeira\" />
-    <Folder Include="Domain\Interfaces\IViagem\" />
     <Folder Include="Infrastructure\DataAccess\Repository\RepositorioReservaCadeira\" />
     <Folder Include="Infrastructure\DataAccess\Repository\RepositorioCadeira\" />
     <Folder Include="Infrastructure\DataAccess\Repository\RepositorioRota\" />
-    <Folder Include="Infrastructure\DataAccess\Repository\RepositorioViagem\" />
   </ItemGroup>
 
 </Project>
