@@ -1,18 +1,29 @@
 ﻿using API_Rodoviaria.Domain.Models;
+using Microsoft.EntityFrameworkCore;
 
 namespace API_Rodoviaria.Infrastructure.DataAccess.Repository.RepositorioPerfil
 {
-    public class RepositorioPerfil(RodoviariaDbContext context) : IRepositorioPerfil
+    public class RepositorioPerfil : IRepositorioPerfil
     {
-        private readonly RodoviariaDbContext _context = context;
+        private readonly RodoviariaDbContext _context ;
 
-        public async Task CriarPerfil(Perfil perfil)
-        {
-            /* // Lógica para adicionar o perfil ao contexto e salvar no banco de dados
-             _context.Perfis.Add(perfil);
-             await _context.SaveChangesAsync();*/
-
-            await Task.Delay(100); // Simulação de operação assíncrona
+        public RepositorioPerfil(RodoviariaDbContext context)
+        { 
+            _context=context;        
         }
+
+        public async Task AdicionarAsync(Perfil perfil)
+        {
+            _context.Perfis.Add(perfil);
+            await _context.SaveChangesAsync();
+        }
+
+        public async Task<Perfil?> ObterPorNomeAsync(string cargo)
+        {
+            var alvo= cargo.Trim().ToLower();
+            return await _context.Perfis.AsNoTracking()
+                .FirstOrDefaultAsync(p => p.Cargo.ToLower() == alvo);
+        }
+
     }
 }

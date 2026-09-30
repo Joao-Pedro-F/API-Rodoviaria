@@ -1,5 +1,4 @@
 ﻿using API_Rodoviaria.Application.DTO_s.Resposta;
-using API_Rodoviaria.Domain.Interfaces;
 using API_Rodoviaria.Application.DTO_s.Requisicao;
 using API_Rodoviaria.Application.DTO_s.Requisicao.UsuarioRequisicaoDTO;
 using API_Rodoviaria.Application.DTO_s.Resposta.UsuarioRespostaDTO;
@@ -8,6 +7,7 @@ using Microsoft.AspNetCore.Http.HttpResults;
 using API_Rodoviaria.Infrastructure.DataAccess.Repository.RepositorioUsuario;
 using API_Rodoviaria.Infrastructure.Security;
 using API_Rodoviaria.Domain.Exceptions;
+using API_Rodoviaria.Domain.Interfaces.IUsuario;
 
 namespace API_Rodoviaria.Application.UseCase.UsuarioCasosDeUso.Login
 {

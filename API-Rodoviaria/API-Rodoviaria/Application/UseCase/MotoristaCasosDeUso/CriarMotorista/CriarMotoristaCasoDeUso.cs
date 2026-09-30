@@ -3,12 +3,12 @@ using API_Rodoviaria.Application.DTO_s.Resposta.MotoristaRespostaDTO;
 using API_Rodoviaria.Application.DTO_s.Requisicao;
 using API_Rodoviaria.Application.DTO_s.Resposta;
 using API_Rodoviaria.Domain.Exceptions;
-using API_Rodoviaria.Domain.Interfaces;
 using API_Rodoviaria.Domain.Models;
 using API_Rodoviaria.Infrastructure.DataAccess.Repository;
 using Microsoft.IdentityModel.Tokens;
 using API_Rodoviaria.Application.DTO_s.Resposta.OnibusRespostaDTO;
 using API_Rodoviaria.Application.DTO_s.Requisicao.OnibusRequisicaoDTO;
+using API_Rodoviaria.Domain.Interfaces.IOnibus;
 namespace API_Rodoviaria.Application.UseCase;
 
 public class CriarMotoristaCasoDeUso : ICriarOnibusCasoDeUso

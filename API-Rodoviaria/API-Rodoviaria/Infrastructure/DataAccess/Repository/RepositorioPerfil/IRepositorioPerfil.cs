@@ -4,6 +4,7 @@ namespace API_Rodoviaria.Infrastructure.DataAccess.Repository.RepositorioPerfil
 {
     public interface IRepositorioPerfil
     {
-        Task CriarPerfil(Perfil perfil);
+        Task AdicionarAsync(Perfil perfil);
+        Task<Perfil?> ObterPorNomeAsync(string cargo);
     }
 }
