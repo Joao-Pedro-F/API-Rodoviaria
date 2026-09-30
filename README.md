@@ -57,7 +57,7 @@ O banco é composto pelas tabelas: `Perfil`, `Usuario`, `Motorista`, `Onibus`, `
 
 1. Clone o repositório:
    ```bash
-   git clone https://github.com/<seu-usuario>/API-Rodoviaria.git
+   https://github.com/Joao-Pedro-F/API-Rodoviaria.git
    cd API-Rodoviaria
    ```
 
