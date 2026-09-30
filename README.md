@@ -1,4 +1,4 @@
-# API Rodoviária 🚌
+# API Rodoviária 
 
 API REST para um sistema de venda de passagens de ônibus, feita em **C# / ASP.NET Core** com **Entity Framework Core** e **PostgreSQL**, seguindo uma arquitetura em camadas (Controllers → Casos de Uso → Repositórios → Banco de Dados).
 
