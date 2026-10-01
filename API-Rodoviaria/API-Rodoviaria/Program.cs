@@ -7,7 +7,7 @@ using API_Rodoviaria.Application.UseCase.ReservaCasosDeUso.CriarReserva;
 using API_Rodoviaria.Application.UseCase.UsuarioCasosDeUso.CriarUsuario;
 using API_Rodoviaria.Application.UseCase.UsuarioCasosDeUso.Login;
 using API_Rodoviaria.Application.UseCase.ViagemCasosDeUso.ListarViagens;
-using API_Rodoviaria.Controllers;
+using API_Rodoviaria.Controllers.Posts;
 using API_Rodoviaria.Domain.Interfaces.IMotorista;
 using API_Rodoviaria.Domain.Interfaces.IOnibus;
 using API_Rodoviaria.Domain.Interfaces.IPerfil;
