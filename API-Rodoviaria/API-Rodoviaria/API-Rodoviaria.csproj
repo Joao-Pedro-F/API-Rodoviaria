@@ -32,6 +32,8 @@
     <Folder Include="Application\UseCase\RotaCasoDeUso\CriarRota\" />
     <Folder Include="Application\UseCase\VIagemCasosDeUso\CriarViagem\" />
     <Folder Include="Application\UseCase\ViagemCasosDeUso\ListarViagens\" />
+    <Folder Include="Controllers\Deletes\" />
+    <Folder Include="Controllers\Puts\" />
     <Folder Include="Domain\Enums\" />
     <Folder Include="Domain\Interfaces\ICadeira\" />
     <Folder Include="Domain\Interfaces\IRota\" />
