@@ -4,11 +4,11 @@ using API_Rodoviaria.Domain.Interfaces.IViagem;
 using API_Rodoviaria.Infrastructure.DataAccess.Repository.RepositorioViagem;
 namespace API_Rodoviaria.Application.UseCase.ViagemCasosDeUso.ListarViagens;
 
-public class ListarViagemCasoDeUso : IListarViagensCasoDeUso
+public class ListarViagensCasoDeUso : IListarViagensCasoDeUso
 {
     private readonly IRepositorioViagem _repositorioViagem;
 
-    public ListarViagemCasoDeUso(IRepositorioViagem repositorioViagem )
+    public ListarViagensCasoDeUso(IRepositorioViagem repositorioViagem )
     {
         _repositorioViagem = repositorioViagem;
     }

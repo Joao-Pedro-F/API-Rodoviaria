@@ -6,7 +6,7 @@ using API_Rodoviaria.Application.DTO_s.Resposta;
 
 namespace API_Rodoviaria.Application.UseCase.PerfilCasosDeUso.CriarPerfil
 {
-    public class CriarPerfilCasoDeUso(IRepositorioPerfil repositorio) : ICriarPerfilCasoDeUso
+    public class CriarPerfilCasoDeUso : ICriarPerfilCasoDeUso
     {
         private readonly IRepositorioPerfil _repositorioPerfil;
 
@@ -26,7 +26,7 @@ namespace API_Rodoviaria.Application.UseCase.PerfilCasosDeUso.CriarPerfil
             var perfil = new Perfil { Cargo = nome };
             await _repositorioPerfil.AdicionarAsync(perfil);
 
-            return new RepostaCriarPerfilDTO { Id= perfil.Id, Cargo= perfil.Cargo };
+            return new RespostaCriarPerfilDTO { Id= perfil.Id, Cargo= perfil.Cargo };
         }
 
     }

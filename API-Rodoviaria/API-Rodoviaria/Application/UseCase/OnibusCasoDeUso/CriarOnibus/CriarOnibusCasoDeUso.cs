@@ -7,17 +7,20 @@ using API_Rodoviaria.Application.DTO_s.Resposta.OnibusRespostaDTO;
 using API_Rodoviaria.Infrastructure.DataAccess.Repository.RepositorioOnibus;
 using API_Rodoviaria.Application.DTO_s.Requisicao.OnibusRequisicaoDTO;
 using System.Net.WebSockets;
+using API_Rodoviaria.Infrastructure.DataAccess.Repository.RepositorioMotorista;
+using API_Rodoviaria.Infrastructure.DataAccess.Repository.RepositorioViagem;
+using API_Rodoviaria.Domain.Interfaces.IOnibus;
 
-namespace API_Rodoviaria.Application.UseCase.Onibus.CriarOnibus;
+namespace API_Rodoviaria.Application.UseCase.OnibusCasoDeUso.CriarOnibus;
 
 
-public class CriarOnibusCasodeUso
+public class CriarOnibusCasoDeUso : ICriarOnibusCasoDeUso
 {
     private readonly IRepositorioOnibus _repositorioOnibus;
     private readonly IRepositorioMotorista _repositorioMotorista;
     private readonly IRepositorioViagem _repositorioViagem;
 
-    public CriarOnibusCasodeUso(
+    public CriarOnibusCasoDeUso(
         IRepositorioOnibus repositorioOnibus,
         IRepositorioMotorista repositorioMotorista,
         IRepositorioViagem repositorioViagem)
@@ -40,7 +43,7 @@ public class CriarOnibusCasodeUso
         if (await _repositorioOnibus.ExistePlacaAsync(placa))
             throw new ExcecaoDeNegocio("Já existe um onibus com essa placa", 409);
 
-        var motorista = await _repositorioMotorista.ObterPorIdAsync(requisicao.Id)
+        var motorista = await _repositorioMotorista.ObterPorIdAsync(requisicao.FkMotorista)
             ?? throw new ExcecaoDeNegocio("Motorista não encontrado", 404);
 
         if (await _repositorioViagem.MotoristaTemViagemNoPeriodoAsync(motorista.Id, saida, chegada))
@@ -78,9 +81,9 @@ public class CriarOnibusCasodeUso
             Id = onibus.Id,
             Placa = onibus.Placa,
             CapacidadeTotal = onibus.CapacidadeTotal,
-            Id = viagem.Id,
+            FkViagem = viagem.Id,
             FkRota = viagem.Rota.Id,
-            Id = motorista.Id,
+            FkMotorista = motorista.Id,
             EnderecoInicio = viagem.Rota.EnderecoInicio,
             EnderecoFim = viagem.Rota.EnderecoFim,
             Datasaida = viagem.DataSaida,

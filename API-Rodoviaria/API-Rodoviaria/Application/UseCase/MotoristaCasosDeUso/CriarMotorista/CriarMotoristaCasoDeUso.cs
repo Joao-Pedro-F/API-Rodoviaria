@@ -9,9 +9,11 @@ using Microsoft.IdentityModel.Tokens;
 using API_Rodoviaria.Application.DTO_s.Resposta.OnibusRespostaDTO;
 using API_Rodoviaria.Application.DTO_s.Requisicao.OnibusRequisicaoDTO;
 using API_Rodoviaria.Domain.Interfaces.IOnibus;
+using API_Rodoviaria.Infrastructure.DataAccess.Repository.RepositorioMotorista;
+using API_Rodoviaria.Domain.Interfaces.IMotorista;
 namespace API_Rodoviaria.Application.UseCase;
 
-public class CriarMotoristaCasoDeUso : ICriarOnibusCasoDeUso
+public class CriarMotoristaCasoDeUso : ICriarMotoristaCasoDeUso
 {
     private readonly IRepositorioMotorista _repositorioMotorista;
 
@@ -22,7 +24,7 @@ public class CriarMotoristaCasoDeUso : ICriarOnibusCasoDeUso
     public async Task<RespostaCriarMotoristaDTO>
     ExecutarAsync(RequisicaoCriarMotoristaDTO requisicao)
     {
-        if (await _repositorioMotorista.ExisteAsync(requisicao.CPF,
+        if (await _repositorioMotorista.ExisteAsync(requisicao.Cpf,
         requisicao.Cnh))
             throw new ExcecaoDeNegocio("Já existe um motorista com esse CPF ou CNH.", 409);
             var motorista = new Motorista

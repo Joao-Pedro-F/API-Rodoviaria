@@ -3,7 +3,10 @@ using API_Rodoviaria.Application.DTO_s.Resposta.ReservaRespostaDTO;
 using API_Rodoviaria.Domain.Exceptions;
 using API_Rodoviaria.Domain.Interfaces.IReserva;
 using API_Rodoviaria.Domain.Models;
+using API_Rodoviaria.Infrastructure.DataAccess.Repository.RepositorioCadeira;
 using API_Rodoviaria.Infrastructure.DataAccess.Repository.RepositorioMotorista;
+using API_Rodoviaria.Infrastructure.DataAccess.Repository.RepositorioReserva;
+using API_Rodoviaria.Infrastructure.DataAccess.Repository.RepositorioViagem;
 
 namespace API_Rodoviaria.Application.UseCase.ReservaCasosDeUso.CriarReserva
 {
@@ -42,7 +45,7 @@ namespace API_Rodoviaria.Application.UseCase.ReservaCasosDeUso.CriarReserva
                 DataReserva= DateTime.UtcNow,
                 FkUsuario=idUsuario,
                 FkViagem=viagem.Id,
-                ReservaCadeiras=IdsCadeiras
+                ReservaCadeiras=idsCadeiras
                 .Select(id=> new ReservaCadeira { FkCadeira=id})
                 .ToList(),
             };
@@ -54,7 +57,7 @@ namespace API_Rodoviaria.Application.UseCase.ReservaCasosDeUso.CriarReserva
             return new RespostaCriarReservaDTO
             {
                 Id= reserva.Id,
-                FkViagem=viagem.FkViagem,
+                FkViagem=viagem.Id,
                 DataReserva=reserva.DataReserva,
                 NumerosCadeiras= cadeiras.Select(c=>c.Numero).OrderBy(n=>n).ToList()
             };

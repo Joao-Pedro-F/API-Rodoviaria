@@ -6,7 +6,7 @@ using Microsoft.IdentityModel.Tokens;
 using API_Rodoviaria.Infrastructure.Security;
 namespace API_Rodoviaria.Infrastructure.Services
 {
-    public class ServicoToken
+    public class ServicoToken: IServicoToken
     {
         private readonly JwtConfiguracoes _config;
 

@@ -15,6 +15,10 @@
       <PrivateAssets>all</PrivateAssets>
       <IncludeAssets>runtime; build; native; contentfiles; analyzers; buildtransitive</IncludeAssets>
     </PackageReference>
+    <PackageReference Include="Microsoft.EntityFrameworkCore.Tools" Version="8.0.31">
+      <PrivateAssets>all</PrivateAssets>
+      <IncludeAssets>runtime; build; native; contentfiles; analyzers; buildtransitive</IncludeAssets>
+    </PackageReference>
     <PackageReference Include="Npgsql.EntityFrameworkCore.PostgreSQL" Version="8.0.11" />
     <PackageReference Include="Swashbuckle.AspNetCore" Version="6.6.2" />
   </ItemGroup>
@@ -26,15 +30,14 @@
     <Folder Include="Application\UseCase\CadeiraCasosDeUso\CriarCadeira\" />
     <Folder Include="Application\UseCase\ReservaCadeiraCasosDeUso\CriarReservaCadeira\" />
     <Folder Include="Application\UseCase\RotaCasoDeUso\CriarRota\" />
-    <Folder Include="Application\UseCase\UsuarioCasosDeUso\CriarUsuario\" />
     <Folder Include="Application\UseCase\VIagemCasosDeUso\CriarViagem\" />
     <Folder Include="Application\UseCase\ViagemCasosDeUso\ListarViagens\" />
     <Folder Include="Domain\Enums\" />
     <Folder Include="Domain\Interfaces\ICadeira\" />
     <Folder Include="Domain\Interfaces\IRota\" />
     <Folder Include="Domain\Interfaces\IReservaCadeira\" />
+    <Folder Include="Domain\Interfaces\IUsuario\" />
     <Folder Include="Infrastructure\DataAccess\Repository\RepositorioReservaCadeira\" />
-    <Folder Include="Infrastructure\DataAccess\Repository\RepositorioCadeira\" />
     <Folder Include="Infrastructure\DataAccess\Repository\RepositorioRota\" />
   </ItemGroup>
 

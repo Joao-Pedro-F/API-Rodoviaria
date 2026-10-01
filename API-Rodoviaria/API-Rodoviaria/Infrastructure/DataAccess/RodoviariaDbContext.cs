@@ -27,7 +27,7 @@ public class RodoviariaDbContext :DbContext
         {
             e.ToTable("Perfil");
             e.HasKey(p => p.Id);
-            e.Property(p => p.Cargo).IsRequired().HasMaxLength(50);
+            e.Property(p => p.Cargo).IsRequired().HasMaxLength(100);
             e.HasIndex(p => p.Cargo).IsUnique();
 
         });
@@ -35,10 +35,10 @@ public class RodoviariaDbContext :DbContext
         { 
             e.ToTable("Usuario");
             e.HasKey(u => u.Id);
-            e.Property(u => u.Username).IsRequired().HasMaxLength(50);
-            e.Property(u => u.Password).IsRequired().HasMaxLength(50);
+            e.Property(u => u.Username).IsRequired().HasMaxLength(100);
+            e.Property(u => u.Password).IsRequired().HasMaxLength(100);
             e.Property(u => u.Email).IsRequired().HasMaxLength(100);
-            e.Property(u => u.Cpf).IsRequired().HasMaxLength(11);
+            e.Property(u => u.Cpf).IsRequired().HasMaxLength(14);
             e.Property(u => u.Endereco).IsRequired().HasMaxLength(200);
             e.HasIndex(u => u.Username).IsUnique();
             e.HasIndex(u => u.Email).IsUnique();
@@ -56,7 +56,7 @@ public class RodoviariaDbContext :DbContext
             e.ToTable("Motorista");
             e.HasKey(m => m.Id);
             e.Property(m => m.Nome).IsRequired().HasMaxLength(100);
-            e.Property(m => m.Cpf).IsRequired().HasMaxLength(11);
+            e.Property(m => m.Cpf).IsRequired().HasMaxLength(14);
             e.Property(m => m.Cnh).IsRequired().HasMaxLength(20);
             e.HasIndex(m => m.Cpf).IsUnique();
             e.HasIndex(m => m.Cnh).IsUnique();
@@ -73,7 +73,7 @@ public class RodoviariaDbContext :DbContext
         mb.Entity<Onibus>(e => {            
             e.ToTable("Onibus");
             e.HasKey(o => o.Id);
-            e.Property(o => o.Placa).IsRequired().HasMaxLength(10);
+            e.Property(o => o.Placa).IsRequired().HasMaxLength(20);
             e.Property(o => o.CapacidadeTotal).IsRequired();
             e.HasIndex(o => o.Placa).IsUnique();
         });

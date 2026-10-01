@@ -7,17 +7,16 @@ using Microsoft.AspNetCore.Http.HttpResults;
 using API_Rodoviaria.Infrastructure.DataAccess.Repository.RepositorioUsuario;
 using API_Rodoviaria.Infrastructure.Security;
 using API_Rodoviaria.Domain.Exceptions;
-using API_Rodoviaria.Domain.Interfaces.IUsuario;
 
 namespace API_Rodoviaria.Application.UseCase.UsuarioCasosDeUso.Login
 {
-    public class LoginCasodeUso : ILoginCasoDeUso
+    public class LoginCasoDeUso : ILoginCasoDeUso
     {
         private readonly IRepositorioUsuario _repositorioUsuario;
         private readonly IServicoHashSenha _hash;
         private readonly IServicoToken _servicoToken;
 
-        public LoginCasodeUso(IRepositorioUsuario repositorioUsuario, IServicoHashSenha hash, IServicoToken servicoToken)
+        public LoginCasoDeUso(IRepositorioUsuario repositorioUsuario, IServicoHashSenha hash, IServicoToken servicoToken)
         {
             _repositorioUsuario = repositorioUsuario;
             _hash = hash;
