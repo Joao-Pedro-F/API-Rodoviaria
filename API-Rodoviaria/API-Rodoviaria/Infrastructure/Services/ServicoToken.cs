@@ -10,6 +10,11 @@ namespace API_Rodoviaria.Infrastructure.Services
     {
         private readonly JwtConfiguracoes _config;
 
+        public ServicoToken(JwtConfiguracoes config)
+        {
+            _config = config;
+        }
+
         public TokenGerado GerarToken(Usuario usuario)
         {
             var claims= new List<Claim>
