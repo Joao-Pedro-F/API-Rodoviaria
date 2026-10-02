@@ -10,7 +10,7 @@ public interface IRepositorioMotorista
     Task<(List<Motorista> Itens, int Total)> ListarPaginadoAsync(int pagina, int tamanhoPagina);
     Task AtualizarAsync(Motorista motorista);
     Task<bool>RemoverAsync(int Id);
-    //Task<bool>TemViagensAsync(int Id);
+    Task<bool>TemViagensAsync(int Id);
 
 
     }
