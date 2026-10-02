@@ -20,10 +20,10 @@ namespace API_Rodoviaria.Infrastructure.DataAccess.Repository.RepositorioMotoris
             return await _context.Motoristas.AsNoTracking()
             .FirstOrDefaultAsync(m => m.Id == Id);
         }
-        public async Task<bool> ExisteAsync(string cpf, string cnh)
+        public async Task<bool> ExisteAsync(string cpf, string cnh, int? id)
         {
-            return await _context.Motoristas.AnyAsync(m => m.Cpf == cpf || m.Cnh ==
-            cnh);
+            return await _context.Motoristas.AnyAsync(m => (m.Cpf == cpf || m.Cnh ==
+            cnh) && m.Id != id);
         }
         public async Task<(List<Motorista> Itens, int Total)> ListarPaginadoAsync(int pagina, int tamanhoPagina)
         {
