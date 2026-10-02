@@ -6,6 +6,6 @@ public class RequisicaoCriarRotaDTO
     [Required(ErrorMessage = "O endereço de início é obrigatório.")]
     public string EnderecoInicio { get; set; }
 
-    [Required(ErrorMessage = "O endereço de destino é obrigatório.")]
-    public string EnderecoDestino { get; set; }
+    [Required(ErrorMessage = "O endereço final é obrigatório.")]
+    public string EnderecoFim { get; set; }
 }

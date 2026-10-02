@@ -25,5 +25,34 @@ namespace API_Rodoviaria.Infrastructure.DataAccess.Repository.RepositorioMotoris
             return await _context.Motoristas.AnyAsync(m => m.Cpf == cpf || m.Cnh ==
             cnh);
         }
+        public async Task<(List<Motorista> Itens, int Total)> ListarPaginadoAsync(int pagina, int tamanhoPagina)
+        {
+            var query = _context.Motoristas.AsNoTracking().OrderBy(m=>m.Id);
+            var total = await query.CountAsync();
+            var itens = await query.Skip((pagina - 1) * tamanhoPagina).Take(tamanhoPagina).ToListAsync();
+            return (itens, total);
+        }
+        public async  Task AtualizarAsync(Motorista motorista)
+        {
+            _context.Motoristas.Update(motorista);
+            await _context.SaveChangesAsync();
+
+        }
+        public async Task<bool> RemoverAsync(int Id)
+        {
+            var motorista = await _context.Motoristas.FindAsync(Id);
+            if (motorista == null)
+            {
+                return false;
+            }
+            _context.Motoristas.Remove(motorista);
+            await _context.SaveChangesAsync();
+            return true;
+        }
+
+        public async Task<bool> TemViagensAsync(int Id)
+        {
+           return await _context.Viagens.AnyAsync(v => v.FkMotorista == Id);
+        }
     }
 }
