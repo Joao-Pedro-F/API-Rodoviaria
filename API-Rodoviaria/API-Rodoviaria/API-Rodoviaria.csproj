@@ -25,7 +25,6 @@
 
   <ItemGroup>
     <Folder Include="Application\UseCase\CadeiraCasosDeUso\CriarCadeira\" />
-    <Folder Include="Application\UseCase\OnibusCasoDeUso\AtualizarOnibus\" />
     <Folder Include="Application\UseCase\ReservaCadeiraCasosDeUso\CriarReservaCadeira\" />
     <Folder Include="Application\UseCase\ReservaCasosDeUso\AtualizarReserva\" />
     <Folder Include="Application\UseCase\RotaCasoDeUso\CriarRota\" />
