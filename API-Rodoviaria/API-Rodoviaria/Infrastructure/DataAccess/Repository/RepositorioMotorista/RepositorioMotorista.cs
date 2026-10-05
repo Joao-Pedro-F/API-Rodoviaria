@@ -1,5 +1,6 @@
 ﻿using API_Rodoviaria.Domain.Models;
 using Microsoft.EntityFrameworkCore;
+using API_Rodoviaria.Domain.Models;
 
 namespace API_Rodoviaria.Infrastructure.DataAccess.Repository.RepositorioMotorista
 {

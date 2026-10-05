@@ -32,7 +32,6 @@
     <Folder Include="Application\UseCase\UsuarioCasosDeUso\AtualizarUsuario\" />
     <Folder Include="Application\UseCase\VIagemCasosDeUso\CriarViagem\" />
     <Folder Include="Application\UseCase\ViagemCasosDeUso\ListarViagens\" />
-    <Folder Include="Application\UseCase\ViagemCasosDeUso\AtualizarViagem\" />
     <Folder Include="Controllers\Deletes\" />
     <Folder Include="Controllers\Puts\" />
     <Folder Include="Domain\Enums\" />
