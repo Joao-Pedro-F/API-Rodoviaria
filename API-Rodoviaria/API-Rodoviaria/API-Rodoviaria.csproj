@@ -37,7 +37,6 @@
     <Folder Include="Domain\Interfaces\ICadeira\" />
     <Folder Include="Domain\Interfaces\IReservaCadeira\" />
     <Folder Include="Infrastructure\DataAccess\Repository\RepositorioReservaCadeira\" />
-    <Folder Include="Infrastructure\DataAccess\Repository\RepositorioRota\" />
   </ItemGroup>
 
 </Project>
