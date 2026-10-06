@@ -2,7 +2,7 @@
 using API_Rodoviaria.Application.DTO_s.Resposta.ViagemRespostaDTO;
 using API_Rodoviaria.Domain.Interfaces.IViagem;
 using API_Rodoviaria.Infrastructure.DataAccess.Repository.RepositorioViagem;
-namespace API_Rodoviaria.Application.UseCase.ViagemCasosDeUso.ListarViagens;
+namespace API_Rodoviaria.Application.UseCase.ViagemCasosDeUso.VerViagens;
 
 public class ListarViagensCasoDeUso : IListarViagensCasoDeUso
 {
