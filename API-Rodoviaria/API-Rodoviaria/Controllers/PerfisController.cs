@@ -5,7 +5,7 @@ using Microsoft.AspNetCore.Mvc;
 using API_Rodoviaria.Domain.Constantes;
 using API_Rodoviaria.Application.UseCase.PerfilCasosDeUso.CriarPerfil;
 
-namespace API_Rodoviaria.Controllers.Posts
+namespace API_Rodoviaria.Controllers
 {
     [Route("api/[controller]")]
     [ApiController]

@@ -4,7 +4,7 @@ using API_Rodoviaria.Domain.Interfaces.IUsuario;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 
-namespace API_Rodoviaria.Controllers.Posts
+namespace API_Rodoviaria.Controllers
 {
     [ApiController]
     [Route("api/[controller]")]
