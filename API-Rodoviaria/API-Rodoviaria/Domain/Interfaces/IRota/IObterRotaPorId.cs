@@ -1,11 +1,13 @@
 ﻿using API_Rodoviaria.Application.DTO_s.Requisicao.PaginacaoRequisicaoDTO;
 using API_Rodoviaria.Application.DTO_s.Resposta.PaginacaoRespostaDTO;
+using API_Rodoviaria.Application.DTO_s.Resposta.RotaRespostaDTO;
 using API_Rodoviaria.Application.DTO_s.Resposta.ViagemRespostaDTO;
 
-namespace API_Rodoviaria.Domain.Interfaces.IViagem
+namespace API_Rodoviaria.Domain.Interfaces.IRota
 {
-    public interface IPaginacaoViagemCasoDeUso
+    public interface IObterRotaPorId
     {
-        Task<PaginacaoResposta<RespostaCriarViagemDTO>> ExecutarAsync(PaginacaoRequisicao requisicao)
+        Task<RespostaCriarRota> ExecutarAsync(int id);
+
     }
 }

@@ -1,4 +1,5 @@
 ﻿using API_Rodoviaria.Application.DTO_s.Resposta;
+using API_Rodoviaria.Application.DTO_s.Resposta.RotaRespostaDTO;
 using API_Rodoviaria.Application.DTO_s.Resposta.ViagemRespostaDTO;
 using API_Rodoviaria.Domain.Interfaces.IViagem;
 using API_Rodoviaria.Infrastructure.DataAccess.Repository.RepositorioViagem;
@@ -13,20 +14,25 @@ public class ListarViagensCasoDeUso : IListarViagensCasoDeUso
         _repositorioViagem = repositorioViagem;
     }
 
-    public async Task<List<RespostaCriarViagemDTO>> ExecutarAsync()
-    {
-        var viagens = await _repositorioViagem.ListarProximaAsync();
+    public async Task<RespostaCriarViagemDTO> ExecutarAsync(int id) {
 
-        return viagens.Select(v => new RespostaCriarViagemDTO
+        var v = await _repositorioViagem.ObterPorIdAsync(id) ?? throw new KeyNotFoundException("Viagem não encontrada. ");
+
+        return new RespostaCriarViagemDTO
         {
             Id = v.Id,
+            FkOnibus = v.FkOnibus,
+            Placa = v.Onibus.Placa,
+            FkMotorista = v.FkMotorista,
+            NomeMotorista = v.Motorista.Nome,
+            FkRota = v.FkRota,
             EnderecoOrigem = v.Rota.EnderecoInicio,
             EnderecoFim = v.Rota.EnderecoFim,
             DataSaida = v.DataSaida,
             DataChegada = v.DataChegada,
-            Placa = v.Onibus.Placa,
-            CapacidadeTotal = v.Onibus.CapacidadeTotal
-
-        }).ToList();
+        };
     }
+    
+        
+    
 }

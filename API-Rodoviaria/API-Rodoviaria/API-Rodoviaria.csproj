@@ -27,9 +27,6 @@
     <Folder Include="Application\UseCase\CadeiraCasosDeUso\CriarCadeira\" />
     <Folder Include="Application\UseCase\ReservaCadeiraCasosDeUso\CriarReservaCadeira\" />
     <Folder Include="Application\UseCase\ReservaCasosDeUso\AtualizarReserva\" />
-    <Folder Include="Application\UseCase\RotaCasoDeUso\AtualizarRota\" />
-    <Folder Include="Application\UseCase\RotaCasoDeUso\DeletarRota\" />
-    <Folder Include="Application\UseCase\RotaCasoDeUso\VerRota\" />
     <Folder Include="Application\UseCase\VIagemCasosDeUso\CriarViagem\" />
     <Folder Include="Controllers\Deletes\" />
     <Folder Include="Controllers\Puts\" />
