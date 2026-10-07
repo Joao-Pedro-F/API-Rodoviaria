@@ -2,7 +2,7 @@
 using API_Rodoviaria.Application.DTO_s.Requisicao.UsuarioRequisicaoDTO;
 using System.Threading.Tasks;
 
-namespace API_Rodoviaria.Application.UseCase.UsuarioCasosDeUso.Login
+namespace API_Rodoviaria.Domain.Interfaces.IUsuario
 {
     public interface ILoginCasoDeUso
     {

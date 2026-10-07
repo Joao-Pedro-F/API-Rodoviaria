@@ -2,8 +2,8 @@
 using Microsoft.AspNetCore.Authorization;
 using API_Rodoviaria.Application.UseCase;
 using API_Rodoviaria.Application.DTO_s.Requisicao;
-using API_Rodoviaria.Application.UseCase.UsuarioCasosDeUso.CriarUsuario;
 using API_Rodoviaria.Application.DTO_s.Requisicao.UsuarioRequisicaoDTO;
+using API_Rodoviaria.Domain.Interfaces.IUsuario;
 namespace API_Rodoviaria.Controllers.Posts;
 
 [ApiController]

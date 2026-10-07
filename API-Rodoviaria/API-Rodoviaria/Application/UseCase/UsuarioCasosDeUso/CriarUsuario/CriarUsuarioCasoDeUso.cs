@@ -2,6 +2,7 @@
 using API_Rodoviaria.Application.DTO_s.Resposta.UsuarioRespostaDTO;
 using API_Rodoviaria.Domain.Constantes;
 using API_Rodoviaria.Domain.Exceptions;
+using API_Rodoviaria.Domain.Interfaces.IUsuario;
 using API_Rodoviaria.Domain.Models;
 using API_Rodoviaria.Infrastructure.DataAccess.Repository.RepositorioPerfil;
 using API_Rodoviaria.Infrastructure.DataAccess.Repository.RepositorioUsuario;

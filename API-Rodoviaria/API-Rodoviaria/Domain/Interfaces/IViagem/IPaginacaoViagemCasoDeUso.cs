@@ -6,6 +6,6 @@ namespace API_Rodoviaria.Domain.Interfaces.IViagem
 {
     public interface IPaginacaoViagemCasoDeUso
     {
-        Task<PaginacaoResposta<RespostaCriarViagemDTO>> ExecutarAsync(PaginacaoRequisicao requisicao)
+        Task<PaginacaoResposta<RespostaCriarViagemDTO>> ExecutarAsync(PaginacaoRequisicao requisicao);
     }
 }

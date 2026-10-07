@@ -7,6 +7,7 @@ using Microsoft.AspNetCore.Http.HttpResults;
 using API_Rodoviaria.Infrastructure.DataAccess.Repository.RepositorioUsuario;
 using API_Rodoviaria.Infrastructure.Security;
 using API_Rodoviaria.Domain.Exceptions;
+using API_Rodoviaria.Domain.Interfaces.IUsuario;
 
 namespace API_Rodoviaria.Application.UseCase.UsuarioCasosDeUso.Login
 {

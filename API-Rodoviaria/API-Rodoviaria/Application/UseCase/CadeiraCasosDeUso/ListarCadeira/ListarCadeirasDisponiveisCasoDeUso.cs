@@ -1,5 +1,6 @@
 ﻿using API_Rodoviaria.Application.DTO_s.Resposta.ViagemRespostaDTO;
 using API_Rodoviaria.Domain.Exceptions;
+using API_Rodoviaria.Domain.Interfaces.ICadeira;
 using API_Rodoviaria.Infrastructure.DataAccess.Repository.RepositorioCadeira;
 using API_Rodoviaria.Infrastructure.DataAccess.Repository.RepositorioReserva;
 using API_Rodoviaria.Infrastructure.DataAccess.Repository.RepositorioViagem;

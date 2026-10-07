@@ -1,6 +1,6 @@
 ﻿using System.Diagnostics.Contracts;
 using API_Rodoviaria.Application.DTO_s.Requisicao.UsuarioRequisicaoDTO;
-using API_Rodoviaria.Application.UseCase.UsuarioCasosDeUso.Login;
+using API_Rodoviaria.Domain.Interfaces.IUsuario;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 

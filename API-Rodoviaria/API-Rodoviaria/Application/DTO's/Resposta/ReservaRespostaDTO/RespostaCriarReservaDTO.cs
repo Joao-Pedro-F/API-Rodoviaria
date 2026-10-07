@@ -5,7 +5,7 @@
         public int Id { get; set; }
         
         public int FkViagem { get; set; }
-
+        public int FkUsuario { get; set; }
         public DateTime DataReserva { get; set; }
         public List<int> NumerosCadeiras { get; set; } = new();
     }

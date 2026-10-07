@@ -2,7 +2,7 @@
 using Microsoft.AspNetCore.Authorization;
 using API_Rodoviaria.Application.UseCase;
 using API_Rodoviaria.Domain.Interfaces.IViagem;
-using API_Rodoviaria.Application.UseCase.CadeiraCasosDeUso.ListarCadeira;
+using API_Rodoviaria.Domain.Interfaces.ICadeira;
 namespace API_Rodoviaria.Controllers.Gets;
 
 [ApiController]

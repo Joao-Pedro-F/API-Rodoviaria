@@ -25,13 +25,16 @@
 
   <ItemGroup>
     <Folder Include="Application\UseCase\CadeiraCasosDeUso\CriarCadeira\" />
+    <Folder Include="Application\UseCase\CadeiraCasosDeUso\DeletarCadeira\" />
+    <Folder Include="Application\UseCase\CadeiraCasosDeUso\AtualizarCadeira\" />
+    <Folder Include="Application\UseCase\PerfilCasosDeUso\AtualizarPerfil\" />
+    <Folder Include="Application\UseCase\PerfilCasosDeUso\DeletarPerfil\" />
+    <Folder Include="Application\UseCase\PerfilCasosDeUso\VerPerfil\" />
     <Folder Include="Application\UseCase\ReservaCadeiraCasosDeUso\CriarReservaCadeira\" />
-    <Folder Include="Application\UseCase\ReservaCasosDeUso\AtualizarReserva\" />
     <Folder Include="Application\UseCase\VIagemCasosDeUso\CriarViagem\" />
     <Folder Include="Controllers\Deletes\" />
     <Folder Include="Controllers\Puts\" />
     <Folder Include="Domain\Enums\" />
-    <Folder Include="Domain\Interfaces\ICadeira\" />
     <Folder Include="Domain\Interfaces\IReservaCadeira\" />
     <Folder Include="Infrastructure\DataAccess\Repository\RepositorioReservaCadeira\" />
   </ItemGroup>
