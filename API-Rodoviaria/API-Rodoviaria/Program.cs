@@ -60,7 +60,7 @@ builder.Services.AddDbContext<RodoviariaDbContext>(opcoes =>
 opcoes.UseNpgsql(builder.Configuration.GetConnectionString("Padrao")));
 // ---------- JWT lido do COOKIE ----------
 var chaveJwt = builder.Configuration["Jwt:Chave"]
-?? throw new InvalidOperationException("Configure 'Jwt:Key' no appsettings.json.");
+?? throw new InvalidOperationException("Configure 'Jwt:Chave' no appsettings.json.");
 builder.Services
 .AddAuthentication(JwtBearerDefaults.AuthenticationScheme)
 .AddJwtBearer(opcoes =>
@@ -72,8 +72,8 @@ TokenValidationParameters
     ValidateAudience = true,
     ValidateLifetime = true,
     ValidateIssuerSigningKey = true,
-    ValidIssuer = builder.Configuration["Jwt:Issuer"],
-    ValidAudience = builder.Configuration["Jwt:Audience"],
+    ValidIssuer = builder.Configuration["Jwt:Emissor"],
+    ValidAudience = builder.Configuration["Jwt:Audiencia"],
     IssuerSigningKey = new
 SymmetricSecurityKey(Encoding.UTF8.GetBytes(chaveJwt)),
     ClockSkew = TimeSpan.Zero
