@@ -2,7 +2,7 @@
 using API_Rodoviaria.Infrastructure.DataAccess.Repository.RepositorioViagem;
 namespace API_Rodoviaria.Application.UseCase.ViagemCasosDeUso.DeletarViagem;
 
-public class DeletarViagemCasoDeUso //: IDeletarViagemCasoDeUso
+public class DeletarViagemCasoDeUso : IDeletarViagemCasoDeUso
 {
     private readonly IRepositorioViagem _viagemRepositorio;
 

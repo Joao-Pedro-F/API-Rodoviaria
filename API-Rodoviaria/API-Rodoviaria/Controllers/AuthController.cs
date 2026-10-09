@@ -11,7 +11,7 @@ namespace API_Rodoviaria.Controllers
     public class AuthController : ControllerBase
     {
         
-            public const string NomeCookie = "access_token";
+        public const string NomeCookie = "access_token";
         private readonly ILoginCasoDeUso _login;
         public AuthController(ILoginCasoDeUso login)
         {

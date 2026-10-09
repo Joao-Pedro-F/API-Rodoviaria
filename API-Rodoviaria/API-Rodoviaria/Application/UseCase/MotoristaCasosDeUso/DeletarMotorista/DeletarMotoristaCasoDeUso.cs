@@ -1,8 +1,9 @@
 ﻿using API_Rodoviaria.Domain.Interfaces;
+using API_Rodoviaria.Domain.Interfaces.IMotorista;
 using API_Rodoviaria.Infrastructure.DataAccess.Repository.RepositorioMotorista;
 namespace API_Rodoviaria.Application.UseCase.MotoristaCasosDeUso.DeletarMotorista;
 
-public class DeletarMotoristaCasoDeUso
+public class DeletarMotoristaCasoDeUso : IDeletarMotoristaCasoDeUso
 {
     private readonly IRepositorioMotorista _motoristaRepositorio;
 

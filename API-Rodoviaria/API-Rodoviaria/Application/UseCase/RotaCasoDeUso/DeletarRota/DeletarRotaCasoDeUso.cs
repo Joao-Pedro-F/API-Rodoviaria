@@ -5,9 +5,9 @@ namespace API_Rodoviaria.Application.UseCase.RotaCasoDeUso.DeletarRota
 {
     public class DeletarRotaCasoDeUso : IDeletarRotaCasoDeUso
     {
-        private readonly RepositorioRota _repositorioRota;
+        private readonly IRepositorioRota _repositorioRota;
 
-        public DeletarRotaCasoDeUso(RepositorioRota repositorioRota)
+        public DeletarRotaCasoDeUso(IRepositorioRota repositorioRota)
         {
             _repositorioRota = repositorioRota;
         }

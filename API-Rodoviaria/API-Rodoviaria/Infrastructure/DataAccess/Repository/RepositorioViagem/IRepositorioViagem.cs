@@ -11,5 +11,5 @@ public interface IRepositorioViagem
     Task<bool> TemReservasAsync(int Id);
     Task<bool> MotoristaTemViagemNoPeriodoAsync(int Id, DateTime saida, DateTime chegada, int? idViagemExcluida = null);
     Task<bool> OnibusTemViagemNoPeriodoAsync(int Id, DateTime saida, DateTime chegada, int? idViagemExcluida = null);
-    Task<List<Viagem>> ListarProximaAsync();
+    //Task<List<Viagem>> ListarProximaAsync();
 }

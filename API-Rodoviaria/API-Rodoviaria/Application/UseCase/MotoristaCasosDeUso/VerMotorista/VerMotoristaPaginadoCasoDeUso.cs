@@ -3,10 +3,11 @@ using API_Rodoviaria.Application.DTO_s.Resposta.MotoristaRespostaDTO;
 using API_Rodoviaria.Application.DTO_s.Resposta.PaginacaoRespostaDTO;
 using API_Rodoviaria.Application.UseCase.CadeiraCasosDeUso.ListarCadeira;
 using API_Rodoviaria.Domain.Interfaces;
+using API_Rodoviaria.Domain.Interfaces.IMotorista;
 using API_Rodoviaria.Infrastructure.DataAccess.Repository.RepositorioMotorista;
 namespace API_Rodoviaria.Application.UseCase.MotoristaCasosDeUso.VerMotorista;
 
-public class VerMotoristaPaginadoCasoDeUso //: IVerMotoristaPaginadoCasoDeUso
+public class VerMotoristaPaginadoCasoDeUso : IVerMotoristaPaginadoCasoDeUso
 {
     private readonly IRepositorioMotorista _motoristaRepositorio;
 

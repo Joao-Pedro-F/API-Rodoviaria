@@ -3,7 +3,7 @@ using Microsoft.EntityFrameworkCore;
 
 namespace API_Rodoviaria.Infrastructure.DataAccess.Repository.RepositorioRota;
 
-public class RepositorioRota
+public class RepositorioRota : IRepositorioRota
 {
     private readonly RodoviariaDbContext _context;
 

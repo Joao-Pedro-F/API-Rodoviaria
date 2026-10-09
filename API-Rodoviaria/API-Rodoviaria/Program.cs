@@ -32,6 +32,25 @@ using API_Rodoviaria.Domain.Interfaces.IOnibus;
 using API_Rodoviaria.Application.UseCase.OnibusCasoDeUso.CriarOnibus;
 using API_Rodoviaria.Application.UseCase.OnibusCasoDeUso.VerOnibus;
 using API_Rodoviaria.Application.UseCase.OnibusCasoDeUso.DeletarOnibus;
+using API_Rodoviaria.Application.UseCase.RotaCasoDeUso;
+using API_Rodoviaria.Domain.Interfaces.IRota;
+using API_Rodoviaria.Application.UseCase.RotaCasoDeUso.CriarRota;
+using API_Rodoviaria.Application.UseCase.RotaCasoDeUso.VerRota;
+using API_Rodoviaria.Application.UseCase.RotaCasoDeUso.AtualizarRota;
+using API_Rodoviaria.Application.UseCase.RotaCasoDeUso.DeletarRota;
+using API_Rodoviaria.Domain.Interfaces.IViagem;
+using API_Rodoviaria.Application.UseCase.ViagemCasosDeUso.CriarViagem;
+using API_Rodoviaria.Application.UseCase.ViagemCasosDeUso.VerViagens;
+using API_Rodoviaria.Application.UseCase.ViagemCasosDeUso.AtualizarViagem;
+using API_Rodoviaria.Application.UseCase.ViagemCasosDeUso.DeletarViagem;
+using API_Rodoviaria.Application.UseCase.ReservaCasosDeUso.CriarReserva;
+using API_Rodoviaria.Domain.Interfaces.IReserva;
+using API_Rodoviaria.Application.UseCase.ReservaCasosDeUso.VerReservas;
+using API_Rodoviaria.Application.UseCase.ReservaCasosDeUso.AtualizarReserva;
+using API_Rodoviaria.Application.UseCase.ReservaCasosDeUso.DeletarReserva;
+using API_Rodoviaria.Application.UseCase.OnibusCasoDeUso.AtualizarOnibus;
+using API_Rodoviaria.Infrastructure.DataAccess.Repository.RepositorioPerfil;
+using API_Rodoviaria.Infrastructure.DataAccess.Repository.RepositorioCadeira;
 var builder = WebApplication.CreateBuilder(args);
 builder.Services.AddControllers();
 builder.Services.AddEndpointsApiExplorer();
@@ -40,7 +59,7 @@ builder.Services.AddSwaggerGen();
 builder.Services.AddDbContext<RodoviariaDbContext>(opcoes =>
 opcoes.UseNpgsql(builder.Configuration.GetConnectionString("Padrao")));
 // ---------- JWT lido do COOKIE ----------
-var chaveJwt = builder.Configuration["Jwt:Key"]
+var chaveJwt = builder.Configuration["Jwt:Chave"]
 ?? throw new InvalidOperationException("Configure 'Jwt:Key' no appsettings.json.");
 builder.Services
 .AddAuthentication(JwtBearerDefaults.AuthenticationScheme)
@@ -85,6 +104,8 @@ builder.Services.AddScoped<IRepositorioOnibus, RepositorioOnibus>();
 builder.Services.AddScoped<IRepositorioRota, RepositorioRota>();
 builder.Services.AddScoped<IRepositorioViagem, RepositorioViagem>();
 builder.Services.AddScoped<IRepositorioReserva, RepositorioReserva>();
+builder.Services.AddScoped<IRepositorioPerfil, RepositorioPerfil>();
+builder.Services.AddScoped<IRepositorioCadeira, RepositorioCadeira>();
 // Usuário
 builder.Services.AddScoped<ICriarUsuarioCasoDeUso, CriarUsuarioCasoDeUso>
 ();
@@ -104,38 +125,43 @@ builder.Services.AddScoped<ICriarOnibusCasoDeUso, CriarOnibusCasoDeUso>();
 builder.Services.AddScoped<IListarOnibusCasoDeUso, ListarOnibusCasoDeUso>
 ();
 builder.Services.AddScoped<IVerOnibusPorIdCasoDeUso,VerOnibusPorIdCasoDeUso>();
-builder.Services.AddScoped<IAtualizarOnibusCasoDeUso,IAtualizarOnibusCasoDeUso>();
+builder.Services.AddScoped<IAtualizarOnibusCasoDeUso,AtualizarOnibusCasoDeUso>();
 builder.Services.AddScoped<IDeletarOnibusCasoDeUso, DeletarOnibusCasoDeUso>
 ();
 // Rota
-builder.Services.AddScoped<ICriarRotaUseCase, CriarRotaUseCase>();
-builder.Services.AddScoped<IListarRotasUseCase, ListarRotasUseCase>();
-builder.Services.AddScoped<IObterRotaPorIdUseCase,
-ObterRotaPorIdUseCase>();
-builder.Services.AddScoped<IAtualizarRotaUseCase, AtualizarRotaUseCase>
+builder.Services.AddScoped<IRepositorioRota, RepositorioRota>();
+builder.Services.AddScoped<ICriarRotaCasoDeUso, CriarRotaCasoDeUso>();
+builder.Services.AddScoped<IPaginacaoRotaCasoDeUso,PaginacaoRotaCasoDeUso>();
+builder.Services.AddScoped<IObterRotaPorId,ObterRotaPorId>();
+builder.Services.AddScoped<IAtualizarRotaCasoDeUso, AtualizarRotaCasoDeUso>
 ();
-builder.Services.AddScoped<IDeletarRotaUseCase, DeletarRotaUseCase>();
+builder.Services.AddScoped<IDeletarRotaCasoDeUso, DeletarRotaCasoDeUso>();
 // Viagem
-builder.Services.AddScoped<ICriarViagemUseCase, CriarViagemUseCase>();
-builder.Services.AddScoped<IListarViagensUseCase, ListarViagensUseCase>
+builder.Services.AddScoped<ICriarViagemCasoDeUso, CriarViagemCasoDeUso>();
+builder.Services.AddScoped<IListarViagensCasoDeUso, ListarViagensCasoDeUso>
 ();
-builder.Services.AddScoped<IObterViagemPorIdUseCase,
-ObterViagemPorIdUseCase>();
-builder.Services.AddScoped<IAtualizarViagemUseCase,
-AtualizarViagemUseCase>();
-builder.Services.AddScoped<IDeletarViagemUseCase, DeletarViagemUseCase>
+builder.Services.AddScoped<IListarViagensCasoDeUso, ListarViagensCasoDeUso>();
+builder.Services.AddScoped<IAtualizarViagemCasoDeUso,AtualizarViagemCasoDeUso>();   
+builder.Services.AddScoped<IDeletarViagemCasoDeUso, DeletarViagemCasoDeUso>
 ();
 // Reserva
-builder.Services.AddScoped<ICriarReservaUseCase, CriarReservaUseCase>
+builder.Services.AddScoped<ICriarReservaCasoDeUso, CriarReservaCasoDeUso>
 ();
-builder.Services.AddScoped < IListarReservasUseCase,
-ListarReservasUseCase>();
-builder.Services.AddScoped<IObterReservaPorIdUseCase,
-ObterReservaPorIdUseCase>();
-builder.Services.AddScoped<IAtualizarReservaUseCase,
-AtualizarReservaUseCase>();
-builder.Services.AddScoped<IDeletarReservaUseCase,
-DeletarReservaUseCase>();
+builder.Services.AddScoped < IListarReservaCasoDeUso,
+ListarReservaCasoDeUso>();
+builder.Services.AddScoped<IObterReservaPorId,
+ObterReservaPorId>();
+builder.Services.AddScoped<IAtualizarReservaCasoDeUso,
+AtualizarReservaCasoDeUso>();
+builder.Services.AddScoped<IDeletarReservaCasoDeUso,
+DeletarReservaCasoDeUso>();
+// lê seção "Jwt" e regista a instância
+var jwtConfig = builder.Configuration.GetSection("Jwt").Get<JwtConfiguracoes>();
+builder.Services.AddSingleton(jwtConfig);
+// ou com IOptions
+builder.Services.Configure<JwtConfiguracoes>(builder.Configuration.GetSection("Jwt"));
+builder.Services.AddSingleton(sp => sp.GetRequiredService<Microsoft.Extensions.Options.IOptions<JwtConfiguracoes>>().Value);
+
 var app = builder.Build();
 // ---------- Migrations + dados iniciais ----------
 using (var escopo = app.Services.CreateScope())
@@ -150,9 +176,9 @@ using (var escopo = app.Services.CreateScope())
     }
     await db.SaveChangesAsync();
     var perfilAdmin = await db.Perfis.FirstAsync(p => p.Cargo ==
-    Cargos.Admin);
+    NomesPerfis.Admin);
     if (!await db.Usuarios.AnyAsync(u => u.FkPerfil ==
-    perfilAdmin.IdPerfil))
+    perfilAdmin.Id))
     {
         var senhas =
         escopo.ServiceProvider.GetRequiredService<IServicoHashSenha>();
@@ -164,12 +190,12 @@ using (var escopo = app.Services.CreateScope())
             Email = admin["Email"] ?? "admin@rodoviaria.com",
             Cpf = admin["CPF"] ?? "00000000000",
             Endereco = "Sistema",
-            FkPerfil = perfilAdmin.IdPerfil
+            FkPerfil = perfilAdmin.Id
         });
         await db.SaveChangesAsync();
     }
 }
-app.UseMiddleware<TTTTT>();
+app.UseMiddleware<TratamentoErrosMiddleware>();
 if (app.Environment.IsDevelopment())
 {
     app.UseSwagger();

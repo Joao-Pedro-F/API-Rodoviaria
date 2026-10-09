@@ -8,9 +8,9 @@ namespace API_Rodoviaria.Application.UseCase.RotaCasoDeUso.VerRota
 {
     public class PaginacaoRotaCasoDeUso : IPaginacaoRotaCasoDeUso
     {
-        private readonly RepositorioRota _repositorioRota;
+        private readonly IRepositorioRota _repositorioRota;
 
-        public PaginacaoRotaCasoDeUso(RepositorioRota repositorioRota)
+        public PaginacaoRotaCasoDeUso(IRepositorioRota repositorioRota)
         {
             _repositorioRota = repositorioRota;
         }
