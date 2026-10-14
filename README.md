@@ -110,4 +110,3 @@ O login grava o token JWT em um cookie `HttpOnly`; as próximas requisições au
 - O token JWT fica em um cookie `HttpOnly`, `Secure` e `SameSite=Strict`
 - Rotas administrativas exigem `[Authorize(Roles = "Admin")]`
 - A escolha simultânea da mesma cadeira por dois clientes é resolvida com transação `Serializable` no banco
-- 
