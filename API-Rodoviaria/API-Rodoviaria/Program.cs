@@ -137,6 +137,7 @@ builder.Services.AddScoped<IAtualizarRotaCasoDeUso, AtualizarRotaCasoDeUso>
 ();
 builder.Services.AddScoped<IDeletarRotaCasoDeUso, DeletarRotaCasoDeUso>();
 // Viagem
+builder.Services.AddScoped<IPaginacaoViagemCasoDeUso, PaginacaoViagemCasoDeUso>();
 builder.Services.AddScoped<ICriarViagemCasoDeUso, CriarViagemCasoDeUso>();
 builder.Services.AddScoped<IListarViagensCasoDeUso, ListarViagensCasoDeUso>
 ();

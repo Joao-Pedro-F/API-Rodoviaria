@@ -23,7 +23,7 @@ public class AtualizarMotoristaCasoDeUso : IAtualizarMotoristaCasoDeUso
             throw new ExcecaoDeNegocio("Já existe outro motorista com o mesmo CPF ou CNH.");
 
         Id = motorista.Id;
-        motorista.Nome = motorista.Nome;
+        motorista.Nome = requisicao.Nome;
         motorista.Cpf = motorista.Cpf;
         motorista.Cnh = motorista.Cnh ?? motorista.Cnh;
 
