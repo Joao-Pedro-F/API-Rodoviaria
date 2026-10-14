@@ -100,8 +100,7 @@ Com o projeto rodando, abra o Swagger (`/swagger`) e siga esta ordem:
 4. `POST /api/usuarios` — cadastrar um cliente (rota pública)
 5. `POST /api/auth/login` — login como cliente
 6. `GET /api/viagens` — listar viagens disponíveis
-7. `GET /api/viagens/{id}/cadeiras` — ver cadeiras livres da viagem
-8. `POST /api/reservas` — reservar uma ou mais cadeiras
+7. `POST /api/reservas` — reservar uma ou mais cadeiras
 
 O login grava o token JWT em um cookie `HttpOnly`; as próximas requisições autenticadas são feitas automaticamente pelo navegador.
 
