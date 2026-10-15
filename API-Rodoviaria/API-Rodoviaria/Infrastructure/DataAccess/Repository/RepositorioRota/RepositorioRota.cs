@@ -43,6 +43,6 @@ public class RepositorioRota : IRepositorioRota
     }
     public async Task<bool> TemViagensAsync(int Id)
     {
-        return await _context.Viagens.AnyAsync(v => v.FkRota == Id);
+        return await _context.Viagem.AnyAsync(v => v.FkRota == Id);
     }
 }

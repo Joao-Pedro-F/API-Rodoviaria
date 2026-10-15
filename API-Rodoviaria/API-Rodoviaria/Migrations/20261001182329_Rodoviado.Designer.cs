@@ -348,19 +348,19 @@ namespace API_Rodoviaria.Migrations
             modelBuilder.Entity("API_Rodoviaria.Domain.Models.Viagem", b =>
                 {
                     b.HasOne("API_Rodoviaria.Domain.Models.Motorista", "Motorista")
-                        .WithMany("Viagens")
+                        .WithMany("Viagem")
                         .HasForeignKey("FkMotorista")
                         .OnDelete(DeleteBehavior.Restrict)
                         .IsRequired();
 
                     b.HasOne("API_Rodoviaria.Domain.Models.Onibus", "Onibus")
-                        .WithMany("Viagens")
+                        .WithMany("Viagem")
                         .HasForeignKey("FkOnibus")
                         .OnDelete(DeleteBehavior.Restrict)
                         .IsRequired();
 
                     b.HasOne("API_Rodoviaria.Domain.Models.Rota", "Rota")
-                        .WithMany("Viagens")
+                        .WithMany("Viagem")
                         .HasForeignKey("FkRota")
                         .OnDelete(DeleteBehavior.Restrict)
                         .IsRequired();
@@ -379,14 +379,14 @@ namespace API_Rodoviaria.Migrations
 
             modelBuilder.Entity("API_Rodoviaria.Domain.Models.Motorista", b =>
                 {
-                    b.Navigation("Viagens");
+                    b.Navigation("Viagem");
                 });
 
             modelBuilder.Entity("API_Rodoviaria.Domain.Models.Onibus", b =>
                 {
                     b.Navigation("Cadeiras");
 
-                    b.Navigation("Viagens");
+                    b.Navigation("Viagem");
                 });
 
             modelBuilder.Entity("API_Rodoviaria.Domain.Models.Perfil", b =>
@@ -401,7 +401,7 @@ namespace API_Rodoviaria.Migrations
 
             modelBuilder.Entity("API_Rodoviaria.Domain.Models.Rota", b =>
                 {
-                    b.Navigation("Viagens");
+                    b.Navigation("Viagem");
                 });
 
             modelBuilder.Entity("API_Rodoviaria.Domain.Models.Usuario", b =>

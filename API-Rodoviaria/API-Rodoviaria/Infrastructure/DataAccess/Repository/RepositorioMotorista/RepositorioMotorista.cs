@@ -53,7 +53,7 @@ namespace API_Rodoviaria.Infrastructure.DataAccess.Repository.RepositorioMotoris
 
         public async Task<bool> TemViagensAsync(int Id)
         {
-           return await _context.Viagens.AnyAsync(v => v.FkMotorista == Id);
+           return await _context.Viagem.AnyAsync(v => v.FkMotorista == Id);
         }
     }
 }

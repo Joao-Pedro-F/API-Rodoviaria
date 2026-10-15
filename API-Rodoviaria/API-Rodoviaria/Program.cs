@@ -1,58 +1,67 @@
+#region Usings
 using System.Text;
 using API_Rodoviaria.Application.UseCase;
+using API_Rodoviaria.Application.UseCase.MotoristaCasosDeUso.AtualizarMotorista;
+using API_Rodoviaria.Application.UseCase.MotoristaCasosDeUso.DeletarMotorista;
+using API_Rodoviaria.Application.UseCase.MotoristaCasosDeUso.VerMotorista;
+using API_Rodoviaria.Application.UseCase.OnibusCasoDeUso.AtualizarOnibus;
+using API_Rodoviaria.Application.UseCase.OnibusCasoDeUso.CriarOnibus;
+using API_Rodoviaria.Application.UseCase.OnibusCasoDeUso.DeletarOnibus;
+using API_Rodoviaria.Application.UseCase.OnibusCasoDeUso.VerOnibus;
+using API_Rodoviaria.Application.UseCase.ReservaCasosDeUso.AtualizarReserva;
+using API_Rodoviaria.Application.UseCase.ReservaCasosDeUso.CriarReserva;
+using API_Rodoviaria.Application.UseCase.ReservaCasosDeUso.DeletarReserva;
+using API_Rodoviaria.Application.UseCase.ReservaCasosDeUso.VerReservas;
+using API_Rodoviaria.Application.UseCase.RotaCasoDeUso;
+using API_Rodoviaria.Application.UseCase.RotaCasoDeUso.AtualizarRota;
+using API_Rodoviaria.Application.UseCase.RotaCasoDeUso.CriarRota;
+using API_Rodoviaria.Application.UseCase.RotaCasoDeUso.DeletarRota;
+using API_Rodoviaria.Application.UseCase.RotaCasoDeUso.VerRota;
+using API_Rodoviaria.Application.UseCase.UsuarioCasosDeUso.AtualizarUsuario;
+using API_Rodoviaria.Application.UseCase.UsuarioCasosDeUso.CriarUsuario;
+using API_Rodoviaria.Application.UseCase.UsuarioCasosDeUso.DeletarUsuario;
+using API_Rodoviaria.Application.UseCase.UsuarioCasosDeUso.Login;
+using API_Rodoviaria.Application.UseCase.UsuarioCasosDeUso.VerUsuario;
+using API_Rodoviaria.Application.UseCase.ViagemCasosDeUso.AtualizarViagem;
+using API_Rodoviaria.Application.UseCase.ViagemCasosDeUso.CriarViagem;
+using API_Rodoviaria.Application.UseCase.ViagemCasosDeUso.DeletarViagem;
+using API_Rodoviaria.Application.UseCase.ViagemCasosDeUso.VerViagens;
 using API_Rodoviaria.Controllers;
 using API_Rodoviaria.Domain.Constantes;
 using API_Rodoviaria.Domain.Interfaces;
+using API_Rodoviaria.Domain.Interfaces.IMotorista;
+using API_Rodoviaria.Domain.Interfaces.IOnibus;
+using API_Rodoviaria.Domain.Interfaces.IReserva;
+using API_Rodoviaria.Domain.Interfaces.IRota;
+using API_Rodoviaria.Domain.Interfaces.IUsuario;
+using API_Rodoviaria.Domain.Interfaces.IViagem;
 using API_Rodoviaria.Domain.Models;
+using API_Rodoviaria.Filters;
 using API_Rodoviaria.Infrastructure.DataAccess;
 using API_Rodoviaria.Infrastructure.DataAccess.Repository;
-using API_Rodoviaria.Infrastructure.Services;
+using API_Rodoviaria.Infrastructure.DataAccess.Repository.RepositorioCadeira; 
+using API_Rodoviaria.Infrastructure.DataAccess.Repository.RepositorioMotorista;
+using API_Rodoviaria.Infrastructure.DataAccess.Repository.RepositorioOnibus;
+using API_Rodoviaria.Infrastructure.DataAccess.Repository.RepositorioPerfil;
+using API_Rodoviaria.Infrastructure.DataAccess.Repository.RepositorioReserva;
+using API_Rodoviaria.Infrastructure.DataAccess.Repository.RepositorioRota;
+using API_Rodoviaria.Infrastructure.DataAccess.Repository.RepositorioUsuario;
+using API_Rodoviaria.Infrastructure.DataAccess.Repository.RepositorioViagem;
 using API_Rodoviaria.Infrastructure.Middleware;
+using API_Rodoviaria.Infrastructure.Security;
+using API_Rodoviaria.Infrastructure.Services;
 using Microsoft.AspNetCore.Authentication.JwtBearer;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.IdentityModel.Tokens;
-using API_Rodoviaria.Infrastructure.Security;
-using API_Rodoviaria.Infrastructure.DataAccess.Repository.RepositorioUsuario;
-using API_Rodoviaria.Infrastructure.DataAccess.Repository.RepositorioMotorista;
-using API_Rodoviaria.Infrastructure.DataAccess.Repository.RepositorioOnibus;
-using API_Rodoviaria.Infrastructure.DataAccess.Repository.RepositorioRota;
-using API_Rodoviaria.Infrastructure.DataAccess.Repository.RepositorioViagem;
-using API_Rodoviaria.Infrastructure.DataAccess.Repository.RepositorioReserva;
-using API_Rodoviaria.Domain.Interfaces.IUsuario;
-using API_Rodoviaria.Application.UseCase.UsuarioCasosDeUso.CriarUsuario;
-using API_Rodoviaria.Application.UseCase.UsuarioCasosDeUso.Login;
-using API_Rodoviaria.Application.UseCase.UsuarioCasosDeUso.VerUsuario;
-using API_Rodoviaria.Application.UseCase.UsuarioCasosDeUso.AtualizarUsuario;
-using API_Rodoviaria.Application.UseCase.UsuarioCasosDeUso.DeletarUsuario;
-using API_Rodoviaria.Domain.Interfaces.IMotorista;
-using API_Rodoviaria.Application.UseCase.MotoristaCasosDeUso.VerMotorista;
-using API_Rodoviaria.Application.UseCase.MotoristaCasosDeUso.AtualizarMotorista;
-using API_Rodoviaria.Application.UseCase.MotoristaCasosDeUso.DeletarMotorista;
-using API_Rodoviaria.Domain.Interfaces.IOnibus;
-using API_Rodoviaria.Application.UseCase.OnibusCasoDeUso.CriarOnibus;
-using API_Rodoviaria.Application.UseCase.OnibusCasoDeUso.VerOnibus;
-using API_Rodoviaria.Application.UseCase.OnibusCasoDeUso.DeletarOnibus;
-using API_Rodoviaria.Application.UseCase.RotaCasoDeUso;
-using API_Rodoviaria.Domain.Interfaces.IRota;
-using API_Rodoviaria.Application.UseCase.RotaCasoDeUso.CriarRota;
-using API_Rodoviaria.Application.UseCase.RotaCasoDeUso.VerRota;
-using API_Rodoviaria.Application.UseCase.RotaCasoDeUso.AtualizarRota;
-using API_Rodoviaria.Application.UseCase.RotaCasoDeUso.DeletarRota;
-using API_Rodoviaria.Domain.Interfaces.IViagem;
-using API_Rodoviaria.Application.UseCase.ViagemCasosDeUso.CriarViagem;
-using API_Rodoviaria.Application.UseCase.ViagemCasosDeUso.VerViagens;
-using API_Rodoviaria.Application.UseCase.ViagemCasosDeUso.AtualizarViagem;
-using API_Rodoviaria.Application.UseCase.ViagemCasosDeUso.DeletarViagem;
-using API_Rodoviaria.Application.UseCase.ReservaCasosDeUso.CriarReserva;
-using API_Rodoviaria.Domain.Interfaces.IReserva;
-using API_Rodoviaria.Application.UseCase.ReservaCasosDeUso.VerReservas;
-using API_Rodoviaria.Application.UseCase.ReservaCasosDeUso.AtualizarReserva;
-using API_Rodoviaria.Application.UseCase.ReservaCasosDeUso.DeletarReserva;
-using API_Rodoviaria.Application.UseCase.OnibusCasoDeUso.AtualizarOnibus;
-using API_Rodoviaria.Infrastructure.DataAccess.Repository.RepositorioPerfil;
-using API_Rodoviaria.Infrastructure.DataAccess.Repository.RepositorioCadeira;
+#endregion
+
 var builder = WebApplication.CreateBuilder(args);
-builder.Services.AddControllers();
+
+builder.Services.AddControllers(options =>
+{
+    options.Filters.Add<ExceptionFilter>();
+});
+
 builder.Services.AddEndpointsApiExplorer();
 builder.Services.AddSwaggerGen();
 // ---------- Banco ----------
@@ -65,33 +74,33 @@ builder.Services
 .AddAuthentication(JwtBearerDefaults.AuthenticationScheme)
 .AddJwtBearer(opcoes =>
 {
-opcoes.TokenValidationParameters = new
-TokenValidationParameters
-{
-    ValidateIssuer = true,
-    ValidateAudience = true,
-    ValidateLifetime = true,
-    ValidateIssuerSigningKey = true,
-    ValidIssuer = builder.Configuration["Jwt:Emissor"],
-    ValidAudience = builder.Configuration["Jwt:Audiencia"],
-    IssuerSigningKey = new
-SymmetricSecurityKey(Encoding.UTF8.GetBytes(chaveJwt)),
-    ClockSkew = TimeSpan.Zero
-};
+    opcoes.TokenValidationParameters = new
+    TokenValidationParameters
+    {
+        ValidateIssuer = true,
+        ValidateAudience = true,
+        ValidateLifetime = true,
+        ValidateIssuerSigningKey = true,
+        ValidIssuer = builder.Configuration["Jwt:Emissor"],
+        ValidAudience = builder.Configuration["Jwt:Audiencia"],
+        IssuerSigningKey = new
+    SymmetricSecurityKey(Encoding.UTF8.GetBytes(chaveJwt)),
+        ClockSkew = TimeSpan.Zero
+    };
     // Por padrão o JwtBearer lê o header "Authorization: Bearer
 
-// Aqui ensinamos ele a ler também do cookie.
-opcoes.Events = new JwtBearerEvents
-{
-    OnMessageReceived = contexto =>
+    // Aqui ensinamos ele a ler também do cookie.
+    opcoes.Events = new JwtBearerEvents
     {
-        if
-        (contexto.Request.Cookies.TryGetValue(UsuariosController.NomeCookie, out
-        var token))
-            contexto.Token = token;
-        return Task.CompletedTask;
-    }
-};
+        OnMessageReceived = contexto =>
+        {
+            if
+            (contexto.Request.Cookies.TryGetValue(UsuariosController.NomeCookie, out
+            var token))
+                contexto.Token = token;
+            return Task.CompletedTask;
+        }
+    };
 });
 builder.Services.AddAuthorization();
 // ---------- Injeção de dependência ----------
@@ -110,29 +119,29 @@ builder.Services.AddScoped<IRepositorioCadeira, RepositorioCadeira>();
 builder.Services.AddScoped<ICriarUsuarioCasoDeUso, CriarUsuarioCasoDeUso>
 ();
 builder.Services.AddScoped<ILoginCasoDeUso, LoginCasoDeUso>();
-builder.Services.AddScoped<IPaginacaoUsuarioCasoDeUso,PaginacaoUsuarioCasoDeUso>();
-builder.Services.AddScoped<IListarUsuarioCasoDeUso,ListarUsuarioCasoDeUso>();
-builder.Services.AddScoped < IAtualizarUsuarioCasoDeUso,AtualizarUsuarioCasoDeUso>();
-builder.Services.AddScoped<IDeletarUsuarioCasoDeUso,DeletarUsuarioCasoDeUso>();
+builder.Services.AddScoped<IPaginacaoUsuarioCasoDeUso, PaginacaoUsuarioCasoDeUso>();
+builder.Services.AddScoped<IListarUsuarioCasoDeUso, ListarUsuarioCasoDeUso>();
+builder.Services.AddScoped<IAtualizarUsuarioCasoDeUso, AtualizarUsuarioCasoDeUso>();
+builder.Services.AddScoped<IDeletarUsuarioCasoDeUso, DeletarUsuarioCasoDeUso>();
 // Motorista
-builder.Services.AddScoped<ICriarMotoristaCasoDeUso,CriarMotoristaCasoDeUso>();
-builder.Services.AddScoped<IVerMotoristaPaginadoCasoDeUso,VerMotoristaPaginadoCasoDeUso>();
-builder.Services.AddScoped<IVerMotoristaPorIdCasoDeUso,VerMotoristaPorIdCasoDeUso>();
-builder.Services.AddScoped<IAtualizarMotoristaCasoDeUso,AtualizarMotoristaCasoDeUso>();
-builder.Services.AddScoped<IDeletarMotoristaCasoDeUso,DeletarMotoristaCasoDeUso>();
+builder.Services.AddScoped<ICriarMotoristaCasoDeUso, CriarMotoristaCasoDeUso>();
+builder.Services.AddScoped<IVerMotoristaPaginadoCasoDeUso, VerMotoristaPaginadoCasoDeUso>();
+builder.Services.AddScoped<IVerMotoristaPorIdCasoDeUso, VerMotoristaPorIdCasoDeUso>();
+builder.Services.AddScoped<IAtualizarMotoristaCasoDeUso, AtualizarMotoristaCasoDeUso>();
+builder.Services.AddScoped<IDeletarMotoristaCasoDeUso, DeletarMotoristaCasoDeUso>();
 // Ônibus
 builder.Services.AddScoped<ICriarOnibusCasoDeUso, CriarOnibusCasoDeUso>();
 builder.Services.AddScoped<IListarOnibusCasoDeUso, ListarOnibusCasoDeUso>
 ();
-builder.Services.AddScoped<IVerOnibusPorIdCasoDeUso,VerOnibusPorIdCasoDeUso>();
-builder.Services.AddScoped<IAtualizarOnibusCasoDeUso,AtualizarOnibusCasoDeUso>();
+builder.Services.AddScoped<IVerOnibusPorIdCasoDeUso, VerOnibusPorIdCasoDeUso>();
+builder.Services.AddScoped<IAtualizarOnibusCasoDeUso, AtualizarOnibusCasoDeUso>();
 builder.Services.AddScoped<IDeletarOnibusCasoDeUso, DeletarOnibusCasoDeUso>
 ();
 // Rota
 builder.Services.AddScoped<IRepositorioRota, RepositorioRota>();
 builder.Services.AddScoped<ICriarRotaCasoDeUso, CriarRotaCasoDeUso>();
-builder.Services.AddScoped<IPaginacaoRotaCasoDeUso,PaginacaoRotaCasoDeUso>();
-builder.Services.AddScoped<IObterRotaPorId,ObterRotaPorId>();
+builder.Services.AddScoped<IPaginacaoRotaCasoDeUso, PaginacaoRotaCasoDeUso>();
+builder.Services.AddScoped<IObterRotaPorId, ObterRotaPorId>();
 builder.Services.AddScoped<IAtualizarRotaCasoDeUso, AtualizarRotaCasoDeUso>
 ();
 builder.Services.AddScoped<IDeletarRotaCasoDeUso, DeletarRotaCasoDeUso>();
@@ -142,13 +151,13 @@ builder.Services.AddScoped<ICriarViagemCasoDeUso, CriarViagemCasoDeUso>();
 builder.Services.AddScoped<IListarViagensCasoDeUso, ListarViagensCasoDeUso>
 ();
 builder.Services.AddScoped<IListarViagensCasoDeUso, ListarViagensCasoDeUso>();
-builder.Services.AddScoped<IAtualizarViagemCasoDeUso,AtualizarViagemCasoDeUso>();   
+builder.Services.AddScoped<IAtualizarViagemCasoDeUso, AtualizarViagemCasoDeUso>();
 builder.Services.AddScoped<IDeletarViagemCasoDeUso, DeletarViagemCasoDeUso>
 ();
 // Reserva
 builder.Services.AddScoped<ICriarReservaCasoDeUso, CriarReservaCasoDeUso>
 ();
-builder.Services.AddScoped < IListarReservaCasoDeUso,
+builder.Services.AddScoped<IListarReservaCasoDeUso,
 ListarReservaCasoDeUso>();
 builder.Services.AddScoped<IObterReservaPorId,
 ObterReservaPorId>();
@@ -164,6 +173,7 @@ builder.Services.Configure<JwtConfiguracoes>(builder.Configuration.GetSection("J
 builder.Services.AddSingleton(sp => sp.GetRequiredService<Microsoft.Extensions.Options.IOptions<JwtConfiguracoes>>().Value);
 
 var app = builder.Build();
+
 // ---------- Migrations + dados iniciais ----------
 using (var escopo = app.Services.CreateScope())
 {

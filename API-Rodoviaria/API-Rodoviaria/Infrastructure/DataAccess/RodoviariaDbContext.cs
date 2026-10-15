@@ -12,7 +12,7 @@ public class RodoviariaDbContext :DbContext
 
     public DbSet<Perfil> Perfis => Set<Perfil>();
     public DbSet<Usuario> Usuarios => Set<Usuario>();
-    public DbSet<Viagem> Viagens => Set<Viagem>();
+    public DbSet<Viagem> Viagem => Set<Viagem>();
     public DbSet<Motorista> Motoristas => Set<Motorista>();
     public DbSet<Rota> Rotas => Set<Rota>();
     public DbSet<Onibus> Onibus => Set<Onibus>();

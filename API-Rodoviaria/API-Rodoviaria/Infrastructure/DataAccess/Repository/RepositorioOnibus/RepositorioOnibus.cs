@@ -70,7 +70,7 @@ public class RepositorioOnibus : IRepositorioOnibus
 
     public async Task<bool> TemViagensAsync(int id)
     {
-        return await _context.Viagens.AnyAsync(v => v.FkOnibus == id);
+        return await _context.Viagem.AnyAsync(v => v.FkOnibus == id);
     }
     
    
