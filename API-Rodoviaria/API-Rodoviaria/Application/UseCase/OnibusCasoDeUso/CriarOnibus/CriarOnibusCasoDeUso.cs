@@ -47,7 +47,7 @@ public class CriarOnibusCasoDeUso : ICriarOnibusCasoDeUso
             ?? throw new ExcecaoDeNegocio("Motorista não encontrado", 404);
 
         if (await _repositorioViagem.MotoristaTemViagemNoPeriodoAsync(motorista.Id, saida, chegada))
-            throw new ExcecaoDeNegocio("Esse motorista já deve está em outra viagem nesse periodo", 409);
+            throw new Exception("Esse motorista já deve está em outra viagem nesse periodo");
 
         var onibus = new Onibus
         {

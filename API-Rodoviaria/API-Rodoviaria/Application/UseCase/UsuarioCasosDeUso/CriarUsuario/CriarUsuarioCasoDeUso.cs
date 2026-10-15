@@ -49,6 +49,7 @@ namespace API_Rodoviaria.Application.UseCase.UsuarioCasosDeUso.CriarUsuario
                 Id= usuario.Id,
                 Username = usuario.Username,
                 Email = usuario.Email,
+                Endereco = requisicao.Endereco.Trim(),
                 Perfil = perfilCliente.Cargo
             };
         }

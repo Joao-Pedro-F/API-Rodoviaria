@@ -22,7 +22,6 @@ namespace API_Rodoviaria.Infrastructure.Middleware
                 contexto.Response.ContentType = "application/json";
                 await contexto.Response.WriteAsJsonAsync(new { erro = ex.Message });
             }
-
         }
     }
 }
