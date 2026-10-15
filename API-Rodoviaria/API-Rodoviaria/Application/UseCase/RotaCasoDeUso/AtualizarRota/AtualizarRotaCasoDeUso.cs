@@ -18,6 +18,10 @@ namespace API_Rodoviaria.Application.UseCase.RotaCasoDeUso.AtualizarRota
         public async Task<RespostaCriarRota> ExecutarAsync(int id, RequisicaoAtualizarRotaDTO requisicao)
         {
             var rota = await _repositorioRota.ObterPorIdAsync(id) ?? throw new KeyNotFoundException("Rota não encontrada");
+
+            if (string.IsNullOrWhiteSpace(requisicao.EnderecoInicial)) requisicao.EnderecoInicial = rota.EnderecoInicio;
+            if(string.IsNullOrWhiteSpace(requisicao.EnderecoFinal)) requisicao.EnderecoFinal= rota.EnderecoFim;
+            
             rota.EnderecoInicio = requisicao.EnderecoInicial.Trim();
             rota.EnderecoFim = requisicao.EnderecoFinal.Trim();
 

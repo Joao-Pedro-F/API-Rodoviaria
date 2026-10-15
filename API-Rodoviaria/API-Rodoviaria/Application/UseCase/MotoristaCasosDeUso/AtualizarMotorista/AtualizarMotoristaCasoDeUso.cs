@@ -22,6 +22,10 @@ public class AtualizarMotoristaCasoDeUso : IAtualizarMotoristaCasoDeUso
         if (await _motoristaRepositorio.ExisteAsync(requisicao.Cpf, requisicao.Cnh,Id))
             throw new ExcecaoDeNegocio("Já existe outro motorista com o mesmo CPF ou CNH.");
 
+        if (string.IsNullOrWhiteSpace(requisicao.Nome)) requisicao.Nome = motorista.Nome;
+        if(string.IsNullOrWhiteSpace(requisicao.Cpf)) requisicao.Cpf=motorista.Cpf;
+        if(string.IsNullOrWhiteSpace(requisicao.Cnh)) requisicao.Cnh=motorista.Cnh;
+
         Id = motorista.Id;
         motorista.Nome = requisicao.Nome;
         motorista.Cpf = motorista.Cpf;

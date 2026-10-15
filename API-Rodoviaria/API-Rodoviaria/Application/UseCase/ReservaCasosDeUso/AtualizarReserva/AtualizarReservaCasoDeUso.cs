@@ -29,12 +29,17 @@ namespace API_Rodoviaria.Application.UseCase.ReservaCasosDeUso.AtualizarReserva
                 var numeros = request.IdsCadeiras.Distinct().ToList();
                 var onibusDaViagem = reserva.Viagem.FkOnibus;
                 var cadeiras = await _repositorioOnibus.ObterCadeirasPorNumeroAsync(onibusDaViagem,numeros);
+
             if (cadeiras.Count != numeros.Count)
                 throw new ArgumentException("Uma ou mais cadeiras não existem nesse ônibus.");
+
                 var idsCadeiras = cadeiras.Select(c => c.Id).ToList();
+
             if (!await _repositorioReserva.AtualizarCadeirasSeLivresAsync(idReserva,  idsCadeiras))
                 throw new InvalidOperationException("Uma ou mais cadeiras já foram reservadas nessa viagem.");
+
                 var atualizada = await  _repositorioReserva.ObterPorIdAsync(idReserva);
+
             return new RespostaCriarReservaDTO
             {
                 Id = atualizada!.Id,

@@ -25,7 +25,7 @@ namespace API_Rodoviaria.Application.UseCase.UsuarioCasosDeUso.VerUsuario
                     Id = u.Id,
                     Username = u.Username,
                     Email = u.Email,
-                    Endereço = u.Endereco,
+                    Endereco = u.Endereco,
                     Perfil = u.Perfil.Cargo
 
 

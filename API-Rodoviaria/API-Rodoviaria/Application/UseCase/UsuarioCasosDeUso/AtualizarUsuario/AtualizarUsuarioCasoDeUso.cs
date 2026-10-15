@@ -18,8 +18,20 @@ namespace API_Rodoviaria.Application.UseCase.UsuarioCasosDeUso.AtualizarUsuario
         {
             var usuario = await _repositorioUsuario.ObterPorIdAsync(id)?? throw new KeyNotFoundException("Usuário não encontrado");
 
+            if (string.IsNullOrWhiteSpace(requisicao.Email))
+            {
+                requisicao.Email = usuario.Email.Trim();
+            }
+            if (string.IsNullOrWhiteSpace(requisicao.Endereco))
+            {
+                requisicao.Endereco = usuario.Endereco.Trim();
+
+            }
+
             usuario.Email = requisicao.Email.Trim();
             usuario.Endereco = requisicao.Endereco.Trim();
+
+          
 
             await _repositorioUsuario.AtualizarAsync(usuario);
 

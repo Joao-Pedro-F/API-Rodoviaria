@@ -34,7 +34,8 @@ public class AtualizarViagemCasoDeUso : IAtualizarViagemCasoDeUso
         var saida = requisicao.DataSaida;
         var chegada = requisicao.DataChegada;
 
-        if (await _viagemRepositorio.MotoristaTemViagemNoPeriodoAsync(requisicao.FkMotorista, saida, chegada, id))
+
+        if (await _viagemRepositorio.MotoristaTemViagemNoPeriodoAsync(requisicao.FkMotorista!.Value, saida, chegada, id))
         {
             throw new InvalidOperationException("O motorista já possui uma viagem nesse período.");
         }
@@ -44,9 +45,20 @@ public class AtualizarViagemCasoDeUso : IAtualizarViagemCasoDeUso
             throw new InvalidOperationException("O ônibus já está em outra viagem nesse período.");
         }
 
-        viagem.FkMotorista = requisicao.FkMotorista;
+
+        if (requisicao.FkMotorista is not null)
+        {
+            viagem.FkMotorista = requisicao.FkMotorista.Value;
+        }
+
+        if (requisicao.DataSaida == DateTime.MinValue) viagem.DataSaida = requisicao.DataSaida;
+        
+        if (requisicao.DataChegada == DateTime.MinValue) viagem.DataChegada = requisicao.DataChegada;
+
         viagem.DataSaida = requisicao.DataSaida;
         viagem.DataChegada = requisicao.DataChegada;
+
+       
         
         await _viagemRepositorio.AtualizarAsync(viagem);
         
