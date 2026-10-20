@@ -1,0 +1,17 @@
+[
+  {
+    "Name": "Rodoviaria",
+    "Projects": [
+      {
+        "Path": "API-Rodoviaria\\API-Rodoviaria.csproj",
+        "Action": "Start",
+        "DebugTarget": "https"
+      },
+      {
+        "Path": "Front\\Front.csproj",
+        "Action": "Start",
+        "DebugTarget": "https"
+      }
+    ]
+  }
+]
