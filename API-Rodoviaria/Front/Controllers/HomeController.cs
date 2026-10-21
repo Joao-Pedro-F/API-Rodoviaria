@@ -23,6 +23,22 @@ namespace Front.Controllers
         {
             return View();
         }
+        public IActionResult cadViagensView()
+        {
+            return View();
+        }
+        public IActionResult cadRotasView()
+        {
+            return View();
+        }
+        public IActionResult cadMotoristasView()
+        {
+            return View();
+        }
+        public IActionResult cadOnibusView()
+        {
+            return View();
+        }
 
         [ResponseCache(Duration = 0, Location = ResponseCacheLocation.None, NoStore = true)]
         public IActionResult Error()
