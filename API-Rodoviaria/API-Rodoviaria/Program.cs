@@ -39,7 +39,7 @@ using API_Rodoviaria.Domain.Models;
 using API_Rodoviaria.Filters;
 using API_Rodoviaria.Infrastructure.DataAccess;
 using API_Rodoviaria.Infrastructure.DataAccess.Repository;
-using API_Rodoviaria.Infrastructure.DataAccess.Repository.RepositorioCadeira; 
+using API_Rodoviaria.Infrastructure.DataAccess.Repository.RepositorioCadeira;
 using API_Rodoviaria.Infrastructure.DataAccess.Repository.RepositorioMotorista;
 using API_Rodoviaria.Infrastructure.DataAccess.Repository.RepositorioOnibus;
 using API_Rodoviaria.Infrastructure.DataAccess.Repository.RepositorioPerfil;
@@ -172,7 +172,21 @@ builder.Services.AddSingleton(jwtConfig);
 builder.Services.Configure<JwtConfiguracoes>(builder.Configuration.GetSection("Jwt"));
 builder.Services.AddSingleton(sp => sp.GetRequiredService<Microsoft.Extensions.Options.IOptions<JwtConfiguracoes>>().Value);
 
+
+
+builder.Services.AddCors(options =>
+{
+    options.AddPolicy("AllowLocalhost", policy =>
+            policy.WithOrigins("https://localhost:7217")
+                .AllowCredentials()
+                .AllowAnyHeader()
+                .AllowAnyMethod());
+});
+
+
 var app = builder.Build();
+
+app.UseCors("AllowLocalhost");
 
 // ---------- Migrations + dados iniciais ----------
 using (var escopo = app.Services.CreateScope())

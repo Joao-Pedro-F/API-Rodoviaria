@@ -6,16 +6,18 @@
 
     <div>
 
-        <form>
+        <form class="d-flex flex-column mt-5">
+            <div class="d-flex flex-row align-items-center justify-content-center gap-3">
+                <div class="form-floating" style="width: 33vh">
+                    <input type="text" class="form-control" />
+                    <label>Selecione o que gostaria de consultar:</label>
+                </div>
 
-            <label>Selecione o que gostaria de consultar:</label>
-            <input type="text" class="form-control" />
-
-            <label>Quantos elementos por página:</label>
-            <input type="text" class="form-control" />
-
-            <div class="">
-              <button class="btn btn-secondary shadow-none w-25 mt-2" type="button">Consultar</button>
+                <div class="form-floating" style="width: 33vh">
+                    <input type="text" class="form-control" />
+                    <label>Quantos elementos por página:</label>
+                </div>
+            <button style="width: 33vh; height: 7vh" class="btn btn-secondary shadow-none w-25 mt-1" type="button">Consultar</button>
             </div>
         </form>
 

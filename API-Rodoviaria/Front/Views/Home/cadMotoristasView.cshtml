@@ -14,14 +14,18 @@
                 <label for="inputNome" class="form-label text-start px-3">Nome</label>
             </div>
             <div class="form-floating">
-                <input type="text" class="form-control shadow-none mb-2" id="inputCPF" />
+                <input type="text" maxlength="11" class="form-control shadow-none mb-2" id="inputCPF" />
                 <label for="inputCPF" class="form-label text-start px-3">CPF</label>
             </div>
             <div class="form-floating">
-                <input type="text" class="form-control shadow-none mb-3" id="inputCNH" />
+                <input type="text" maxlength="11" class="form-control shadow-none mb-3" id="inputCNH" />
                 <label for="inputCNH" class="form-label text-start px-3">CNH</label>
             </div>
         </div>
-        <button type="button" class="w-100 btn btn-secondary shadow-none">Cadastrar</button>
+        <button id="btnCadastrar" type="button" class="w-100 btn btn-secondary shadow-none">Cadastrar</button>
     </form>
 </div>
+
+@section Scripts {
+    <script src="~/js/cadastros.js" asp-append-version="true"></script>
+}

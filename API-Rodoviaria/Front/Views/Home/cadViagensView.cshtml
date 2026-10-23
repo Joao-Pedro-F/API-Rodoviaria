@@ -5,19 +5,29 @@
 <div class="d-flex flex-column text-center align-items-center mt-3">
         <h1>Cadastrar Viagens</h1>
 
-        <form class="w-50 d-flex flex-column justify-content-end">
+        <form class="w-50 d-flex mt-5 flex-column justify-content-end">
             <div class="mb-3  d-flex flex-column gap-2">
-                <label for="inputNome">Data Saida:</label>
-                <input type="text" class="form-control shadow-none" id="inputNome" />
-                <label for="inputCPF">Data Chegada:</label>
-                <input type="text" class="form-control shadow-none" id="inputCPF" />
-                <label for="inputCNH">Selecionar Ônibus:</label>
-                <input type="text" class="form-control shadow-none" id="inputCNH" />
-                <label for="inputCNH">Selecionar Motorista:</label>
-                <input type="text" class="form-control shadow-none" id="inputCNH" />
-                <label for="inputCNH">Selecionar Rota:</label>
-                <input type="text" class="form-control shadow-none" id="inputCNH" />
+            <div class="form-floating">
+                    <input type="text" class="form-control shadow-none" id="inputNome" />
+                    <label for="inputNome">Data Saida:</label>
+                </div>
+            <div class="form-floating">
+                    <input type="text" class="form-control shadow-none" id="inputCPF" />
+                    <label for="inputCPF">Data Chegada:</label>
+                </div>
+            <div class="form-floating">
+                    <input type="text" class="form-control shadow-none" id="inputCNH" />
+                    <label for="inputCNH">Selecionar Ônibus:</label>
+                </div>
+            <div class="form-floating">
+                    <input type="text" class="form-control shadow-none" id="inputCNH" />
+                    <label for="inputCNH">Selecionar Motorista:</label>
+                </div>
+            <div class="form-floating">
+                    <input type="text" class="form-control shadow-none" id="inputCNH" />
+                    <label for="inputCNH">Selecionar Rota:</label>
+                </div>
             </div>
-            <button type="button" class="btn btn-secondary shadow-none w-100">Cadastrar</button>
+        <button type="button" class="btn btn-secondary shadow-none w-100 btn-geral">Cadastrar</button>
         </form>
 </div>
