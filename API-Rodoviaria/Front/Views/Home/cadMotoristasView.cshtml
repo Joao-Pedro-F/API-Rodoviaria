@@ -2,20 +2,26 @@
     ViewData["Title"] = "Cadastro Motorista";
 }
 
-<div class="text-center align-self-center">
-    <div class="align-self-center">
-        <h1>Cadastrar Viagens</h1>
-
-        <form class="w-50">
-            <div class="mb-3">
-                <label for="inputNome">Nome:</label>
-                <input type="text" class="form-control" id="inputNome" />
-                <label for="inputCPF">CPF:</label>
-                <input type="text" class="form-control" id="inputCPF" />
-                <label for="inputCNH">CNH:</label>
-                <input type="text" class="form-control" id="inputCNH" />
-            </div>
-            <button type="button" class="btn btn-outline-primary">Cadastrar</button>
-        </form>
+<div class="d-flex flex-column text-center align-items-center mt-3">
+    <div class="w-50">
+        <h1>Cadastrar Motorista</h1>
     </div>
+
+    <form class="w-50 mt-5">
+        <div class="mb-3">
+            <div class="form-floating">
+                <input type="text" class="form-control shadow-none mb-2" id="inputNome" />
+                <label for="inputNome" class="form-label text-start px-3">Nome</label>
+            </div>
+            <div class="form-floating">
+                <input type="text" class="form-control shadow-none mb-2" id="inputCPF" />
+                <label for="inputCPF" class="form-label text-start px-3">CPF</label>
+            </div>
+            <div class="form-floating">
+                <input type="text" class="form-control shadow-none mb-3" id="inputCNH" />
+                <label for="inputCNH" class="form-label text-start px-3">CNH</label>
+            </div>
+        </div>
+        <button type="button" class="w-100 btn btn-secondary shadow-none">Cadastrar</button>
+    </form>
 </div>

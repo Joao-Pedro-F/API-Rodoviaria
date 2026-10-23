@@ -4,18 +4,21 @@
 
 <div class="text-center align-self-center">
     <div class="align-self-center">
-        <h1>Cadastrar Viagens</h1>
+        <h1>Cadastrar Rotas</h1>
 
-        <form class="w-50">
+        <form class="w-50 mt-5">
             <div class="mb-3">
-                <label for="inputNome">Nome:</label>
-                <input type="text" class="form-control" id="inputNome" />
-                <label for="inputCPF">CPF:</label>
-                <input type="text" class="form-control" id="inputCPF" />
-                <label for="inputCNH">CNH:</label>
-                <input type="text" class="form-control" id="inputCNH" />
+                <div class="form-floating">
+                    <input type="text" class="form-control shadow-none" id="inputNome" />
+                    <label for="inputNome">Endereço Inicial:</label>
+                </div>
+                
+                <div class="form-floating">
+                    <input type="text" class="form-control shadow-none" id="inputCPF" />
+                    <label for="inputCPF">Endereço Final:</label>
+                </div>
             </div>
-            <button type="button" class="btn btn-outline-primary">Cadastrar</button>
+            <button type="button" class="btn btn-secondary shadow-none" >Cadastrar</button>
         </form>
     </div>
 </div>

@@ -10,11 +10,6 @@ namespace Front.Controllers
         {
             return View();
         }
-
-        public IActionResult Privacy()
-        {
-            return View();
-        }
         public IActionResult cadastroView()
         {
             return View();
@@ -36,6 +31,14 @@ namespace Front.Controllers
             return View();
         }
         public IActionResult cadOnibusView()
+        {
+            return View();
+        }
+        public IActionResult consultaView()
+        {
+            return View();
+        }
+        public IActionResult viagensView()
         {
             return View();
         }
