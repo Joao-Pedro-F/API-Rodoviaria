@@ -3,31 +3,35 @@
 }
 
 <div class="d-flex flex-column text-center align-items-center mt-3">
-        <h1>Cadastrar Viagens</h1>
+    <h1>Cadastrar Viagens</h1>
 
-        <form class="w-50 d-flex mt-5 flex-column justify-content-end">
-            <div class="mb-3  d-flex flex-column gap-2">
-            <div class="form-floating">
-                    <input type="text" class="form-control shadow-none" id="inputNome" />
-                    <label for="inputNome">Data Saida:</label>
-                </div>
-            <div class="form-floating">
-                    <input type="text" class="form-control shadow-none" id="inputCPF" />
-                    <label for="inputCPF">Data Chegada:</label>
-                </div>
-            <div class="form-floating">
-                    <input type="text" class="form-control shadow-none" id="inputCNH" />
-                    <label for="inputCNH">Selecionar Ônibus:</label>
-                </div>
-            <div class="form-floating">
-                    <input type="text" class="form-control shadow-none" id="inputCNH" />
-                    <label for="inputCNH">Selecionar Motorista:</label>
-                </div>
-            <div class="form-floating">
-                    <input type="text" class="form-control shadow-none" id="inputCNH" />
-                    <label for="inputCNH">Selecionar Rota:</label>
-                </div>
+    <form class="w-50 d-flex mt-5 flex-column justify-content-end">
+        <div class="mb-3  d-flex flex-column gap-2">
+        <div class="form-floating">
+                <input type="datetime-local" class="form-control shadow-none" id="inputDataS" />
+                <label for="inputDataS">Data Saida:</label>
             </div>
-        <button type="button" class="btn btn-secondary shadow-none w-100 btn-geral">Cadastrar</button>
-        </form>
+        <div class="form-floating">
+                <input type="datetime-local" class="form-control shadow-none" id="inputDataC" />
+                <label for="inputDataC">Data Chegada:</label>
+            </div>
+        <div class="form-floating">
+                <select type="text" class="form-control shadow-none form-select" aria-label="Default select example" id="selectOnibus"></select>
+                <label for="selectOnibus">Selecionar Ônibus:</label>
+            </div>
+        <div class="form-floating">
+                <select type="text" class="form-control shadow-none form-select" aria-label="Default select example" id="selectMotoristas"></select>
+                <label for="selectMotoristas">Selecionar Motorista:</label>
+            </div>
+        <div class="form-floating">
+                <select type="text" class="form-control shadow-none form-select" aria-label="Default select example" id="selectRotas"></select>
+                <label for="selectRotas">Selecionar Rota:</label>
+            </div>
+        </div>
+    <button type="button" id="btnCadastrar" class="btn btn-secondary shadow-none w-100 btn-geral">Cadastrar</button>
+    </form>
 </div>
+
+@section Scripts {
+    <script src="~/js/cadViagens.js"></script>
+}

@@ -3,20 +3,24 @@
 }
 
 <div class="d-flex flex-column text-center align-items-center mt-3">
-        <h1>Cadastrar Rotas</h1>
+    <h1>Cadastrar Rotas</h1>
 
-        <form class="w-50 mt-5">
-            <div class="mb-3  d-flex flex-column gap-2">
-                <div class="form-floating">
-                    <input type="text" class="form-control shadow-none" id="inputNome" />
-                    <label for="inputNome">Endereço Inicial:</label>
-                </div>
-                
-                <div class="form-floating">
-                    <input type="text" class="form-control shadow-none" id="inputCPF" />
-                    <label for="inputCPF">Endereço Final:</label>
-                </div>
+    <form class="w-50 mt-5">
+        <div class="mb-3  d-flex flex-column gap-2">
+            <div class="form-floating">
+                <input type="text" class="form-control shadow-none" id="inputEnderecoI" />
+                <label for="inputEnderecoI">Endereço Inicial:</label>
             </div>
-            <button type="button" class="btn btn-secondary shadow-none w-100">Cadastrar</button>
-        </form>
+                
+            <div class="form-floating">
+                <input type="text" class="form-control shadow-none" id="inputEnderecoF" />
+                <label for="inputEnderecoF">Endereço Final:</label>
+            </div>
+        </div>
+        <button type="button" id="btnCadastrar" class="btn btn-secondary shadow-none w-100">Cadastrar</button>
+    </form>
 </div>
+
+@section Scripts {
+    <script src="~/js/cadRotas.js"></script>
+}

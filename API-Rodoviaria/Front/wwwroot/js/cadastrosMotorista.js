@@ -15,19 +15,16 @@ async function cadastrarMotorista() {
         cnh: iCnh.value
     }
 
-    console.log("tentativa");
-
     const res = await fetch(`https://localhost:7171/api/Motoristas`, {
         method: 'POST',
+        credentials: "include",
         headers: {'Content-Type': 'application/json' },
         body: JSON.stringify(payload),
     })
 
 }
 
-
 //CHAMADO (FUNÇÕES)
-
 btnCadastrar.addEventListener('click', async () => {
     await cadastrarMotorista();
 });

@@ -23,8 +23,8 @@
             </div>
             <form class="mt-4 gap-3 d-flex flex-column align-self-center">
                 <div class="form-floating mb-3">
-                    <input type="email" class="form-control" id="inputEmail" placeholder="nome@exemplo.com">
-                    <label for="inputEmail">E-mail</label>
+                    <input type="text" class="form-control" id="inputNome" placeholder="nome@exemplo.com">
+                    <label for="inputNome">Nome</label>
                 </div>
 
                 <div class="input-group">
@@ -47,13 +47,14 @@
 
                 <button id="btnLogin" type="button" class="btn btn-primary mt-5 w-100" asp-action="Index" asp-controller="Home">Entrar</button>
             </form>
-            <span>Não tem uma conta? <a asp-action="cadastroView" asp-controller="Home" asp-area="">Cadastrar</a></span>
+            <span>Não tem uma conta? <a asp-action="cadastroView" asp-controller="Login" asp-area="">Cadastrar</a></span>
         </div>
     </div>
     <div id="toast" class="toast position-fixed fs-5 bottom-0 end-0 m-3" role="alert">
         <div class="toast-body"></div>
     </div>
 
+    <script src="~/js/Autenticacao/loginUser.js"></script>
     <script src="~/lib/jquery/dist/jquery.min.js"></script>
     <script src="~/lib/bootstrap/dist/js/bootstrap.bundle.min.js"></script>
     <script src="~/js/login/login.js" asp-append-version="true"></script>

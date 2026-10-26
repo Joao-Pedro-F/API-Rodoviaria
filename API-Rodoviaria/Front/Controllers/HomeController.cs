@@ -1,23 +1,25 @@
+using Front.Atributos;
 using Front.Models;
 using Microsoft.AspNetCore.Mvc;
 using System.Diagnostics;
 
 namespace Front.Controllers
 {
+
+    [ValidarSessao]
     public class HomeController : Controller
     {
+        private readonly ILogger<HomeController> _logger;
+
+        public HomeController(ILogger<HomeController> logger)
+        {
+            _logger = logger;
+        }
         public IActionResult Index()
         {
             return View();
         }
-        public IActionResult cadastroView()
-        {
-            return View();
-        }
-        public IActionResult loginView()
-        {
-            return View();
-        }
+        
         public IActionResult cadViagensView()
         {
             return View();

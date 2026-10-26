@@ -1,25 +1,40 @@
 ﻿//GERAL
 let nome = document.getElementById("inputNome");
-let cpf = document.getElementById("inputNome");
-let email = document.getElementById("inputNome");
-let senha1 = document.getElementById("inputNome");
-let senha2 = document.getElementById("inputNome");
-let endereco = document.getElementById("inputNome");
-
+let cpf = document.getElementById("inputCpf");
+let email = document.getElementById("inputEmail");
+let senha1 = document.getElementById("inputSenha");
+let senha2 = document.getElementById("inputSenha2");
+let endereco = document.getElementById("inputEndereco");
+const btnCadastrar = document.getElementById("btnCadastro");
 
 //FUNÇÕES
 async function cadastrarUser() {
-    let payload = {
-        username: string,
-        email: string,
-        password: string,
-        cpf: string,
-        endereco: string
+
+    const payload = {
+        username: nome.value,
+        email: email.value,
+        password: senha1.value,
+        cpf: cpf.value,
+        endereco: endereco.value
     }
+        
+    const sendRequest = await fetch("https://localhost:7171/api/Usuarios", {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify(payload),
+        credentials: "include",
+    });
 
+    inputNome.value = "";
+    inputEmail.value = "";
+    inputConfirmSenha.value = "";
+    inputSenha.value = "";
 
+    window.location.href = "/Home/loginView";
 }
 
-
-
 //CHAMADA (FUNÇÕES)
+
+btnCadastrar.addEventListener('click', async () => {
+    await cadastrarUser()
+})

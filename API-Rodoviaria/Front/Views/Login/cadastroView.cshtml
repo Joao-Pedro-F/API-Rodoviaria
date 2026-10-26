@@ -11,11 +11,11 @@
 </head>
 <body class="d-flex justify-content-center" style="background-color: #eef3f8">
 
-    <div class="d-flex card shadow flex-column align-self-center align-items-center rounded-start-4 rounded-end-0" style="background-color: #334433; height: 550px; width: 300px;">
+    <div class="d-flex card shadow flex-column align-self-center align-items-center rounded-start-4 rounded-end-0" style="background-color: #334433; height: 682px; width: 300px;">
         <img class="p-3 mt-3 img-fluid" style="border-radius: 15px; max-width: 250px; max-height: 110px;" src="~/../JPLM_files/logoJPLM_PretoTransparente.png" />
         <hr class="w-75 mx-auto" style="border-bottom: 5px solid white; border-radius: 30px; opacity: 0.5;" />
     </div>
-    <div class="d-flex card shadow p-4 my-4 align-self-center rounded-start-0" style="background-color: #ffffff; border-radius: 15px; height: 550px;  width: 500px;">
+    <div class="d-flex card shadow p-4 my-4 align-self-center rounded-start-0" style="background-color: #ffffff; border-radius: 15px; height: auto;  width: 500px;">
         <div class="text-center mt-5">
             <div class="mb-0 text-start">
                 <h1>Bem-Vindo!</h1>
@@ -31,19 +31,29 @@
                     <label for="inputEmail">E-mail</label>
                 </div>
                 <div class="form-floating mb-2">
-                    <input type="password" class="form-control" id="inputSenha" placeholder="Senha">
+                    <input type="text" class="form-control" id="inputCpf" placeholder="XXX.XXX.XXX-XX">
+                    <label for="inputCpf">CPF</label>
+                </div>
+                <div class="form-floating mb-2">
+                    <input type="text" class="form-control" id="inputEndereco" placeholder="Rua XXXXXXXX Nº XXXX">
+                    <label for="inputEndereco">Endereço</label>
+                </div>
+                <div class="form-floating mb-2">
+                    <input type="text" class="form-control" id="inputSenha" placeholder="Senha">
                     <label for="inputSenha">Senha</label>
                 </div>
                 <div class="form-floating mb-2">
                     <input type="password" class="form-control" id="inputConfirmSenha" placeholder="Confirme sua senha">
-                    <label for="inputConfirmSenha">Confirmar Senha</label>
+                    <label for="inputSenha2">Confirmar Senha</label>
                 </div>
                 <button id="btnCadastro" type="button" class="btn btn-primary mt-3 w-100">Cadastrar</button>
             </form>
-            <span>Já possui uma conta? <a asp-action="loginView" asp-controller="Home" asp-area="">Login</a></span>
+            <span>Já possui uma conta? <a asp-action="loginView" asp-controller="Login" asp-area="">Login</a></span>
         </div>
     </div>
     <div id="toast" class="toast position-fixed bottom-0 fs-5 end-0 m-3" role="alert">
         <div class="toast-body"></div>
     </div>
+
+    <script src="~/js/Autenticacao/cadastroUser.js"></script>
 </body>
