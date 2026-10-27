@@ -9,6 +9,8 @@ const urlPadrao = 'https://localhost:7171/api';
 
 async function cadastrarRotas() {
 
+    try {
+
     const payload = {
         enderecoInicio : enderecoInicial.value,
         enderecoFim : enderecoFinal.value,
@@ -22,6 +24,9 @@ async function cadastrarRotas() {
     });
 
     var response = await res.json();
+    } catch (error){
+        throw error
+    }
 }
 
 

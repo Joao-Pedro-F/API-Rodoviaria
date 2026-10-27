@@ -13,10 +13,11 @@ const urlPadrao = 'https://localhost:7171/api';
 //FUNÇÕES
 
 async function cadastrarOnibus() {
+
     const dataChegadaISO = new Date(dataChegada.value).toISOString();
     const dataSaidaISO = new Date(dataSaida.value).toISOString();
 
-
+    try {
     let payload = {
         placa : placa.value,
         capacidadeTotal : capTotal.value,
@@ -36,10 +37,16 @@ async function cadastrarOnibus() {
 
     var response = await res.json();
 
+    } catch (error) {
+        throw error
+    }
+
 }
 
 
 async function renderMotoristas() {
+
+    try {
 
     const res = await fetch(`${urlPadrao}/Motoristas`, {
         method: 'GET',
@@ -57,7 +64,11 @@ async function renderMotoristas() {
         `
     });
 
-    motorista.innerHTML = selectLista;
+        motorista.innerHTML = selectLista;
+
+    } catch (error) {
+        throw error
+    }
 
 }
 

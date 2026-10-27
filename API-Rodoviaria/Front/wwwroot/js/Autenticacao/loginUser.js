@@ -5,6 +5,8 @@ const btnlogar = document.getElementById("btnLogin");
 
 async function fazerLogin() {
 
+    try {
+
     const payload = {
 
         username: nome.value,
@@ -30,6 +32,10 @@ async function fazerLogin() {
     })
 
     window.location.href = "/Home/Index";
+
+    } catch (error) {
+        throw error
+    }
 }
 
 btnlogar.addEventListener('click', async () => {

@@ -6,19 +6,26 @@
 
     <div>
 
-        <form class="d-flex flex-column mt-5">
+        <form class="d-flex flex-column mt-2">
             <div class="d-flex flex-row align-items-center justify-content-center gap-3">
-                <div class="form-floating" style="width: 33vh">
-                    <input type="text" class="form-control" />
+                <div class="form-floating" style="width: 35vh">
+                    <select class="form-select shadow-none form-select" aria-label="Default select example" id="selectTipo">
+                        <option value="Motorista">Motorista</option>
+                        <option value="Onibus">Ônibus</option>
+                        <option value="Rota">Rota</option>
+                        <option value="Viagens">Viagens</option>
+                    </select>
                     <label>Selecione o que gostaria de consultar:</label>
                 </div>
 
-                <div class="form-floating" style="width: 33vh">
-                    <input type="text" class="form-control" />
+                <div class="form-floating" style="width: 35vh">
+                    <input type="number" min="1" max="100" step="1" value="5" class="form-control shadow-none" id="qtdPag">
                     <label>Quantos elementos por página:</label>
                 </div>
-            <button style="width: 33vh; height: 7vh" class="btn btn-secondary shadow-none w-25 mt-1" type="button">Consultar</button>
+                <button id="btnConsultar" style="width: 33vh; height: 7vh" class="btn btn-secondary shadow-none w-25 mt-1" type="button">Consultar</button>
             </div>
+
+            <div id="renderTabela"></div>
         </form>
 
     </div>
@@ -26,3 +33,7 @@
     </div>
 
 </div>
+
+@section Scripts {
+    <script src="~/js/consulta.js"></script>
+}

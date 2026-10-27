@@ -9,7 +9,9 @@ const urlPadrao = "https://localhost:7171/api";
 //FUNÇÕES
 
 async function cadastrarMotorista() {
-    let payload = {
+
+    try {
+    const payload = {
         nome: iNome.value,
         cpf: iCpf.value,
         cnh: iCnh.value
@@ -21,6 +23,9 @@ async function cadastrarMotorista() {
         headers: {'Content-Type': 'application/json' },
         body: JSON.stringify(payload),
     })
+    } catch (error) {
+        throw error
+    }
 
 }
 

@@ -11,6 +11,8 @@ const urlPadrao = 'https://localhost:7171/api';
 //FUNÇÕES
 
 async function renderOnibus() {
+
+    try {
     const res = await fetch(`${urlPadrao}/Onibus`, {
         method: 'GET',
         headers: { 'Content-Type': 'application/json' },
@@ -28,29 +30,40 @@ async function renderOnibus() {
     });
 
     onibus.innerHTML = selectLista;
+
+    } catch (error) {
+        throw error
+    }
 }
 
+
 async function renderMotoristas() {
-    const res = await fetch(`${urlPadrao}/Motoristas`, {
-        method: 'GET',
-        credentials: "include",
-        headers: { 'Content-Type': 'application/json' },
-    })
+    try {
+        const res = await fetch(`${urlPadrao}/Motoristas`, {
+            method: 'GET',
+            credentials: "include",
+            headers: { 'Content-Type': 'application/json' },
+        })
 
-    var response = await res.json();
+        var response = await res.json();
 
-    var selectLista;
+        var selectLista;
 
-    response.itens.forEach((item) => {
-        selectLista += `
+        response.itens.forEach((item) => {
+            selectLista += `
             <option value="${item.id}">${item.nome}</option>
         `
-    });
+        });
 
-    motorista.innerHTML = selectLista;
+        motorista.innerHTML = selectLista;
+
+    } catch (error){
+        throw error
+    }
 }
 
 async function renderRotas() {
+    try {
     const res = await fetch(`${urlPadrao}/Rota`, {
         method: 'GET',
         credentials: "include",
@@ -68,13 +81,17 @@ async function renderRotas() {
     });
 
     rota.innerHTML = selectLista;
+
+    } catch (error){
+        throw error
+    }
 }
 
 async function cadastrarViajem() {
     const dataChegadaISO = new Date(dataChegada.value).toISOString();
     const dataSaidaISO = new Date(dataSaida.value).toISOString();
 
-
+    try {
     let payload = {
         dataSaida : dataSaidaISO,
         dataChegada : dataChegadaISO,
@@ -91,6 +108,10 @@ async function cadastrarViajem() {
     })
 
     var response = await res.json();
+
+    } catch (error) {
+        throw error
+    }
 }
 
 //CHAMADA (FUNÇÕES)

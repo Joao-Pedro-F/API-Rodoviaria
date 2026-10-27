@@ -10,6 +10,8 @@ const btnCadastrar = document.getElementById("btnCadastro");
 //FUNÇÕES
 async function cadastrarUser() {
 
+    try {
+
     const payload = {
         username: nome.value,
         email: email.value,
@@ -25,12 +27,19 @@ async function cadastrarUser() {
         credentials: "include",
     });
 
+    if (!sendRequest.ok) return
+
     inputNome.value = "";
     inputEmail.value = "";
     inputConfirmSenha.value = "";
     inputSenha.value = "";
 
-    window.location.href = "/Home/loginView";
+    window.location.href = "/Login/loginView";
+
+    } catch (error) {
+        throw error
+    }
+
 }
 
 //CHAMADA (FUNÇÕES)
