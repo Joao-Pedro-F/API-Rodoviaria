@@ -9,7 +9,7 @@ public class RodoviariaDbContext :DbContext
     public RodoviariaDbContext(DbContextOptions<RodoviariaDbContext> options) : base(options)
     {
     }
-
+    #region DbSets
     public DbSet<Perfil> Perfis => Set<Perfil>();
     public DbSet<Usuario> Usuarios => Set<Usuario>();
     public DbSet<Viagem> Viagem => Set<Viagem>();
@@ -20,9 +20,12 @@ public class RodoviariaDbContext :DbContext
     public DbSet<Cadeira> Cadeiras => Set<Cadeira>();
     public DbSet<ReservaCadeira> ReservaCadeiras => Set<ReservaCadeira>();
 
+    #endregion
 
     protected override void OnModelCreating(ModelBuilder mb)
     {
+        #region Perfil 1->N Usuario
+
         mb.Entity<Perfil>(e =>
         {
             e.ToTable("Perfil");
@@ -31,6 +34,11 @@ public class RodoviariaDbContext :DbContext
             e.HasIndex(p => p.Cargo).IsUnique();
 
         });
+
+        #endregion
+
+        #region Usuario N->1 Perfil
+
         mb.Entity<Usuario>(e =>
         { 
             e.ToTable("Usuario");
@@ -51,6 +59,9 @@ public class RodoviariaDbContext :DbContext
 
         });
 
+        #endregion
+
+        #region Mororista 1->N Viagem
         mb.Entity<Motorista>(e => {            
             
             e.ToTable("Motorista");
@@ -62,6 +73,9 @@ public class RodoviariaDbContext :DbContext
             e.HasIndex(m => m.Cnh).IsUnique();
         });
 
+        #endregion
+
+        #region Rota N->1 Viagem
         mb.Entity<Rota>(e => {            
             e.ToTable("Rota");
             e.HasKey(r => r.Id);
@@ -70,6 +84,9 @@ public class RodoviariaDbContext :DbContext
             
         });
 
+        #endregion
+
+        #region Onibus 1->N Viagem
         mb.Entity<Onibus>(e => {            
             e.ToTable("Onibus");
             e.HasKey(o => o.Id);
@@ -78,6 +95,9 @@ public class RodoviariaDbContext :DbContext
             e.HasIndex(o => o.Placa).IsUnique();
         });
 
+        #endregion
+
+        #region Cadeira 1->N Onibus / 1->N ReservaCadeira
         mb.Entity<Cadeira>(e=> {            
             e.ToTable("Cadeira");
             e.HasKey(c => c.Id);
@@ -89,6 +109,9 @@ public class RodoviariaDbContext :DbContext
 
         });
 
+        #endregion
+
+        #region Viagem 1->N Rota / N->1 Onibus / N->1 Motorista / 1->N Reserva
         mb.Entity<Viagem>(e => {            
             e.ToTable("Viagem");
             e.HasKey(v => v.Id);
@@ -111,6 +134,9 @@ public class RodoviariaDbContext :DbContext
              .OnDelete(DeleteBehavior.Restrict);
         });
 
+        #endregion
+
+        #region Reserva 1->N ReservaCadeira / N-> Usuario
         mb.Entity<Reserva>(e =>
         {
             e.ToTable("Reserva");
@@ -128,8 +154,11 @@ public class RodoviariaDbContext :DbContext
 
 
 
-        });   
-        
+        });
+
+        #endregion
+
+        #region ReservaCadeira N->1 Cadeira / N->1 Reserva
         mb.Entity<ReservaCadeira>(e =>
         {
             e.ToTable("ReservaCadeira");
@@ -146,6 +175,8 @@ public class RodoviariaDbContext :DbContext
 
             e.HasIndex(rc => new { rc.FkReserva, rc.FkCadeira }).IsUnique();
         });
+
+        #endregion
     }
 
 }
