@@ -22,7 +22,7 @@ async function cadastrarMotorista() {
         credentials: "include",
         headers: {'Content-Type': 'application/json' },
         body: JSON.stringify(payload),
-    })
+    })     
     } catch (error) {
         throw error
     }
@@ -32,4 +32,17 @@ async function cadastrarMotorista() {
 //CHAMADO (FUNÇÕES)
 btnCadastrar.addEventListener('click', async () => {
     await cadastrarMotorista();
+
+    iNome.value = "";
+    iCpf.value = "";
+    iCnh.value = "";
+
+    mostrarToast("Motorista Cadastrado com sucesso!");
 });
+
+function mostrarToast(msg) {
+    const toastElemento = document.getElementById('toast');
+    toastElemento.querySelector('.toast-body').textContent = msg;
+    const toast = new bootstrap.Toast(toastElemento, { delay: 4000 });
+    toast.show();
+}  

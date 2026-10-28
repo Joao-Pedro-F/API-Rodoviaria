@@ -48,24 +48,23 @@ async function renderMotoristas() {
 
     try {
 
-    const res = await fetch(`${urlPadrao}/Motoristas`, {
-        method: 'GET',
-        credentials: "include",
-        headers: { 'Content-Type': 'application/json' },
-    })
+        const res = await fetch(`${urlPadrao}/Motoristas?Pagina=1&TamanhoPagina=100`, {
+            method: 'GET',
+            credentials: "include",
+            headers: { 'Content-Type': 'application/json' },
+        })
 
-    var response = await res.json();
+        var response = await res.json();
 
-    var selectLista;
+        var selectLista;
 
-    response.itens.forEach((item) => {
-        selectLista += `
-            <option value="${item.id}">${item.nome}</option>
-        `
-    });
+        response.itens.forEach((item) => {
+            selectLista += `
+                <option value="${item.id}">${item.nome}</option>
+            `
+        });
 
         motorista.innerHTML = selectLista;
-
     } catch (error) {
         throw error
     }
@@ -78,4 +77,21 @@ renderMotoristas();
 
 btnCadastrar.addEventListener('click', async () => {
     await cadastrarOnibus();
+
+    placa.value = ""
+    capTotal.value = ""
+    enderecoInicio.value = ""
+    enderecoFIm.value = ""
+    dataSaida.value = ""
+    dataChegada.value = ""
+    motorista.value = ""
+
+    mostrarToast("Ônibus cadastrado com sucesso!");
 });
+
+function mostrarToast(msg) {
+    const toastElemento = document.getElementById('toast');
+    toastElemento.querySelector('.toast-body').textContent = msg;
+    const toast = new bootstrap.Toast(toastElemento, { delay: 4000 });
+    toast.show();
+} 

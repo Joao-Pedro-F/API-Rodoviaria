@@ -10,4 +10,11 @@
     <Folder Include="Views\Cadastros\" />
   </ItemGroup>
 
+  <ItemGroup>
+    <None Include="wwwroot\JPLM Files\logoJPLM_BrancoTransparente.png" />
+    <None Include="wwwroot\JPLM Files\logoJPLM_FundoBranco.jpg" />
+    <None Include="wwwroot\JPLM Files\logoJPLM_FundoPreto.jpeg" />
+    <None Include="wwwroot\JPLM Files\logoJPLM_PretoTransparente.png" />
+  </ItemGroup>
+
 </Project>

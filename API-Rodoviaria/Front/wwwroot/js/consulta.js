@@ -2,18 +2,15 @@
 const btnConsultar = document.getElementById("btnConsultar");
 const qtdPag = document.getElementById("qtdPag");
 const selectTipo = document.getElementById("selectTipo");
-const tabelaConsulta = document.getElementById("tabelaConsulta");
 const renderTabela = document.getElementById("renderTabela");
 
 const urlPadrao = 'https://localhost:7171/api';
 
 var tableMotorista = `
-    <table>
+    <table class="table table-striped">
         <thead>
             <tr>
                 <th>Nome</th>
-                <th>CPF</th>
-                <th>CNH</th>
             </tr>
         </thead>
         <tbody id="tabelaConsulta">
@@ -21,7 +18,7 @@ var tableMotorista = `
     </table>
 `
 var tableOnibus = `
-    <table>
+    <table class="table table-striped">
         <thead>
             <tr>
                 <th>Placa</th>
@@ -35,7 +32,7 @@ var tableOnibus = `
     </table>
 `
 var tableRota = `
-    <table>
+    <table class="table table-striped">
         <thead>
             <tr>
                 <th>Endereço Inicial</th>
@@ -47,7 +44,7 @@ var tableRota = `
     </table>
 `
 var tableViagens = `
-    <table>
+    <table class="table table-striped">
         <thead>
             <tr>
                 <th>Motorista</th>
@@ -66,83 +63,92 @@ var tableViagens = `
 //FUNÇÕES
 
 async function consultarTabela() {
-    console.log(selectTipo.value)
-    const res = await fetch(`${urlPadrao}/${selectTipo.value}`, {
-        method: 'GET',
-        credentials: "include",
-        headers: { 'Content-Type': 'application/json' },
-    });
+    try {
+        const res = await fetch(`${urlPadrao}/${selectTipo.value}?Pagina=1&TamanhoPagina=${qtdPag.value}`, {
+            method: 'GET',
+            credentials: "include",
+            headers: { 'Content-Type': 'application/json' },
+        });
 
-    var response = res.json();
+        var response = await res.json();
+        console.log(response)
+    
+        let itensLista = ``;
 
-    if(!response.ok) return
+        switch (selectTipo.value.trim()) {
+            case "Motoristas":
+                itensLista = ``;
+                renderTabela.innerHTML = tableMotorista;
+                response.itens.forEach((item) => {
+                    itensLista += `
+                        <tr>
+                            <td>${item.nome}</td>
+                        </tr>
+                    `;
+                });
+                var tabelaConsulta = document.getElementById("tabelaConsulta");
+            
+                tabelaConsulta.innerHTML = itensLista;
+                break;
 
-    let itensLista = ``;
+            case "Onibus":
+                itensLista = ``;
+                renderTabela.innerHTML = tableOnibus;
+                response.itens.forEach((item) => {
+                    itensLista += `
+                        <tr>
+                            <td>${item.placa}</td>
+                            <td>${item.capacidadeTotal}</td>
+                            <td>${item.datasaida}</td>
+                            <td>${item.dataChegada}</td>
+                        </tr>
+                    `;
+                });
+                var tabelaConsulta = document.getElementById("tabelaConsulta");
 
-    switch (selectTipo.value) {
-        case "Motorista":
-            itensLista = ``;
-            renderTabela.innerHTML = tableMotorista;
-            response.itens.forEach((item) => {
-                itensLista += `
-                    <tr>
-                        <td>${item.nome}</td>
-                        <td>${item.cpf}</td>
-                        <td>${item.cnh}</td>
-                    </tr>
-                `;
-            });
-            tabelaConsulta.innerHTML = itensLista;
-            break;
+                tabelaConsulta.innerHTML = itensLista;
+                break;
 
-        case "Onibus":
-            itensLista = ``;
-            renderTabela.innerHTML = tableOnibus;
-            response.itens.forEach((item) => {
-                itensLista += `
-                    <tr>
-                        <td>${item.placa}</td>
-                        <td>${item.capacidadeTotal}</td>
-                        <td>${item.datasaida}</td>
-                        <td>${item.dataChegada}</td>
-                    </tr>
-                `;
-            });
-            tabelaConsulta.innerHTML = itensLista;
-            break;
+            case "Rota":
+                itensLista = ``;
+                renderTabela.innerHTML = tableRota;
+                response.itens.forEach((item) => {
+                    itensLista += `
+                        <tr>
+                            <td>${item.enderecoInicio}</td>
+                            <td>${item.enderecoFim}</td>
+                        </tr>
+                    `;
+                });
+                var tabelaConsulta = document.getElementById("tabelaConsulta");
 
-        case "Rota":
-            itensLista = ``;
-            renderTabela.innerHTML = tableRota;
-            response.itens.forEach((item) => {
-                itensLista += `
-                    <tr>
-                        <td>${item.enderecoInicio}</td>
-                        <td>${item.enderecoFim}</td>
-                    </tr>
-                `;
-            });
-            tabelaConsulta.innerHTML = itensLista;
-            break;
+                tabelaConsulta.innerHTML = itensLista;
+                break;
 
-        case "Viagens":
-            itensLista = ``;
-            renderTabela.innerHTML = tableViagens;
-            response.itens.forEach((item) => {
-                itensLista += `
-                    <tr>
-                        <td>${item.nomeMotorista}</td>
-                        <td>${item.placa}</td>
-                        <td>${item.dataSaida}</td>
-                        <td>${item.dataChegada}</td>
-                        <td>${item.enderecoOrigem}</td>
-                        <td>${item.enderecoFim}</td>
-                    </tr>
-                `;
-            });
-            tabelaConsulta.innerHTML = itensLista;
-            break;
-    }
+            case "Viagens":
+                itensLista = ``;
+                renderTabela.innerHTML = tableViagens;
+                response.itens.forEach((item) => {
+                    itensLista += `
+                        <tr>
+                            <td>${item.nomeMotorista}</td>
+                            <td>${item.placa}</td>
+                            <td>${item.dataSaida}</td>
+                            <td>${item.dataChegada}</td>
+                            <td>${item.enderecoOrigem}</td>
+                            <td>${item.enderecoFim}</td>
+                        </tr>
+                    `;
+                });
+                var tabelaConsulta = document.getElementById("tabelaConsulta");
+
+                tabelaConsulta.innerHTML = itensLista;
+                break;
+        }
+
+    } catch (error) { 
+        throw error
+    }   
 
 }
 
@@ -151,7 +157,5 @@ async function consultarTabela() {
 //CHAMADA (FUNÇÕES)
 
 btnConsultar.addEventListener('click', async () => {
-
     await consultarTabela();
-
 });

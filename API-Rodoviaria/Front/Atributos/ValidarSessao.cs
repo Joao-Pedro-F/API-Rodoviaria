@@ -11,7 +11,7 @@ namespace Front.Atributos
 
             if (logado != "true")
             {
-                context.Result = new RedirectToActionResult("loginView", "Home", null);
+                context.Result = new RedirectToActionResult("loginView", "Login", null);
             }
         }
     }

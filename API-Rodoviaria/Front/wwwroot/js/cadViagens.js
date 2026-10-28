@@ -13,23 +13,23 @@ const urlPadrao = 'https://localhost:7171/api';
 async function renderOnibus() {
 
     try {
-    const res = await fetch(`${urlPadrao}/Onibus`, {
-        method: 'GET',
-        headers: { 'Content-Type': 'application/json' },
-        credentials: "include",
-    })
+        const res = await fetch(`${urlPadrao}/Onibus?Pagina=1&TamanhoPagina=100`, {
+            method: 'GET',
+            headers: { 'Content-Type': 'application/json' },
+            credentials: "include",
+        })
 
-    var response = await res.json();
+        var response = await res.json();
 
-    var selectLista;
+        var selectLista;
 
-    response.itens.forEach((item) => {
-        selectLista += `
-            <option value="${item.id}">${item.placa}</option>
-        `
-    });
+        response.itens.forEach((item) => {
+            selectLista += `
+                <option value="${item.id}">${item.placa}</option>
+            `
+        });
 
-    onibus.innerHTML = selectLista;
+        onibus.innerHTML = selectLista;
 
     } catch (error) {
         throw error
@@ -39,7 +39,7 @@ async function renderOnibus() {
 
 async function renderMotoristas() {
     try {
-        const res = await fetch(`${urlPadrao}/Motoristas`, {
+        const res = await fetch(`${urlPadrao}/Motoristas?Pagina=1&TamanhoPagina=100`, {
             method: 'GET',
             credentials: "include",
             headers: { 'Content-Type': 'application/json' },
@@ -64,23 +64,23 @@ async function renderMotoristas() {
 
 async function renderRotas() {
     try {
-    const res = await fetch(`${urlPadrao}/Rota`, {
-        method: 'GET',
-        credentials: "include",
-        headers: { 'Content-Type': 'application/json' },
-    })
+        const res = await fetch(`${urlPadrao}/Rota?Pagina=1&TamanhoPagina=100`, {
+            method: 'GET',
+            credentials: "include",
+            headers: { 'Content-Type': 'application/json' },
+        })
 
-    var response = await res.json();
+        var response = await res.json();
 
-    var selectLista;
+        var selectLista;
 
-    response.itens.forEach((item) => {
-        selectLista += `
-            <option value="${item.id}">${item.enderecoInicio} -> ${item.enderecoFim}</option>
-        `
-    });
+        response.itens.forEach((item) => {
+            selectLista += `
+                <option value="${item.id}">${item.enderecoInicio} -> ${item.enderecoFim}</option>
+            `
+        });
 
-    rota.innerHTML = selectLista;
+        rota.innerHTML = selectLista;
 
     } catch (error){
         throw error
@@ -122,4 +122,18 @@ renderRotas();
 
 btnCadastrar.addEventListener('click', () => {
     cadastrarViajem();
+
+    dataSaida.value = ""
+    dataChegada.value = ""
+    onibus.value = ""
+    motorista.value = ""
+    rota.value = ""
+
+    mostrarToast('Viagem cadsatrada com sucesso!')
 });
+function mostrarToast(msg) {
+    const toastElemento = document.getElementById('toast');
+    toastElemento.querySelector('.toast-body').textContent = msg;
+    const toast = new bootstrap.Toast(toastElemento, { delay: 4000 });
+    toast.show();
+}

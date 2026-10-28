@@ -23,7 +23,8 @@ async function cadastrarRotas() {
         body: JSON.stringify(payload),
     });
 
-    var response = await res.json();
+        var response = await res.json();
+
     } catch (error){
         throw error
     }
@@ -35,4 +36,17 @@ async function cadastrarRotas() {
 
 btnCadastrar.addEventListener('click', async () => {
     await cadastrarRotas();
+
+    enderecoFinal.value = ""
+    enderecoInicial.value = ""
+
+    mostrarToast("Rota cadastrada com sucesso")
+
 })
+
+function mostrarToast(msg) {
+    const toastElemento = document.getElementById('toast');
+    toastElemento.querySelector('.toast-body').textContent = msg;
+    const toast = new bootstrap.Toast(toastElemento, { delay: 4000 });
+    toast.show();
+}  

@@ -7,29 +7,32 @@ async function fazerLogin() {
 
     try {
 
-    const payload = {
+        const payload = {
 
-        username: nome.value,
-        password: senha.value
-    }
+            username: nome.value,
+            password: senha.value
+        }
 
-    const res = await fetch("https://localhost:7171/api/Auth/login", {
-        method: 'POST',
-        credentials: "include",
-        headers: { 'Content-Type': 'application/json' },
-        body: JSON.stringify(payload),
-    });
+        const res = await fetch("https://localhost:7171/api/Auth/login", {
+            method: 'POST',
+            credentials: "include",
+            headers: { 'Content-Type': 'application/json' },
+            body: JSON.stringify(payload),
+        });
 
-    inputNome.value = ""
-    inputSenha.value = ""
+        if (!res.ok) return
 
-    var response = await res.json();
+        inputNome.value = ""
+        inputSenha.value = ""
 
-    localStorage.setItem("Expira", response.expiraEm);
+        var response = await res.json();
 
-    const resLogar = await fetch(`https://localhost:7217/Login/Logar`, {
-        method: 'POST',
-    })
+        localStorage.setItem("Expira", response.expiraEm);
+        localStorage.setItem("Usuario", response.perfil);
+
+        const resLogar = await fetch(`https://localhost:7217/Login/Logar`, {
+            method: 'POST',
+        })
 
     window.location.href = "/Home/Index";
 
