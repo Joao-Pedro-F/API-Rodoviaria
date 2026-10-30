@@ -3,14 +3,19 @@ const btnConsultar = document.getElementById("btnConsultar");
 const qtdPag = document.getElementById("qtdPag");
 const selectTipo = document.getElementById("selectTipo");
 const renderTabela = document.getElementById("renderTabela");
+const cancelar = document.querySelector(".cancelar");
+const cancelar1 = document.querySelector(".cancelar1");
+const confirmar = document.querySelector(".confirmar");
 
 const urlPadrao = 'https://localhost:7171/api';
+let id;
 
 var tableMotorista = `
     <table class="table table-striped">
         <thead>
             <tr>
                 <th>Nome</th>
+                <th>Alterações</th>
             </tr>
         </thead>
         <tbody id="tabelaConsulta">
@@ -25,6 +30,7 @@ var tableOnibus = `
                 <th>Capacidade</th>
                 <th>Data Saída</th>
                 <th>Data Chegada</th>
+                <th>Alterações</th>
             </tr>
         </thead>
         <tbody id="tabelaConsulta">
@@ -37,6 +43,7 @@ var tableRota = `
             <tr>
                 <th>Endereço Inicial</th>
                 <th>Endereço Final</th>
+                <th>Alterações</th>
             </tr>
         </thead>
         <tbody id="tabelaConsulta">
@@ -53,6 +60,7 @@ var tableViagens = `
                 <th>Data Chegada</th>
                 <th>Endereço Inicial</th>
                 <th>Endereço Final</th>
+                <th>Alterações</th>
             </tr>
         </thead>
         <tbody id="tabelaConsulta">
@@ -71,7 +79,6 @@ async function consultarTabela() {
         });
 
         var response = await res.json();
-        console.log(response)
     
         let itensLista = ``;
 
@@ -83,6 +90,10 @@ async function consultarTabela() {
                     itensLista += `
                         <tr>
                             <td>${item.nome}</td>
+                            <td>
+                                <button type="button" class="btn btn-sm btn-outline-secondary editar" data-id="${item.id}" data-bs-toggle="modal" data-bs-target="#modalEditar">Editar</button>
+                                <button type="button" class="btn btn-sm btn-outline-danger excluir" data-id="${item.id}" data-bs-toggle="modal" data-bs-target="#modalExcluir">Excluir</button>
+                            </td>
                         </tr>
                     `;
                 });
@@ -101,6 +112,10 @@ async function consultarTabela() {
                             <td>${item.capacidadeTotal}</td>
                             <td>${item.datasaida}</td>
                             <td>${item.dataChegada}</td>
+                            <td>
+                                <button type="button" class="btn btn-sm btn-outline-secondary editar" data-id="${item.id}" data-bs-toggle="modal" data-bs-target="#modalEditar">Editar</button>
+                                <button type="button" class="btn btn-sm btn-outline-danger excluir" data-id="${item.id}" data-bs-toggle="modal" data-bs-target="#modalExcluir">Excluir</button>
+                            </td>
                         </tr>
                     `;
                 });
@@ -117,6 +132,10 @@ async function consultarTabela() {
                         <tr>
                             <td>${item.enderecoInicio}</td>
                             <td>${item.enderecoFim}</td>
+                            <td>
+                                <button type="button" class="btn btn-sm btn-outline-secondary editar" data-id="${item.id}" data-bs-toggle="modal" data-bs-target="#modalEditar">Editar</button>
+                                <button type="button" class="btn btn-sm btn-outline-danger excluir" data-id="${item.id}" data-bs-toggle="modal" data-bs-target="#modalExcluir">Excluir</button>
+                            </td>
                         </tr>
                     `;
                 });
@@ -137,6 +156,10 @@ async function consultarTabela() {
                             <td>${item.dataChegada}</td>
                             <td>${item.enderecoOrigem}</td>
                             <td>${item.enderecoFim}</td>
+                            <td>
+                                <button type="button" class="btn btn-sm btn-outline-secondary editar" data-id="${item.id}" data-bs-toggle="modal" data-bs-target="#modalEditar">Editar</button>
+                                <button type="button" class="btn btn-sm btn-outline-danger excluir" data-id="${item.id}" data-bs-toggle="modal" data-bs-target="#modalExcluir">Excluir</button>
+                            </td>
                         </tr>
                     `;
                 });
@@ -152,10 +175,57 @@ async function consultarTabela() {
 
 }
 
+async function deletar() {
 
+    const res = await fetch(`${urlPadrao}/${selectTipo.value}/${id}`, {
+        method: 'DELETE',
+        credentials: "include",
+        headers: { 'Content-Type': 'application/json' },
+    });
+
+    if (!res.ok) {
+        switch (selectTipo.value) {
+            case "Motoristas":
+                console.log("Não foi possível apagar pelo motoristar estar vinculado à uma viagem!")
+                break;
+            case "Onibus":
+                console.log("Não foi possível apagar por onibus estar vinculado à uma viagem!")
+                break;
+            case "Rota":
+                console.log("Não foi possível apagar pois a rota esta vinculada à uma viagem!")
+                break;
+        }
+    }
+
+}
+
+async function rendeEdit() {
+
+}
+async function editar() {
+
+}
 
 //CHAMADA (FUNÇÕES)
 
 btnConsultar.addEventListener('click', async () => {
     await consultarTabela();
 });
+
+renderTabela.addEventListener('click', async (event) => {
+    const btn = event.target.closest(".excluir");
+    if (btn) {
+        id = btn.dataset.id;
+    }
+});
+
+cancelar.addEventListener('click', async () => {
+    id = "";
+});
+cancelar1.addEventListener('click', async () => {
+    id = "";
+});
+confirmar.addEventListener('click', async () => {
+    deletar()
+});
+

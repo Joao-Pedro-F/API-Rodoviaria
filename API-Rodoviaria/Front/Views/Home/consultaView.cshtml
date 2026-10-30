@@ -35,3 +35,37 @@
 @section Scripts {
     <script src="~/js/consulta.js"></script>
 }
+
+@section Modals {
+
+    <div class="modal fade" id="modalEditar" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+        <div class="modal-dialog">
+            <div class="modal-content rounded-2">
+                <div class="modal-header border-0">
+                    <h1 class="modal-title fs-5" id="exampleModalLabel">Editar</h1>
+                    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                </div>
+                <div class="modal-body conteudoViagens d-flex justify-content-start">
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <div class="modal fade" id="modalExcluir" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+        <div class="modal-dialog">
+            <div class="modal-content rounded-2">
+                <div class="modal-header border-0">
+                    <h1 class="modal-title fs-5" id="exampleModalLabel">Excluir</h1>
+                    <button type="button" class="btn-close cancelar1" data-bs-dismiss="modal" aria-label="Close"></button>
+                </div>
+                <div class="modal-body conteudoViagens d-flex justify-content-start">
+                    <p class="fs-5">Tem certeza de que gostaria de excluir??</p>
+                </div>
+                <div class="border-0 d-flex flex-row p-3 gap-2">
+                    <button type="button" class="btn btn-outline-danger confirmar w-100">Sim</button>
+                    <button type="button" class="btn btn-outline-success cancelar w-100" data-bs-dismiss="modal" aria-label="Close">Cancelar</button>
+                </div>
+            </div>
+        </div>
+    </div>
+}
