@@ -11,20 +11,37 @@ const urlPadrao = "https://localhost:7171/api";
 async function cadastrarMotorista() {
 
     try {
-    const payload = {
-        nome: iNome.value,
-        cpf: iCpf.value,
-        cnh: iCnh.value
-    }
+        btnCadastrar.textContent = "Carregando..."
+        btnCadastrar.setAttribute('disabled', '');
 
-    const res = await fetch(`https://localhost:7171/api/Motoristas`, {
-        method: 'POST',
-        credentials: "include",
-        headers: {'Content-Type': 'application/json' },
-        body: JSON.stringify(payload),
-    })     
+        const payload = {
+            nome: iNome.value,
+            cpf: iCpf.value,
+            cnh: iCnh.value
+        }
+
+        const res = await fetch(`https://localhost:7171/api/Motoristas`, {
+            method: 'POST',
+            credentials: "include",
+            headers: { 'Content-Type': 'application/json' },
+            body: JSON.stringify(payload),
+        })
+
+        if (!res.ok) return
+
+        iNome.value = "";
+        iCpf.value = "";
+        iCnh.value = "";
+
+        mostrarToast("Motorista Cadastrado com sucesso!");
+
     } catch (error) {
         throw error
+    } finally {
+
+        btnCadastrar.textContent = "Cadastrar";
+        btnCadastrar.removeAttribute('disabled');
+
     }
 
 }
@@ -32,12 +49,6 @@ async function cadastrarMotorista() {
 //CHAMADO (FUNÇÕES)
 btnCadastrar.addEventListener('click', async () => {
     await cadastrarMotorista();
-
-    iNome.value = "";
-    iCpf.value = "";
-    iCnh.value = "";
-
-    mostrarToast("Motorista Cadastrado com sucesso!");
 });
 
 function mostrarToast(msg) {

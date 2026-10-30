@@ -166,11 +166,10 @@ builder.Services.AddScoped<IDeletarReservaCasoDeUso,DeletarReservaCasoDeUso>();
 #region instanciar jwt
 // lê seção "Jwt" e regista a instância
 var jwtConfig = builder.Configuration.GetSection("Jwt").Get<JwtConfiguracoes>();
-builder.Services.AddSingleton(jwtConfig);
+//builder.Services.AddSingleton(jwtConfig);
 // ou com IOptions
 builder.Services.Configure<JwtConfiguracoes>(builder.Configuration.GetSection("Jwt"));
 builder.Services.AddSingleton(sp => sp.GetRequiredService<Microsoft.Extensions.Options.IOptions<JwtConfiguracoes>>().Value);
-<<<<<<< HEAD
 
 
 
@@ -188,11 +187,8 @@ var app = builder.Build();
 
 app.UseCors("AllowLocalhost");
 
-=======
 #endregion
-var app = builder.Build();
 #region migration
->>>>>>> 13c5ae58918cb8210b155ffe2d03469bdc6221a1
 // ---------- Migrations + dados iniciais ----------
 using (var escopo = app.Services.CreateScope())
 {

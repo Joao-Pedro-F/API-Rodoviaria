@@ -73,6 +73,13 @@ async function renderViajem() {
 
 }
 
+function mostrarToast(msg) {
+    const toastElemento = document.getElementById('toast');
+    toastElemento.querySelector('.toast-body').textContent = msg;
+    const toast = new bootstrap.Toast(toastElemento, { delay: 4000 });
+    toast.show();
+} 
+
 //CHAMADA (FUNÇÕES)
 
 renderViajens();

@@ -10,23 +10,35 @@ const urlPadrao = 'https://localhost:7171/api';
 async function cadastrarRotas() {
 
     try {
+        btnCadastrar.textContent = "Carregando..."
+        btnCadastrar.setAttribute('disabled', '');
 
-    const payload = {
-        enderecoInicio : enderecoInicial.value,
-        enderecoFim : enderecoFinal.value,
-    }
+        const payload = {
+            enderecoInicio: enderecoInicial.value,
+            enderecoFim: enderecoFinal.value,
+        }
 
-    const res = await fetch(`${urlPadrao}/Rota`, {
-        method: 'POST',
-        credentials: "include",
-        headers: { 'Content-Type': 'application/json' },
-        body: JSON.stringify(payload),
-    });
+        const res = await fetch(`${urlPadrao}/Rota`, {
+            method: 'POST',
+            credentials: "include",
+            headers: { 'Content-Type': 'application/json' },
+            body: JSON.stringify(payload),
+        });
+
+        if(!res.ok) return
 
         var response = await res.json();
 
-    } catch (error){
+        enderecoFinal.value = "";
+        enderecoInicial.value = "";
+
+        mostrarToast("Rota cadastrada com sucesso")
+
+    } catch (error) {
         throw error
+    } finally {
+        btnCadastrar.textContent = "Cadastrar";
+        btnCadastrar.removeAttribute('disabled');
     }
 }
 
@@ -36,12 +48,6 @@ async function cadastrarRotas() {
 
 btnCadastrar.addEventListener('click', async () => {
     await cadastrarRotas();
-
-    enderecoFinal.value = ""
-    enderecoInicial.value = ""
-
-    mostrarToast("Rota cadastrada com sucesso")
-
 })
 
 function mostrarToast(msg) {

@@ -13,32 +13,49 @@ const urlPadrao = 'https://localhost:7171/api';
 //FUNÇÕES
 
 async function cadastrarOnibus() {
-
     const dataChegadaISO = new Date(dataChegada.value).toISOString();
     const dataSaidaISO = new Date(dataSaida.value).toISOString();
 
     try {
-    let payload = {
-        placa : placa.value,
-        capacidadeTotal : capTotal.value,
-        fkMotorista : motorista.value,
-        enderecoInicio : enderecoInicio.value,
-        enderecoFim : enderecoFIm.value,
-        dataSaida: dataSaidaISO,
-        dataChegada: dataChegadaISO 
-    }
+        btnCadastrar.textContent = "Carregando..."
+        btnCadastrar.setAttribute('disabled', '');
 
-    const res = await fetch(`${urlPadrao}/Onibus`, {
-       method: 'POST',
-       credentials: "include",
-       headers: { 'Content-Type': 'application/json' },
-       body: JSON.stringify(payload),
-    })
+        let payload = {
+            placa: placa.value,
+            capacidadeTotal: capTotal.value,
+            fkMotorista: motorista.value,
+            enderecoInicio: enderecoInicio.value,
+            enderecoFim: enderecoFIm.value,
+            dataSaida: dataSaidaISO,
+            dataChegada: dataChegadaISO
+        }
 
-    var response = await res.json();
+        const res = await fetch(`${urlPadrao}/Onibus`, {
+            method: 'POST',
+            credentials: "include",
+            headers: { 'Content-Type': 'application/json' },
+            body: JSON.stringify(payload),
+        })
+
+        if (!res.ok) return
+
+        var response = await res.json();
+
+        placa.value = "";
+        capTotal.value = "";
+        enderecoInicio.value = "";
+        enderecoFIm.value = "";
+        dataSaida.value = "";
+        dataChegada.value = "";
+        motorista.value = "";
+
+        mostrarToast("Ônibus cadastrado com sucesso!");
 
     } catch (error) {
         throw error
+    } finally {
+        btnCadastrar.textContent = "Cadastrar";
+        btnCadastrar.removeAttribute('disabled');
     }
 
 }
@@ -68,7 +85,6 @@ async function renderMotoristas() {
     } catch (error) {
         throw error
     }
-
 }
 
 //CHAMADO (FUNÇÕES)
@@ -77,16 +93,6 @@ renderMotoristas();
 
 btnCadastrar.addEventListener('click', async () => {
     await cadastrarOnibus();
-
-    placa.value = ""
-    capTotal.value = ""
-    enderecoInicio.value = ""
-    enderecoFIm.value = ""
-    dataSaida.value = ""
-    dataChegada.value = ""
-    motorista.value = ""
-
-    mostrarToast("Ônibus cadastrado com sucesso!");
 });
 
 function mostrarToast(msg) {
