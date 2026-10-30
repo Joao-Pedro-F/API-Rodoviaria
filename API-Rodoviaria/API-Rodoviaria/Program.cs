@@ -67,6 +67,7 @@ builder.Services.AddSwaggerGen();
 // ---------- Banco ----------
 builder.Services.AddDbContext<RodoviariaDbContext>(opcoes =>
 opcoes.UseNpgsql(builder.Configuration.GetConnectionString("Padrao")));
+#region cookies
 // ---------- JWT lido do COOKIE ----------
 var chaveJwt = builder.Configuration["Jwt:Chave"]
 ?? throw new InvalidOperationException("Configure 'Jwt:Chave' no appsettings.json.");
@@ -102,75 +103,74 @@ builder.Services
         }
     };
 });
+#endregion
 builder.Services.AddAuthorization();
+#region dependencias
 // ---------- Injeção de dependência ----------
 builder.Services.AddScoped<IServicoHashSenha, ServicoHashSenha>();
 builder.Services.AddScoped<IServicoToken, ServicoToken>();
 builder.Services.AddScoped<IRepositorioUsuario, RepositorioUsuario>();
-builder.Services.AddScoped<IRepositorioMotorista, RepositorioMotorista>
-();
+builder.Services.AddScoped<IRepositorioMotorista, RepositorioMotorista>();
 builder.Services.AddScoped<IRepositorioOnibus, RepositorioOnibus>();
 builder.Services.AddScoped<IRepositorioRota, RepositorioRota>();
 builder.Services.AddScoped<IRepositorioViagem, RepositorioViagem>();
 builder.Services.AddScoped<IRepositorioReserva, RepositorioReserva>();
 builder.Services.AddScoped<IRepositorioPerfil, RepositorioPerfil>();
 builder.Services.AddScoped<IRepositorioCadeira, RepositorioCadeira>();
-// Usuário
-builder.Services.AddScoped<ICriarUsuarioCasoDeUso, CriarUsuarioCasoDeUso>
-();
+#endregion
+#region usuario
+builder.Services.AddScoped<ICriarUsuarioCasoDeUso, CriarUsuarioCasoDeUso>();
 builder.Services.AddScoped<ILoginCasoDeUso, LoginCasoDeUso>();
 builder.Services.AddScoped<IPaginacaoUsuarioCasoDeUso, PaginacaoUsuarioCasoDeUso>();
 builder.Services.AddScoped<IListarUsuarioCasoDeUso, ListarUsuarioCasoDeUso>();
 builder.Services.AddScoped<IAtualizarUsuarioCasoDeUso, AtualizarUsuarioCasoDeUso>();
 builder.Services.AddScoped<IDeletarUsuarioCasoDeUso, DeletarUsuarioCasoDeUso>();
-// Motorista
+#endregion
+#region motorista
 builder.Services.AddScoped<ICriarMotoristaCasoDeUso, CriarMotoristaCasoDeUso>();
 builder.Services.AddScoped<IVerMotoristaPaginadoCasoDeUso, VerMotoristaPaginadoCasoDeUso>();
 builder.Services.AddScoped<IVerMotoristaPorIdCasoDeUso, VerMotoristaPorIdCasoDeUso>();
 builder.Services.AddScoped<IAtualizarMotoristaCasoDeUso, AtualizarMotoristaCasoDeUso>();
 builder.Services.AddScoped<IDeletarMotoristaCasoDeUso, DeletarMotoristaCasoDeUso>();
-// Ônibus
+#endregion
+#region onibus
 builder.Services.AddScoped<ICriarOnibusCasoDeUso, CriarOnibusCasoDeUso>();
-builder.Services.AddScoped<IListarOnibusCasoDeUso, ListarOnibusCasoDeUso>
-();
+builder.Services.AddScoped<IListarOnibusCasoDeUso, ListarOnibusCasoDeUso>();
 builder.Services.AddScoped<IVerOnibusPorIdCasoDeUso, VerOnibusPorIdCasoDeUso>();
 builder.Services.AddScoped<IAtualizarOnibusCasoDeUso, AtualizarOnibusCasoDeUso>();
-builder.Services.AddScoped<IDeletarOnibusCasoDeUso, DeletarOnibusCasoDeUso>
-();
-// Rota
+builder.Services.AddScoped<IDeletarOnibusCasoDeUso, DeletarOnibusCasoDeUso>();
+#endregion
+#region rota
 builder.Services.AddScoped<IRepositorioRota, RepositorioRota>();
 builder.Services.AddScoped<ICriarRotaCasoDeUso, CriarRotaCasoDeUso>();
 builder.Services.AddScoped<IPaginacaoRotaCasoDeUso, PaginacaoRotaCasoDeUso>();
 builder.Services.AddScoped<IObterRotaPorId, ObterRotaPorId>();
-builder.Services.AddScoped<IAtualizarRotaCasoDeUso, AtualizarRotaCasoDeUso>
-();
+builder.Services.AddScoped<IAtualizarRotaCasoDeUso, AtualizarRotaCasoDeUso>();
 builder.Services.AddScoped<IDeletarRotaCasoDeUso, DeletarRotaCasoDeUso>();
-// Viagem
+#endregion
+#region viagem
 builder.Services.AddScoped<IPaginacaoViagemCasoDeUso, PaginacaoViagemCasoDeUso>();
 builder.Services.AddScoped<ICriarViagemCasoDeUso, CriarViagemCasoDeUso>();
-builder.Services.AddScoped<IListarViagensCasoDeUso, ListarViagensCasoDeUso>
-();
+builder.Services.AddScoped<IListarViagensCasoDeUso, ListarViagensCasoDeUso>();
 builder.Services.AddScoped<IListarViagensCasoDeUso, ListarViagensCasoDeUso>();
 builder.Services.AddScoped<IAtualizarViagemCasoDeUso, AtualizarViagemCasoDeUso>();
-builder.Services.AddScoped<IDeletarViagemCasoDeUso, DeletarViagemCasoDeUso>
-();
-// Reserva
-builder.Services.AddScoped<ICriarReservaCasoDeUso, CriarReservaCasoDeUso>
-();
-builder.Services.AddScoped<IListarReservaCasoDeUso,
-ListarReservaCasoDeUso>();
-builder.Services.AddScoped<IObterReservaPorId,
-ObterReservaPorId>();
-builder.Services.AddScoped<IAtualizarReservaCasoDeUso,
-AtualizarReservaCasoDeUso>();
-builder.Services.AddScoped<IDeletarReservaCasoDeUso,
-DeletarReservaCasoDeUso>();
+builder.Services.AddScoped<IDeletarViagemCasoDeUso, DeletarViagemCasoDeUso>();
+#endregion
+#region reserva
+builder.Services.AddScoped<ICriarReservaCasoDeUso, CriarReservaCasoDeUso>();
+builder.Services.AddScoped<IListarReservaCasoDeUso,ListarReservaCasoDeUso>();
+builder.Services.AddScoped<IObterReservaPorId,ObterReservaPorId>();
+builder.Services.AddScoped<IAtualizarReservaCasoDeUso,AtualizarReservaCasoDeUso>();
+builder.Services.AddScoped<IDeletarReservaCasoDeUso,DeletarReservaCasoDeUso>();
+#endregion
+#region instanciar jwt
 // lê seção "Jwt" e regista a instância
 var jwtConfig = builder.Configuration.GetSection("Jwt").Get<JwtConfiguracoes>();
 builder.Services.AddSingleton(jwtConfig);
 // ou com IOptions
 builder.Services.Configure<JwtConfiguracoes>(builder.Configuration.GetSection("Jwt"));
 builder.Services.AddSingleton(sp => sp.GetRequiredService<Microsoft.Extensions.Options.IOptions<JwtConfiguracoes>>().Value);
+<<<<<<< HEAD
 
 
 
@@ -188,6 +188,11 @@ var app = builder.Build();
 
 app.UseCors("AllowLocalhost");
 
+=======
+#endregion
+var app = builder.Build();
+#region migration
+>>>>>>> 13c5ae58918cb8210b155ffe2d03469bdc6221a1
 // ---------- Migrations + dados iniciais ----------
 using (var escopo = app.Services.CreateScope())
 {
@@ -220,6 +225,7 @@ using (var escopo = app.Services.CreateScope())
         await db.SaveChangesAsync();
     }
 }
+#endregion
 app.UseMiddleware<TratamentoErrosMiddleware>();
 if (app.Environment.IsDevelopment())
 {
