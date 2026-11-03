@@ -20,10 +20,14 @@ async function fazerLogin() {
             body: JSON.stringify(payload),
         });
 
-        if (!res.ok) return
+        if (!res.ok) {
+            return
+            }
 
         inputNome.value = ""
         inputSenha.value = ""
+
+        mostrarToast("Usuário logado com sucesso!");
 
         var response = await res.json();
 
@@ -34,9 +38,11 @@ async function fazerLogin() {
             method: 'POST',
         })
 
-    window.location.href = "/Home/Index";
+        localStorage.setItem('toastSucesso', 'Login realizado com sucesso!');
+        window.location.href = "/Home/consultaViewSS";
 
     } catch (error) {
+        mostrarToast("Não foi possível fazer login.")
         throw error
     }
 }
@@ -44,3 +50,10 @@ async function fazerLogin() {
 btnlogar.addEventListener('click', async () => {
     await fazerLogin()
 })
+
+function mostrarToast(msg) {
+    const toastElemento = document.getElementById('toast');
+    toastElemento.querySelector('.toast-body').textContent = msg;
+    const toast = new bootstrap.Toast(toastElemento, { delay: 4000 });
+    toast.show();
+} 

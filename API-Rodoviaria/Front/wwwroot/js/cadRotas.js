@@ -35,14 +35,13 @@ async function cadastrarRotas() {
         mostrarToast("Rota cadastrada com sucesso")
 
     } catch (error) {
+        mostrarToast("Não foi possível cadastrar esta rota.")
         throw error
     } finally {
         btnCadastrar.textContent = "Cadastrar";
         btnCadastrar.removeAttribute('disabled');
     }
 }
-
-
 
 //CHAMADA (FUNÇÕES)
 

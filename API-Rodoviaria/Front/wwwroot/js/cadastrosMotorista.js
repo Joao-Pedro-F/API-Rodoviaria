@@ -27,7 +27,12 @@ async function cadastrarMotorista() {
             body: JSON.stringify(payload),
         })
 
-        if (!res.ok) return
+
+
+        if (!res.ok) {
+            mostrarToast("Não foi possível cadastrar motorista.")
+            return
+        } 
 
         iNome.value = "";
         iCpf.value = "";
@@ -36,6 +41,7 @@ async function cadastrarMotorista() {
         mostrarToast("Motorista Cadastrado com sucesso!");
 
     } catch (error) {
+
         throw error
     } finally {
 

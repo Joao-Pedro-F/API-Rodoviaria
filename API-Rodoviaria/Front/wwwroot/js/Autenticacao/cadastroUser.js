@@ -27,7 +27,10 @@ async function cadastrarUser() {
         credentials: "include",
     });
 
-    if (!sendRequest.ok) return
+        if (!sendRequest.ok) {
+            mostrarToast("Não foi possível cadastrar usuário.")
+            return
+        }
 
     inputNome.value = "";
     inputEmail.value = "";
@@ -37,6 +40,7 @@ async function cadastrarUser() {
     window.location.href = "/Login/loginView";
 
     } catch (error) {
+        mostrarToast("Não foi possível cadastrar usuário.")
         throw error
     }
 
@@ -47,3 +51,10 @@ async function cadastrarUser() {
 btnCadastrar.addEventListener('click', async () => {
     await cadastrarUser()
 })
+
+function mostrarToast(msg) {
+    const toastElemento = document.getElementById('toast');
+    toastElemento.querySelector('.toast-body').textContent = msg;
+    const toast = new bootstrap.Toast(toastElemento, { delay: 4000 });
+    toast.show();
+} 

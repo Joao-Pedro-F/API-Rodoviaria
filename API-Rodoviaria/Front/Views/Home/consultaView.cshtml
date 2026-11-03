@@ -24,6 +24,11 @@
                 </div>
                 <button id="btnConsultar" style="width: 33vh; height: 7vh" class="btn btn-secondary shadow-none w-25 mt-1" type="button">Consultar</button>
             </div>
+
+            <div id="toast" class="toast position-fixed bottom-0 fs-5 end-0 m-3" role="alert">
+                <div class="toast-body"></div>
+            </div>
+
         </form>
 
         <div id="renderTabela" class="mt-4"></div>
@@ -62,7 +67,7 @@
                     <button type="button" class="btn-close cancelar1" data-bs-dismiss="modal" aria-label="Close"></button>
                 </div>
                 <div class="modal-body d-flex justify-content-start">
-                    <p class="fs-5">Tem certeza de que gostaria de excluir??</p>
+                    <p class="fs-5">Tem certeza de que gostaria de excluir?</p>
                 </div>
                 <div class="border-0 d-flex flex-row p-3 gap-2">
                     <button type="button" class="btn btn-outline-danger confirmar w-100">Sim</button>

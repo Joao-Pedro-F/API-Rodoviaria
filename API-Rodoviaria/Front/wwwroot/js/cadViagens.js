@@ -116,8 +116,10 @@ async function cadastrarViajem() {
             body: JSON.stringify(payload),
         })
 
-        if(!res.ok) return
-
+        if (!res.ok) {
+            mostrarToast("Erro ao cadastrar viagem.")
+            return
+        }
         var response = await res.json();
 
         dataSaida.value = "";
@@ -127,6 +129,7 @@ async function cadastrarViajem() {
 
     } catch (error) {
         throw error
+
     } finally {
         btnCadastrar.textContent = "Cadastrar"
         btnCadastrar.removeAttribute('disabled');

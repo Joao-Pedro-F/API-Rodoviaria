@@ -37,7 +37,9 @@ async function cadastrarOnibus() {
             body: JSON.stringify(payload),
         })
 
-        if (!res.ok) return
+        if (!res.ok) {
+            return
+        }
 
         var response = await res.json();
 
@@ -49,9 +51,9 @@ async function cadastrarOnibus() {
         dataChegada.value = "";
         motorista.value = "";
 
-        mostrarToast("Ônibus cadastrado com sucesso!");
 
     } catch (error) {
+        mostrarToast("Ônibus cadastrado com sucesso!");
         throw error
     } finally {
         btnCadastrar.textContent = "Cadastrar";

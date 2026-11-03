@@ -2,34 +2,19 @@
     ViewData["Title"] = "Viagens";
 }
 
-<div class="bg-light text-center mt-4">
-    <div>
-        <table class="table table-striped">
-            <thead>
-                <tr>
-                    <th>Endereço Inicial</th>
-                    <th>Endereço Final</th>
-                    <th>Data Saida</th>
-                    <th>Data Chegada</th>
-                    <th>Motorista</th>
-                    <th>Mais Informações</th>
-                </tr>
-            </thead>
-            <tbody id="listarViajens"></tbody>
-        </table>
-    </div>
+<div class="bg-light text-center mt-4 pb-2 container rounded-2">
+    <div id="containerTabela"></div>
 
     <div id="toast" class="toast position-fixed bottom-0 fs-5 end-0 m-3" role="alert">
         <div class="toast-body"></div>
     </div>
 </div>
 
-@section Scripts {  
+@section Scripts {
     <script src="~/js/viajens.js"></script>
 }
 
 @section Modals {
-
     <div class="modal fade" id="teste" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
         <div class="modal-dialog">
             <div class="modal-content rounded-2">
@@ -45,5 +30,4 @@
             </div>
         </div>
     </div>
-
 }
