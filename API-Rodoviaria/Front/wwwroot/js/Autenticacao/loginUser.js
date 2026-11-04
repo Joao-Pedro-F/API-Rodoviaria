@@ -39,7 +39,7 @@ async function fazerLogin() {
         })
 
         localStorage.setItem('toastSucesso', 'Login realizado com sucesso!');
-        window.location.href = "/Home/consultaViewSS";
+        window.location.href = "/Home/consultaView";
 
     } catch (error) {
         mostrarToast("Não foi possível fazer login.")

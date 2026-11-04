@@ -7,8 +7,19 @@ const confirmar = document.querySelector(".confirmar");
 const conteudoViagens = document.querySelector(".conteudoViagens");
 
 const urlPadrao = 'https://localhost:7171/api';
+
 let id;
-let tipo;
+let nome;
+let cpf;
+let cnh;
+let placa;
+let capacidade;
+let dSaida;
+let dChegada;
+let enderecoI;
+let enderecoF;
+
+let tipo = "Motoristas";
 let paginaAtualGlobal = 1;
 let totalPaginasGlobal = 1;
 
@@ -37,6 +48,7 @@ var tableOnibus = `
         <thead>
             <tr>
                 <th>Placa</th>
+                <th>Motorista</th>
                 <th>Capacidade</th>
                 <th>Data Saída</th>
                 <th>Data Chegada</th>
@@ -134,7 +146,7 @@ async function consultarTabela(pagina = 1) {
                         <tr>
                             <td>${item.nome}</td>
                             <td class="text-end pe-4">
-                                <button type="button" class="btn btn-sm btn-outline-secondary editar" data-id="${item.id}" data-bs-toggle="modal" data-bs-target="#modalEditar">Editar</button>
+                                <button type="button" class="btn btn-sm btn-outline-secondary editar" data-id="${item.id}" data-nome="${item.nome}" data-cpf="${item.cpf}" data-cnh="${item.cnh}" data-bs-toggle="modal" data-bs-target="#modalEditar">Editar</button>
                                 <button type="button" class="btn btn-sm btn-outline-danger excluir" data-id="${item.id}" data-bs-toggle="modal" data-bs-target="#modalExcluir">Excluir</button>
                             </td>
                         </tr>
@@ -148,11 +160,12 @@ async function consultarTabela(pagina = 1) {
                     itensLista += `
                         <tr>
                             <td>${item.placa}</td>
+                            <td>${item.motorista}</td>
                             <td>${item.capacidadeTotal}</td>
                             <td>${item.datasaida}</td>
                             <td>${item.dataChegada}</td>
                             <td class="text-end pe-4">
-                                <button type="button" class="btn btn-sm btn-outline-secondary editar" data-id="${item.id}" data-bs-toggle="modal" data-bs-target="#modalEditar">Editar</button>
+                                <button type="button" class="btn btn-sm btn-outline-secondary editar" data-id="${item.id}" data-placa="${item.placa}" data-capacidade="${item.capacidadeTotal}" data-enderecoI="${item.enderecoInicio}" data-dsaida="${item.datasaida}" data-dchegada="${item.dataChegada}" data-enderecoF="${item.enderecoFim}" data-bs-toggle="modal" data-bs-target="#modalEditar">Editar</button>
                                 <button type="button" class="btn btn-sm btn-outline-danger excluir" data-id="${item.id}" data-bs-toggle="modal" data-bs-target="#modalExcluir">Excluir</button>
                             </td>
                         </tr>
@@ -168,7 +181,7 @@ async function consultarTabela(pagina = 1) {
                             <td>${item.enderecoInicio}</td>
                             <td>${item.enderecoFim}</td>
                             <td class="text-end pe-4">
-                                <button type="button" class="btn btn-sm btn-outline-secondary editar" data-id="${item.id}" data-bs-toggle="modal" data-bs-target="#modalEditar">Editar</button>
+                                <button type="button" class="btn btn-sm btn-outline-secondary editar" data-id="${item.id}" data-EnderecoI="${item.enderecoInicio}" data-EnderecoF="${item.enderecoFim}" data-bs-toggle="modal" data-bs-target="#modalEditar">Editar</button>
                                 <button type="button" class="btn btn-sm btn-outline-danger excluir" data-id="${item.id}" data-bs-toggle="modal" data-bs-target="#modalExcluir">Excluir</button>
                             </td>
                         </tr>
@@ -188,7 +201,7 @@ async function consultarTabela(pagina = 1) {
                             <td>${item.enderecoOrigem}</td>
                             <td>${item.enderecoFim}</td>
                             <td class="text-end pe-4">
-                                <button type="button" class="btn btn-sm btn-outline-secondary editar" data-id="${item.id}" data-bs-toggle="modal" data-bs-target="#modalEditar">Editar</button>
+                                <button type="button" class="btn btn-sm btn-outline-secondary editar" data-id="${item.id}" data-dsaida="${item.dataSaida}" data-dchegada="${item.dataChegada}" data-bs-toggle="modal" data-bs-target="#modalEditar">Editar</button>
                                 <button type="button" class="btn btn-sm btn-outline-danger excluir" data-id="${item.id}" data-bs-toggle="modal" data-bs-target="#modalExcluir">Excluir</button>
                             </td>
                         </tr>
@@ -246,15 +259,15 @@ function renderEdit() {
             render = `
                 <div class="mb-3">
                     <div class="form-floating">
-                        <input type="text" class="form-control shadow-none mb-2" id="inputNome" />
+                        <input type="text" class="form-control shadow-none mb-2" id="inputNome" value="${nome}"/>
                         <label for="inputNome" class="form-label text-start px-3">Nome</label>
                     </div>
                     <div class="form-floating">
-                        <input type="text" maxlength="15" class="form-control shadow-none mb-2" id="inputCPF" />
+                        <input type="text" maxlength="15" class="form-control shadow-none mb-2" id="inputCPF" value="${cpf}"/>
                         <label for="inputCPF" class="form-label text-start px-3">CPF</label>
                     </div>
                     <div class="form-floating">
-                        <input type="text" maxlength="15" class="form-control shadow-none mb-3" id="inputCNH" />
+                        <input type="text" maxlength="15" class="form-control shadow-none mb-3" id="inputCNH" value="${cnh}"/>
                         <label for="inputCNH" class="form-label text-start px-3">CNH</label>
                     </div>
                 </div>
@@ -266,11 +279,11 @@ function renderEdit() {
             render = `
                 <div class="mb-3 d-flex flex-column gap-2">
                     <div class="form-floating">
-                        <input type="text" maxlength="7" class="form-control shadow-none" id="inputPlaca" />
+                        <input type="text" maxlength="7" class="form-control shadow-none" id="inputPlaca" value="${placa}"/>
                         <label for="inputPlaca">Placa do Veículo:</label>
                     </div>
                     <div class="form-floating">
-                        <input type="number" class="form-control shadow-none" id="inputCapacidade" />
+                        <input type="number" class="form-control shadow-none" id="inputCapacidade" value="${capacidade}"/>
                         <label for="inputCapacidade">Capacidade do Veículo:</label>
                     </div>
                     <div class="form-floating">
@@ -279,19 +292,19 @@ function renderEdit() {
                         <label for="selectMotoristas">Selecione um Motorista:</label>
                     </div>
                     <div class="form-floating">
-                        <input type="text" class="form-control shadow-none" id="inputEnderecoI" />
+                        <input type="text" class="form-control shadow-none" id="inputEnderecoI" value="${enderecoI}"/>
                         <label for="inputEnderecoI">Endereço Inicial:</label>
                     </div>
                     <div class="form-floating">
-                        <input type="text" class="form-control shadow-none" id="inputEnderecoF" />
+                        <input type="text" class="form-control shadow-none" id="inputEnderecoF" value="${enderecoF}"/>
                         <label for="inputEnderecoF">Endereço Final:</label>
                     </div>
                     <div class="form-floating">
-                        <input type="datetime-local" class="form-control shadow-none" id="inputDataS" />
+                        <input type="datetime-local" class="form-control shadow-none" id="inputDataS" value="${dSaida}"/>
                         <label for="inputDataS">Data e hora Saída:</label>
                     </div>
                     <div class="form-floating">
-                        <input type="datetime-local" class="form-control shadow-none" id="inputDataC" />
+                        <input type="datetime-local" class="form-control shadow-none" id="inputDataC" value="${dChegada}"/>
                         <label for="inputDataC">Data e Hora Chegada:</label>
                     </div>   
                 </div>
@@ -305,11 +318,11 @@ function renderEdit() {
             render = `
                 <div class="mb-3 d-flex flex-column gap-2">
                     <div class="form-floating">
-                        <input type="text" class="form-control shadow-none" id="inputEnderecoI" />
+                        <input type="text" class="form-control shadow-none" id="inputEnderecoI" value="${enderecoI}"/>
                         <label for="inputEnderecoI">Endereço Inicial:</label>
                     </div>
                     <div class="form-floating">
-                        <input type="text" class="form-control shadow-none" id="inputEnderecoF" />
+                        <input type="text" class="form-control shadow-none" id="inputEnderecoF" value="${enderecoF}"/>
                         <label for="inputEnderecoF">Endereço Final:</label>
                     </div>
                 </div>
@@ -321,11 +334,11 @@ function renderEdit() {
             render = `
                 <div class="mb-3 d-flex flex-column gap-2">
                     <div class="form-floating">
-                        <input type="datetime-local" class="form-control shadow-none" id="inputDataS" />
+                        <input type="datetime-local" class="form-control shadow-none" id="inputDataS" value="${dSaida}"/>
                         <label for="inputDataS">Data Saida:</label>
                     </div>
                     <div class="form-floating">
-                        <input type="datetime-local" class="form-control shadow-none" id="inputDataC" />
+                        <input type="datetime-local" class="form-control shadow-none" id="inputDataC" value="${dChegada}"/>
                         <label for="inputDataC">Data Chegada:</label>
                     </div>
                     <div class="form-floating">
@@ -415,6 +428,11 @@ async function renderMotoristas() {
 }
 
 // CHAMADA (FUNÇÕES)
+document.addEventListener("DOMContentLoaded", () => {
+    consultarTabela(1)
+});
+
+
 
 btnConsultar.addEventListener('click', async () => {
     await consultarTabela(1);
@@ -428,7 +446,20 @@ renderTabela.addEventListener('click', async (event) => {
     }
     const btnEditar = event.target.closest(".editar");
     if (btnEditar) {
+        const rawSaida = btnEditar.dataset.dsaida;
+        const rawChegada = btnEditar.dataset.dchegada;
+
         id = btnEditar.dataset.id;
+        nome = btnEditar.dataset.nome;
+        cpf = btnEditar.dataset.cpf;
+        cnh = btnEditar.dataset.cnh;
+        placa = btnEditar.dataset.placa;
+        capacidade = btnEditar.dataset.capacidade;
+        enderecoI = btnEditar.dataset.enderecoi;
+        enderecoF = btnEditar.dataset.enderecof;
+        dSaida = rawSaida ? rawSaida.substring(0, 16) : "";
+        dChegada = rawChegada ? rawChegada.substring(0, 16) : "";
+
         renderEdit();
     }
     if (event.target.closest("#btnVoltar")) {
