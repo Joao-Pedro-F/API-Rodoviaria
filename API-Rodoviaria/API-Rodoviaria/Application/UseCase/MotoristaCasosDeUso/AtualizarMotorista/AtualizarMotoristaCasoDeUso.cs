@@ -27,9 +27,9 @@ public class AtualizarMotoristaCasoDeUso : IAtualizarMotoristaCasoDeUso
         if(string.IsNullOrWhiteSpace(requisicao.Cnh)) requisicao.Cnh=motorista.Cnh;
 
         Id = motorista.Id;
-        motorista.Nome = requisicao.Nome;
-        motorista.Cpf = motorista.Cpf;
-        motorista.Cnh = motorista.Cnh ?? motorista.Cnh;
+        motorista.Nome = requisicao.Nome ?? motorista.Nome;
+        motorista.Cpf = requisicao.Cpf ?? motorista.Cpf;
+        motorista.Cnh = requisicao.Cnh ?? motorista.Cnh;
 
         await _motoristaRepositorio.AtualizarAsync(motorista);
 

@@ -74,5 +74,14 @@ public class RepositorioViagem : IRepositorioViagem
             (!idViagemExcluida.HasValue || v.Id != idViagemExcluida.Value));
     }
 
+    public async Task<Viagem?> ObterComDetalhesAsync(int id)
+    {
+        return await _context.Viagem
+            .Include(v => v.Motorista)
+            .Include(v => v.Rota)
+            .Include(v => v.Onibus)
+            .FirstOrDefaultAsync(v => v.Id == id);
+    }
+
 }
 
