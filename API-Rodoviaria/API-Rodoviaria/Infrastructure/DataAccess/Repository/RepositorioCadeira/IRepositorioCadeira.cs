@@ -6,5 +6,7 @@ namespace API_Rodoviaria.Infrastructure.DataAccess.Repository.RepositorioCadeira
     {
         Task<List<Cadeira>> ObterPorOnibusAsync(int idOnibus);
         Task<List<Cadeira>> ObterPorIdsAsync(IEnumerable<int> idsCadeiras);
+
+        Task<(List<Cadeira> Itens, int Total)> ListarPaginadoAsync(int pagina, int tamanhoPagina);
     }
 }

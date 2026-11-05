@@ -30,6 +30,11 @@ namespace API_Rodoviaria.Migrations
 
                     NpgsqlPropertyBuilderExtensions.UseIdentityByDefaultColumn(b.Property<int>("Id"));
 
+                    b.Property<bool>("Disponivel")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("boolean")
+                        .HasDefaultValue(true);
+
                     b.Property<int>("FkOnibus")
                         .HasColumnType("integer");
 
@@ -345,19 +350,19 @@ namespace API_Rodoviaria.Migrations
             modelBuilder.Entity("API_Rodoviaria.Domain.Models.Viagem", b =>
                 {
                     b.HasOne("API_Rodoviaria.Domain.Models.Motorista", "Motorista")
-                        .WithMany("Viagem")
+                        .WithMany("Viagens")
                         .HasForeignKey("FkMotorista")
                         .OnDelete(DeleteBehavior.Restrict)
                         .IsRequired();
 
                     b.HasOne("API_Rodoviaria.Domain.Models.Onibus", "Onibus")
-                        .WithMany("Viagem")
+                        .WithMany("Viagens")
                         .HasForeignKey("FkOnibus")
                         .OnDelete(DeleteBehavior.Restrict)
                         .IsRequired();
 
                     b.HasOne("API_Rodoviaria.Domain.Models.Rota", "Rota")
-                        .WithMany("Viagem")
+                        .WithMany("Viagens")
                         .HasForeignKey("FkRota")
                         .OnDelete(DeleteBehavior.Restrict)
                         .IsRequired();
@@ -376,14 +381,14 @@ namespace API_Rodoviaria.Migrations
 
             modelBuilder.Entity("API_Rodoviaria.Domain.Models.Motorista", b =>
                 {
-                    b.Navigation("Viagem");
+                    b.Navigation("Viagens");
                 });
 
             modelBuilder.Entity("API_Rodoviaria.Domain.Models.Onibus", b =>
                 {
                     b.Navigation("Cadeiras");
 
-                    b.Navigation("Viagem");
+                    b.Navigation("Viagens");
                 });
 
             modelBuilder.Entity("API_Rodoviaria.Domain.Models.Perfil", b =>
@@ -398,7 +403,7 @@ namespace API_Rodoviaria.Migrations
 
             modelBuilder.Entity("API_Rodoviaria.Domain.Models.Rota", b =>
                 {
-                    b.Navigation("Viagem");
+                    b.Navigation("Viagens");
                 });
 
             modelBuilder.Entity("API_Rodoviaria.Domain.Models.Usuario", b =>

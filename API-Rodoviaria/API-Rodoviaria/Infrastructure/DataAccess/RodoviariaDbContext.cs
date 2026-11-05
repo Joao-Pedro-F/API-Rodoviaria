@@ -101,6 +101,8 @@ public class RodoviariaDbContext :DbContext
         mb.Entity<Cadeira>(e=> {            
             e.ToTable("Cadeira");
             e.HasKey(c => c.Id);
+            e.Property(c => c.Disponivel)
+            .HasDefaultValue(true);
             e.HasOne(c => c.Onibus)
              .WithMany(o => o.Cadeiras)
              .HasForeignKey(c => c.FkOnibus)

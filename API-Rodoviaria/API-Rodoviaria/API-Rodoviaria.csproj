@@ -8,6 +8,13 @@
   </PropertyGroup>
 
   <ItemGroup>
+    <Compile Remove="Application\UseCase\NovaPasta\**" />
+    <Content Remove="Application\UseCase\NovaPasta\**" />
+    <EmbeddedResource Remove="Application\UseCase\NovaPasta\**" />
+    <None Remove="Application\UseCase\NovaPasta\**" />
+  </ItemGroup>
+
+  <ItemGroup>
     <PackageReference Include="BCrypt.Net-Next" Version="4.2.0" />
     <PackageReference Include="Microsoft.AspNetCore.Authentication.JwtBearer" Version="8.0.31" />
     <PackageReference Include="Microsoft.EntityFrameworkCore" Version="8.0.31" />
@@ -27,6 +34,7 @@
     <Folder Include="Application\UseCase\VIagemCasosDeUso\CriarViagem\" />
     <Folder Include="Domain\Enums\" />
     <Folder Include="Domain\Interfaces\IReservaCadeira\" />
+    <Folder Include="Infrastructure\DataAccess\Repository\NovaPasta\" />
     <Folder Include="Infrastructure\DataAccess\Repository\RepositorioReservaCadeira\" />
   </ItemGroup>
 

@@ -1,6 +1,8 @@
 #region Usings
 using System.Text;
 using API_Rodoviaria.Application.UseCase;
+using API_Rodoviaria.Application.UseCase.CadeiraCasosDeUso.ListarCadeira;
+using API_Rodoviaria.Application.UseCase.CadeiraCasosDeUso.VerCadeira;
 using API_Rodoviaria.Application.UseCase.MotoristaCasosDeUso.AtualizarMotorista;
 using API_Rodoviaria.Application.UseCase.MotoristaCasosDeUso.DeletarMotorista;
 using API_Rodoviaria.Application.UseCase.MotoristaCasosDeUso.VerMotorista;
@@ -29,6 +31,7 @@ using API_Rodoviaria.Application.UseCase.ViagemCasosDeUso.VerViagens;
 using API_Rodoviaria.Controllers;
 using API_Rodoviaria.Domain.Constantes;
 using API_Rodoviaria.Domain.Interfaces;
+using API_Rodoviaria.Domain.Interfaces.ICadeira;
 using API_Rodoviaria.Domain.Interfaces.IMotorista;
 using API_Rodoviaria.Domain.Interfaces.IOnibus;
 using API_Rodoviaria.Domain.Interfaces.IReserva;
@@ -162,6 +165,10 @@ builder.Services.AddScoped<IListarReservaCasoDeUso,ListarReservaCasoDeUso>();
 builder.Services.AddScoped<IObterReservaPorId,ObterReservaPorId>();
 builder.Services.AddScoped<IAtualizarReservaCasoDeUso,AtualizarReservaCasoDeUso>();
 builder.Services.AddScoped<IDeletarReservaCasoDeUso,DeletarReservaCasoDeUso>();
+#endregion
+#region cadeira
+builder.Services.AddScoped<IListarCadeirasDisponiveisCasoDeUso, ListarCadeirasDisponiveisCasoDeUso>();
+builder.Services.AddScoped<IVerCadeiraPaginado, VerCadeiraPaginado>();
 #endregion
 #region instanciar jwt
 // lê seção "Jwt" e regista a instância
