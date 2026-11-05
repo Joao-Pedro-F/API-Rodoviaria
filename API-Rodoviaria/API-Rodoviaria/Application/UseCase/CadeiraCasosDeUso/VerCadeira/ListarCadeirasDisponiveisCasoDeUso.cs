@@ -7,8 +7,7 @@ using API_Rodoviaria.Infrastructure.DataAccess.Repository.RepositorioViagem;
 
 namespace API_Rodoviaria.Application.UseCase.CadeiraCasosDeUso.ListarCadeira
 {
-    public class ListarCadeirasDisponiveisCasoDeUso :
-IListarCadeirasDisponiveisCasoDeUso
+    public class ListarCadeirasDisponiveisCasoDeUso :IListarCadeirasDisponiveisCasoDeUso
     {
         private readonly IRepositorioViagem _repositorioViagem;
         private readonly IRepositorioCadeira _repositorioCadeira;
@@ -34,7 +33,9 @@ IListarCadeirasDisponiveisCasoDeUso
             return cadeiras.Select(c => new RespostaCadeiraViagemDTO
             {
                 Id = c.Id,
+                FkOnibus = c.FkOnibus,
                 Numero = c.Numero,
+
                 Disponivel = !ocupadas.Contains(c.Id)
             }).ToList();
         }

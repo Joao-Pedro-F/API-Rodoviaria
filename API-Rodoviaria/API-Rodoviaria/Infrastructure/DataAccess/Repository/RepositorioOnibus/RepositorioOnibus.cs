@@ -1,6 +1,8 @@
 ﻿namespace API_Rodoviaria.Infrastructure.DataAccess.Repository.RepositorioOnibus;
 
+using API_Rodoviaria.Application.DTO_s.Resposta.OnibusRespostaDTO;
 using API_Rodoviaria.Domain.Models;
+using Microsoft.AspNetCore.Mvc.ModelBinding.Validation;
 using Microsoft.EntityFrameworkCore;
 
 public class RepositorioOnibus : IRepositorioOnibus
@@ -41,13 +43,46 @@ public class RepositorioOnibus : IRepositorioOnibus
             .ToListAsync();
     }
 
-    public async Task<(List<Onibus> Itens, int Total)> ListarPaginadoAsync(int pagina, int tamanhoPagina)
+    public async Task<(List<RespostaCriarOnibusDTO> Itens, int Total)> ListarPaginadoAsync(int pagina, int tamanhoPagina)
     {
-        var query= _context.Onibus.AsNoTracking().OrderBy(o=> o.Id);
+        var query = _context.Onibus.AsNoTracking()
+            .Include(v => v.Viagens)
+                .ThenInclude(r => r.Rota)
+            .Include(v => v.Viagens)
+                .ThenInclude(m => m.Motorista)
+            .OrderBy(o => o.Id);
+
         var total = await query.CountAsync();
-        var itens = await query.Skip((pagina - 1) * tamanhoPagina).Take(tamanhoPagina).ToListAsync();
-                return (itens, total);
+
+        // 1. Busca os dados como a entidade Onibus pura do banco
+        var onibusBuscados = await query
+            .Skip((pagina - 1) * tamanhoPagina)
+            .Take(tamanhoPagina)
+            .ToListAsync();
+
+        // 2. Converte a lista pura para a lista de DTOs que o método exige retornar
+        // Substitua 'onibus =>' pela sua lógica ou construtor do DTO
+        var itens = onibusBuscados.Select(u => new RespostaCriarOnibusDTO
+        {
+            Id = u.Id,
+            Placa = u.Placa,
+            CapacidadeTotal = u.CapacidadeTotal,
+            FkViagem = u.Viagens.FirstOrDefault()?.Id ?? 0,
+            FkRota = u.Viagens.FirstOrDefault()?.FkRota ?? 0,
+            FkMotorista = u.Viagens.FirstOrDefault()?.FkMotorista ?? 0,
+            NomeMotorista = u.Viagens.FirstOrDefault()?.Motorista?.Nome ?? string.Empty,
+            EnderecoInicio = u.Viagens.FirstOrDefault()?.Rota?.EnderecoInicio ?? string.Empty,
+            EnderecoFim = u.Viagens.FirstOrDefault()?.Rota?.EnderecoFim ?? string.Empty,
+            Datasaida = u.Viagens.FirstOrDefault()?.DataSaida ?? DateTime.MinValue,
+            DataChegada = u.Viagens.FirstOrDefault()?.DataChegada ?? DateTime.MinValue
+
+
+        }).ToList();
+
+        return (itens, total);
     }
+
+
 
     public async Task AtualizarAsync(Onibus onibus)
     {

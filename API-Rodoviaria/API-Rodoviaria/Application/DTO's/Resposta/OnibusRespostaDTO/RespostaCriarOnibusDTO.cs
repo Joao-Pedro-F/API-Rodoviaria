@@ -7,6 +7,7 @@
         public int CapacidadeTotal { get; set; }
         public int FkViagem { get; set; }
         public int FkRota { get; set; }
+        public string NomeMotorista { get; set; } = string.Empty;
         public int FkMotorista { get; set; }
         public string EnderecoInicio { get; set; } = string.Empty;
         public string EnderecoFim { get; set; } = string.Empty;

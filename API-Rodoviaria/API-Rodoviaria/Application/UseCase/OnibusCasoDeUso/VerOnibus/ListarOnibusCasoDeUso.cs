@@ -21,11 +21,20 @@ namespace API_Rodoviaria.Application.UseCase.OnibusCasoDeUso.VerOnibus
 
             return new PaginacaoResposta<RespostaCriarOnibusDTO>
             {
-                Itens = itens.Select(o => new RespostaCriarOnibusDTO
+                Itens = itens.Select(u => new RespostaCriarOnibusDTO
                 {
-                    Id = o.Id,
-                    Placa = o.Placa,
-                    CapacidadeTotal = o.CapacidadeTotal
+                    Id = u.Id,
+                    Placa = u.Placa,
+                    CapacidadeTotal = u.CapacidadeTotal,
+                    FkViagem = u.FkViagem,
+                    FkRota = u.FkRota,
+                    FkMotorista = u.FkMotorista,
+                    NomeMotorista = u.NomeMotorista,
+                    EnderecoInicio = u.EnderecoInicio,
+                    EnderecoFim = u.EnderecoFim,
+                    Datasaida = u.Datasaida,
+                    DataChegada = u.DataChegada     
+
                 }).ToList(),
                 PaginaAtual = paginacao.Pagina,
                 TamanhoPagina = paginacao.TamanhoPagina,

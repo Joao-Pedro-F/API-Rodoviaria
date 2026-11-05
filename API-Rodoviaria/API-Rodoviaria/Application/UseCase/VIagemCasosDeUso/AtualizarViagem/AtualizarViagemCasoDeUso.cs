@@ -6,6 +6,7 @@ using API_Rodoviaria.Domain.Interfaces;
 using API_Rodoviaria.Domain.Interfaces.IViagem;
 using API_Rodoviaria.Infrastructure.DataAccess.Repository.RepositorioMotorista;
 using API_Rodoviaria.Infrastructure.DataAccess.Repository.RepositorioViagem;
+using Microsoft.EntityFrameworkCore;
 namespace API_Rodoviaria.Application.UseCase.ViagemCasosDeUso.AtualizarViagem;
 public class AtualizarViagemCasoDeUso : IAtualizarViagemCasoDeUso
 {
@@ -49,33 +50,37 @@ public class AtualizarViagemCasoDeUso : IAtualizarViagemCasoDeUso
         if (requisicao.FkMotorista is not null)
         {
             viagem.FkMotorista = requisicao.FkMotorista.Value;
+          
         }
 
         if (requisicao.DataSaida == DateTime.MinValue) viagem.DataSaida = requisicao.DataSaida;
-        
         if (requisicao.DataChegada == DateTime.MinValue) viagem.DataChegada = requisicao.DataChegada;
 
-        viagem.DataSaida = requisicao.DataSaida;
-        viagem.DataChegada = requisicao.DataChegada;
 
-       
-        
+
+
         await _viagemRepositorio.AtualizarAsync(viagem);
-        
+
+
+        var viagemAtualizada = await _viagemRepositorio.ObterComDetalhesAsync(viagem.Id);
+
         var atualizado = await _viagemRepositorio.ObterPorIdAsync(id);
         
         return new RespostaCriarViagemDTO
         {
-            Id = atualizado!.Id,
-            FkOnibus = atualizado.FkOnibus,
-            Placa = atualizado.Onibus.Placa,
-            FkMotorista = atualizado.FkMotorista,
-            NomeMotorista = atualizado.Motorista.Nome,
-            FkRota = atualizado.FkRota,
-            EnderecoOrigem = atualizado.Rota.EnderecoInicio,
-            EnderecoFim = atualizado.Rota.EnderecoFim,
-            DataSaida = atualizado.DataSaida,
-            DataChegada = atualizado.DataChegada
+            Id = viagemAtualizada!.Id,
+            FkOnibus = viagemAtualizada.FkOnibus,
+            Placa = viagemAtualizada.Onibus?.Placa,
+            FkMotorista = viagemAtualizada.FkMotorista,
+
+            
+            NomeMotorista = viagemAtualizada.Motorista?.Nome,
+
+            FkRota = viagemAtualizada.FkRota,
+            EnderecoOrigem = viagemAtualizada.Rota?.EnderecoInicio,
+            EnderecoFim = viagemAtualizada.Rota?.EnderecoFim,
+            DataSaida = viagemAtualizada.DataSaida,
+            DataChegada = viagemAtualizada.DataChegada
 
 
         };
