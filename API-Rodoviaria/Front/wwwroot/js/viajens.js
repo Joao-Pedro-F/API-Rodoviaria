@@ -2,6 +2,7 @@
 const listarViajens = document.getElementById("listarViajens");
 const conteudoViagens = document.querySelector(".conteudoViagens");
 const containerTabela = document.getElementById("containerTabela");
+const btnReservar = document.getElementById("btnReservar");
 
 const urlPadrao = 'https://localhost:7171/api';
 
@@ -65,7 +66,7 @@ async function renderViajens(pagina) {
                     <td>${item.dataSaida}</td>
                     <td>${item.dataChegada}</td>
                     <td>${item.nomeMotorista}</td>
-                    <td><button class="btn btn-outline-secondary btnVisualizar" data-id="${item.id}">Visualizar</button></td>
+                    <td><button class="btn btn-outline-secondary btnVisualizar" data-id="${item.id}" data-fkonibus="${item.fkOnibus}">Visualizar</button></td>
                 </tr>
             `;
         });
@@ -106,18 +107,38 @@ async function renderViajem() {
         var response = await res.json();
 
         const infoViajem = `
-            <div class="d-flex flex-column gap-3 w-100">
-                <div class="d-flex gap-3">
-                    <p class="mb-0 w-50"><strong>Motorista:</strong> ${response.nomeMotorista}</p>
-                    <p class="mb-0 w-50"><strong>Placa:</strong> ${response.placa}</p>
+            <div class="d-flex flex-column">
+                <div class="d-flex flex-column gap-3 w-100 mb-2">
+                    <div class="d-flex gap-3">
+                        <p class="mb-0 w-50"><strong>Motorista:</strong> ${response.nomeMotorista}</p>
+                        <p class="mb-0 w-50"><strong>Placa:</strong> ${response.placa}</p>
+                    </div>
+                    <div class="d-flex gap-3">
+                        <p class="mb-0 w-50"><strong>Origem:</strong> ${response.enderecoOrigem}</p>
+                        <p class="mb-0 w-50"><strong>Destino:</strong> ${response.enderecoFim}</p>
+                    </div>
+                    <div class="d-flex gap-3">
+                        <p class="mb-0"><strong>Saída:</strong> ${response.dataSaida}</p>
+                        <p class="mb-0"><strong>Chegada:</strong> ${response.dataChegada}</p>
+                    </div>
                 </div>
-                <div class="d-flex gap-3">
-                    <p class="mb-0 w-50"><strong>Origem:</strong> ${response.enderecoOrigem}</p>
-                    <p class="mb-0 w-50"><strong>Destino:</strong> ${response.enderecoFim}</p>
-                </div>
-                <div class="d-flex gap-3">
-                    <p class="mb-0"><strong>Saída:</strong> ${response.dataSaida}</p>
-                    <p class="mb-0"><strong>Chegada:</strong> ${response.dataChegada}</p>
+         
+                <div class="card-body p-4">
+                    <hr>
+                    <form>
+                        <h1 class="text-center mb-3">Reservar Cadeiras</h1>
+
+                        <div class="card mb-4 shadow-sm">
+                            <div class="card-body d-flex justify-content-around text-center py-2 small">
+                                <div><span class="badge bg-outline-secondary border text-dark fs-6">Livre</span></div>
+                                <div><span class="badge bg-secondary fs-6">Selecionado</span></div>
+                                <div><span class="badge bg-danger fs-6">Reservado</span></div>
+                            </div>
+                        </div>
+
+                        <div class="d-flex flex-wrap justify-content-between gap-2" id="containerCadeiras">
+                        </div>
+                    </form>
                 </div>
             </div>
         `;
@@ -126,6 +147,60 @@ async function renderViajem() {
     } catch (error) {
         mostrarToast("Erro ao carregar detalhes da viagem.");
     }
+}
+
+async function renderCadeiras() {
+    const res = await fetch(`${urlPadrao}/Cadeira/${idViajem}`, {
+        method: 'GET',
+        credentials: "include",
+        headers: { 'Content-Type': 'application/json' },
+    });
+
+    if (!res.ok) return;
+
+    var response = await res.json();
+
+    let cadeiras = ``;
+    response.forEach((item) => {
+        if (item.disponivel) {
+            cadeiras += `
+                <div>
+                    <input type="checkbox" class="btn-check cadeiraSelecionada" data-id="${item.id}" id="${item.id}" value="${item.numero}">
+                    <label class="btn btn-outline-secondary btn-check-success d-flex align-items-center justify-content-center fw-bold assento-btn" for="${item.id}">${item.numero}</label>
+                </div>
+            `;
+        } else {
+            cadeiras += `
+                <div>
+                    <input type="checkbox" class="btn-check" id="${item.id}" value="${item.numero} disabled">
+                    <label class="btn btn-danger d-flex align-items-center justify-content-center fw-bold assento-btn" for="${item.id}">${item.numero}</label>
+                </div>
+            `;
+        }
+    })
+
+    const containerCadeiras = document.getElementById("containerCadeiras");
+    containerCadeiras.innerHTML = cadeiras;
+
+}
+
+//TERMINAR DE FAZER A SELEÇÃO DE CADEIRAS, AJUDA ESTA NO BRAVE/GEMINI
+
+async function reservarCadeiras() {
+    const selecionarCadeiras = document.querySelectorAll('.cadeiraSelecionada:checked');
+    console.log(selecionarCadeiras);
+
+    // const payload = {
+    //     fkViagem: idViajem,
+    //     idsCadeiras: listaCadeiras,
+    // }
+
+    // const res = await fetch(`${urlPadrao}/Cadeira/${idOnibus}`, {
+    //     method: 'POST',
+    //     credentials: "include",
+    //     headers: { 'Content-Type': 'application/json' },
+    //     body: JSON.stringify(payload),
+    // });
 }
 
 function mostrarToast(msg) {
@@ -142,13 +217,19 @@ document.addEventListener("DOMContentLoaded", () => {
     renderViajens(1);
 });
 
+btnReservar.addEventListener('click', async () => {
+    await reservarCadeiras()
+});
+
 document.addEventListener('click', async (event) => {
     const btn = event.target.closest(".btnVisualizar");
     if (btn) {
         idViajem = btn.dataset.id;
+        // idOnibus = btn.dataset.fkonibus;
         const modal = bootstrap.Modal.getOrCreateInstance(document.getElementById('teste'));
         modal.show();
         await renderViajem();
+        await renderCadeiras();
     }
 
     if (event.target.closest("#btnVoltar")) {

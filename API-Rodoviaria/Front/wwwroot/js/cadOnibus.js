@@ -29,7 +29,8 @@ async function cadastrarOnibus() {
             dataSaida: dataSaidaISO,
             dataChegada: dataChegadaISO
         }
-
+        console.log(dataSaidaISO)
+        
         const res = await fetch(`${urlPadrao}/Onibus`, {
             method: 'POST',
             credentials: "include",

@@ -146,7 +146,7 @@ async function consultarTabela(pagina = 1) {
                         <tr>
                             <td>${item.nome}</td>
                             <td class="text-end pe-4">
-                                <button type="button" class="btn btn-sm btn-outline-secondary editar" data-id="${item.id}" data-nome="${item.nome}" data-cpf="${item.cpf}" data-cnh="${item.cnh}" data-bs-toggle="modal" data-bs-target="#modalEditar">Editar</button>
+                                <button type="button" class="btn btn-sm btn-outline-secondary editar motorista" data-id="${item.id}" data-nome="${item.nome}" data-cpf="${item.cpf}" data-cnh="${item.cnh}" data-bs-toggle="modal" data-bs-target="#modalEditar">Editar</button>
                                 <button type="button" class="btn btn-sm btn-outline-danger excluir" data-id="${item.id}" data-bs-toggle="modal" data-bs-target="#modalExcluir">Excluir</button>
                             </td>
                         </tr>
@@ -160,7 +160,7 @@ async function consultarTabela(pagina = 1) {
                     itensLista += `
                         <tr>
                             <td>${item.placa}</td>
-                            <td>${item.motorista}</td>
+                            <td>${item.nomeMotorista}</td>
                             <td>${item.capacidadeTotal}</td>
                             <td>${item.datasaida}</td>
                             <td>${item.dataChegada}</td>
@@ -398,7 +398,9 @@ async function editar() {
             body: JSON.stringify(payload),
         });
 
-        if (!res.ok) return;
+        if (!res.ok) {
+            return
+        };
 
         mostrarToast("Atualizado com sucesso!");
         consultarTabela(paginaAtualGlobal);
@@ -432,8 +434,6 @@ document.addEventListener("DOMContentLoaded", () => {
     consultarTabela(1)
 });
 
-
-
 btnConsultar.addEventListener('click', async () => {
     await consultarTabela(1);
     mostrarToast("Consulta realizada com sucesso!");
@@ -445,6 +445,7 @@ renderTabela.addEventListener('click', async (event) => {
         id = btnExcluir.dataset.id;
     }
     const btnEditar = event.target.closest(".editar");
+    const btnEditarMotorista = event.target.closest(".motorista");
     if (btnEditar) {
         const rawSaida = btnEditar.dataset.dsaida;
         const rawChegada = btnEditar.dataset.dchegada;
@@ -462,6 +463,7 @@ renderTabela.addEventListener('click', async (event) => {
 
         renderEdit();
 
+        if (btnEditar && btnEditarMotorista)
         document.getElementById("inputCPF").addEventListener('input', () => {
             let valor = document.getElementById("inputCPF").value.replace(/\D/g, '').slice(0, 11);
 
@@ -504,6 +506,10 @@ confirmar.addEventListener('click', async () => {
 conteudoViagens.addEventListener('click', async (event) => {
     if (event.target.id === 'btnAtualizar') {
         await editar();
+
+        const modalElemento = document.getElementById('modalEditar');
+        const modalBootstrap = bootstrap.Modal.getInstance(modalElemento) || new bootstrap.Modal(modalElemento);
+        modalBootstrap.hide();
     }
 });
 
