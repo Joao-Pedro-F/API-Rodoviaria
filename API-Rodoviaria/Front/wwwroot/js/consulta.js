@@ -461,6 +461,16 @@ renderTabela.addEventListener('click', async (event) => {
         dChegada = rawChegada ? rawChegada.substring(0, 16) : "";
 
         renderEdit();
+
+        document.getElementById("inputCPF").addEventListener('input', () => {
+            let valor = document.getElementById("inputCPF").value.replace(/\D/g, '').slice(0, 11);
+
+            valor = valor.replace(/^(\d{3})(\d)/, '$1.$2');
+            valor = valor.replace(/^(\d{3})\.(\d{3})(\d)/, '$1.$2.$3');
+            valor = valor.replace(/\.(\d{3})(\d)/, '.$1-$2');
+
+            document.getElementById("inputCPF").value = valor;
+        });
     }
     if (event.target.closest("#btnVoltar")) {
         event.preventDefault();
@@ -513,3 +523,4 @@ document.addEventListener("DOMContentLoaded", () => {
         localStorage.removeItem('toastSucesso');
     }
 });
+
