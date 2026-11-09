@@ -25,7 +25,10 @@ async function cadastrarRotas() {
             body: JSON.stringify(payload),
         });
 
-        if(!res.ok) return
+        if (!res.ok) {
+            mostrarToast("Não foi possível cadastrar esta rota.")
+            return
+        }
 
         var response = await res.json();
 
@@ -35,7 +38,6 @@ async function cadastrarRotas() {
         mostrarToast("Rota cadastrada com sucesso")
 
     } catch (error) {
-        mostrarToast("Não foi possível cadastrar esta rota.")
         throw error
     } finally {
         btnCadastrar.textContent = "Cadastrar";

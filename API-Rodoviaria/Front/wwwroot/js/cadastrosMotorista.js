@@ -41,7 +41,6 @@ async function cadastrarMotorista() {
         mostrarToast("Motorista Cadastrado com sucesso!");
 
     } catch (error) {
-
         throw error
     } finally {
 

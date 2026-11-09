@@ -38,9 +38,11 @@ async function cadastrarOnibus() {
         })
 
         if (!res.ok) {
+            mostrarToast("Erro ao cadastrar ônibus.")
             return
         }
 
+        mostrarToast("Ônibus cadastrado com sucesso!");
         var response = await res.json();
 
         placa.value = "";
@@ -53,7 +55,6 @@ async function cadastrarOnibus() {
 
 
     } catch (error) {
-        mostrarToast("Ônibus cadastrado com sucesso!");
         throw error
     } finally {
         btnCadastrar.textContent = "Cadastrar";
@@ -61,7 +62,6 @@ async function cadastrarOnibus() {
     }
 
 }
-
 
 async function renderMotoristas() {
 

@@ -40,7 +40,6 @@ async function cadastrarUser() {
     window.location.href = "/Login/loginView";
 
     } catch (error) {
-        mostrarToast("Não foi possível cadastrar usuário.")
         throw error
     }
 

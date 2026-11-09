@@ -120,7 +120,10 @@ async function renderViajem() {
             headers: { 'Content-Type': 'application/json' },
         });
 
-        if (!res.ok) return;
+        if (!res.ok) {
+            mostrarToast("Não foi possível renderizar viagens")
+            return
+        };
 
         var response = await res.json();
 
@@ -163,7 +166,7 @@ async function renderViajem() {
 
         conteudoViagens.innerHTML = infoViajem;
     } catch (error) {
-        mostrarToast("Erro ao carregar detalhes da viagem.");
+        throw error
     }
 }
 
@@ -237,7 +240,8 @@ async function reservarCadeiras() {
     });
 
         if (!res.ok) {
-        mostrarToast("Não foi possível reservar esta(s) cadeira(s).")
+            mostrarToast("Não foi possível reservar esta(s) cadeira(s).")
+            return
         }
 
         mostrarToast("Cadeira(s) reservada(s) com sucesso!")
@@ -262,6 +266,9 @@ document.addEventListener("DOMContentLoaded", () => {
 
 btnReservar.addEventListener('click', async () => {
     await reservarCadeiras()
+    const modal = bootstrap.Modal.getInstance(document.getElementById('teste'));
+    renderViajens(1);
+    modal.hide();
 });
 
 document.addEventListener('click', async (event) => {

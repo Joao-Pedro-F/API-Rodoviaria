@@ -19,7 +19,10 @@ async function renderOnibus() {
             credentials: "include",
         })
 
-        if(!res.ok) return
+        if (!res.ok) {
+            mostrarToast("Não foi possível renderizar ônibus.")
+            return
+        }
 
         var response = await res.json();
 
@@ -46,7 +49,10 @@ async function renderMotoristas() {
             headers: { 'Content-Type': 'application/json' },
         })
 
-        if (!res.ok) return
+        if (!res.ok) {
+            mostrarToast("Não foi possível renderizar motoristas.")
+            return
+        }
 
         var response = await res.json();
 
@@ -73,7 +79,10 @@ async function renderRotas() {
             headers: { 'Content-Type': 'application/json' },
         })
 
-        if (!res.ok) return
+        if (!res.ok) {
+            mostrarToast("Não foi possível renderizar as rotas.")
+            return
+        }
 
         var response = await res.json();
 

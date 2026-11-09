@@ -210,7 +210,6 @@ async function consultarTabela(pagina = 1) {
                 break;
         }
 
-
         document.getElementById("tabelaConsulta").innerHTML = itensLista;
 
         const paginaInfo = document.getElementById("paginaInfo");
@@ -224,7 +223,6 @@ async function consultarTabela(pagina = 1) {
         if (paginaAtualGlobal >= totalPaginasGlobal) btnAvancar.classList.add("disabled");
 
     } catch (error) {
-        mostrarToast("Não foi possível consultar");
         throw error;
     }
 }
@@ -238,15 +236,15 @@ async function deletar() {
         });
 
         if (!res.ok) {
-            console.log("Não foi possível apagar o registro por estar vinculado.");
+            mostrarToast("Não foi possível excluir.");
             return;
         }
         const modal = bootstrap.Modal.getInstance(document.getElementById('modalExcluir'));
+        consultarTabela(1);
         modal.hide();
         mostrarToast("Excluído com sucesso!");
-        consultarTabela(1);
+
     } catch (error) {
-        mostrarToast("Não foi possível excluir.");
         throw error;
     }
 }
@@ -399,13 +397,14 @@ async function editar() {
         });
 
         if (!res.ok) {
+            mostrarToast("Não foi possível editar.");
             return
         };
 
         mostrarToast("Atualizado com sucesso!");
+
         consultarTabela(paginaAtualGlobal);
     } catch (error) {
-        mostrarToast("Não foi possível editar.");
         throw error;
     }
 }
@@ -424,6 +423,12 @@ async function renderMotoristas() {
         });
         const motorista = document.getElementById("selectMotoristas");
         motorista.innerHTML = selectLista;
+
+        if (!res.ok) {
+            mostrarToast("Não foi possível renderizar motoristas")
+            return
+        }
+
     } catch (error) {
         throw error;
     }
@@ -436,7 +441,6 @@ document.addEventListener("DOMContentLoaded", () => {
 
 btnConsultar.addEventListener('click', async () => {
     await consultarTabela(1);
-    mostrarToast("Consulta realizada com sucesso!");
 });
 
 renderTabela.addEventListener('click', async (event) => {
