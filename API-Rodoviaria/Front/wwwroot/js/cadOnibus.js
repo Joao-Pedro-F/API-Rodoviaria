@@ -29,7 +29,6 @@ async function cadastrarOnibus() {
             dataSaida: dataSaidaISO,
             dataChegada: dataChegadaISO
         }
-        console.log(dataSaidaISO)
         
         const res = await fetch(`${urlPadrao}/Onibus`, {
             method: 'POST',
@@ -85,6 +84,11 @@ async function renderMotoristas() {
         });
 
         motorista.innerHTML = selectLista;
+
+        if (!res.ok) {
+            mostrarToast("Não foi possível renderizar motoristas.")
+            return
+        }
     } catch (error) {
         throw error
     }

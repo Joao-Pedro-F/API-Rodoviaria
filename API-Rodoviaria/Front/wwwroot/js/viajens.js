@@ -7,6 +7,7 @@ const btnReservar = document.getElementById("btnReservar");
 const urlPadrao = 'https://localhost:7171/api';
 
 let idViajem;
+let dataStatus;
 let paginaAtualGlobal = 1;
 let totalPaginasGlobal = 1;
 const tamanhoPagina = 10;
@@ -18,9 +19,8 @@ var tableViagensHtml = `
                 <tr>
                     <th>Endereço Inicial</th>
                     <th>Endereço Final</th>
-                    <th>Data Saida</th>
-                    <th>Data Chegada</th>
                     <th>Motorista</th>
+                    <th>Status</th>
                     <th>Mais Informações</th>
                 </tr>
             </thead>
@@ -59,14 +59,32 @@ async function renderViajens(pagina) {
 
         let itensViajens = ``;
         response.itens.forEach((item) => {
+
+            const dataSaidaFormatada = new Date(item.dataSaida);
+            const hoje = new Date();
+
+            const status = Math.round((dataSaidaFormatada - hoje) / 86400000);
+
+            if (status >= 1) {
+                itensViajens += `
+                    <tr>
+                        <td>${item.enderecoOrigem}</td>
+                        <td>${item.enderecoFim}</td>
+                        <td>${item.nomeMotorista}</td>
+                        <td class="text-success fw-bold">Disponível para Reserva</td>
+                        <td><button class="btn btn-outline-secondary btnVisualizar" data-status="true" data-id="${item.id}" data-fkonibus="${item.fkOnibus}">Visualizar</button></td>
+                    </tr>
+                `;
+                return
+            }
+
             itensViajens += `
                 <tr>
                     <td>${item.enderecoOrigem}</td>
                     <td>${item.enderecoFim}</td>
-                    <td>${item.dataSaida}</td>
-                    <td>${item.dataChegada}</td>
                     <td>${item.nomeMotorista}</td>
-                    <td><button class="btn btn-outline-secondary btnVisualizar" data-id="${item.id}" data-fkonibus="${item.fkOnibus}">Visualizar</button></td>
+                    <td class="text-danger fw-bold">Indisponível para Reserva</td>
+                    <td><button class="btn btn-outline-secondary btnVisualizar" data-status="false" data-id="${item.id}" data-fkonibus="${item.fkOnibus}">Visualizar</button></td>
                 </tr>
             `;
         });
@@ -126,7 +144,7 @@ async function renderViajem() {
                 <div class="card-body p-4">
                     <hr>
                     <form>
-                        <h1 class="text-center mb-3">Reservar Cadeiras</h1>
+                        <h1 class="text-center mb-3 fs-4">Reservar Cadeiras</h1>
 
                         <div class="card mb-4 shadow-sm">
                             <div class="card-body d-flex justify-content-around text-center py-2 small">
@@ -150,13 +168,19 @@ async function renderViajem() {
 }
 
 async function renderCadeiras() {
+
+    try {
+
     const res = await fetch(`${urlPadrao}/Cadeira/${idViajem}`, {
         method: 'GET',
         credentials: "include",
         headers: { 'Content-Type': 'application/json' },
     });
 
-    if (!res.ok) return;
+        if (!res.ok) {
+            mostrarToast("Erro ao renderizar cadeiras.")
+            return
+        };
 
     var response = await res.json();
 
@@ -181,26 +205,45 @@ async function renderCadeiras() {
 
     const containerCadeiras = document.getElementById("containerCadeiras");
     containerCadeiras.innerHTML = cadeiras;
+    } catch (error){
+        throw error
+    }
 
 }
-
-//TERMINAR DE FAZER A SELEÇÃO DE CADEIRAS, AJUDA ESTA NO BRAVE/GEMINI
 
 async function reservarCadeiras() {
     const selecionarCadeiras = document.querySelectorAll('.cadeiraSelecionada:checked');
     console.log(selecionarCadeiras);
 
-    // const payload = {
-    //     fkViagem: idViajem,
-    //     idsCadeiras: listaCadeiras,
-    // }
+    let listaCadeiras = [];
+    selecionarCadeiras.forEach((item) => {
+        console.log(item.id)
+        listaCadeiras.push(item.id);
+    });
 
-    // const res = await fetch(`${urlPadrao}/Cadeira/${idOnibus}`, {
-    //     method: 'POST',
-    //     credentials: "include",
-    //     headers: { 'Content-Type': 'application/json' },
-    //     body: JSON.stringify(payload),
-    // });
+    console.log(listaCadeiras)
+
+    const payload = {
+        fkViagem: idViajem,
+        idsCadeiras: listaCadeiras,
+    }
+
+    try {
+    const res = await fetch(`${urlPadrao}/Reservas`, {
+        method: 'POST',
+        credentials: "include",
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify(payload),
+    });
+
+        if (!res.ok) {
+        mostrarToast("Não foi possível reservar esta(s) cadeira(s).")
+        }
+
+        mostrarToast("Cadeira(s) reservada(s) com sucesso!")
+    } catch (error) {
+        throw error
+    }
 }
 
 function mostrarToast(msg) {
@@ -225,11 +268,16 @@ document.addEventListener('click', async (event) => {
     const btn = event.target.closest(".btnVisualizar");
     if (btn) {
         idViajem = btn.dataset.id;
-        // idOnibus = btn.dataset.fkonibus;
+        dataStatus = btn.dataset.status;
         const modal = bootstrap.Modal.getOrCreateInstance(document.getElementById('teste'));
         modal.show();
         await renderViajem();
         await renderCadeiras();
+        if (dataStatus == "false") {
+            btnReservar.setAttribute('disabled', '');
+            return
+        }
+        btnReservar.removeAttribute('disabled');
     }
 
     if (event.target.closest("#btnVoltar")) {
