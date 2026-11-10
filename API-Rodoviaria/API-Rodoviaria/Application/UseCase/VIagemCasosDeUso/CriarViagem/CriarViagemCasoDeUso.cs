@@ -1,5 +1,6 @@
 ﻿using API_Rodoviaria.Application.DTO_s.Requisicao.ViagemRequisicaoDTO;
 using API_Rodoviaria.Application.DTO_s.Resposta.ViagemRespostaDTO;
+using API_Rodoviaria.Domain.Exceptions;
 using API_Rodoviaria.Domain.Interfaces;
 using API_Rodoviaria.Domain.Interfaces.IMotorista;
 using API_Rodoviaria.Domain.Interfaces.IViagem;
@@ -28,13 +29,13 @@ public class CriarViagemCasoDeUso : ICriarViagemCasoDeUso
     {
         if (requisicao.DataChegada <= requisicao.DataSaida)
         {
-            throw new ArgumentException("A data de chegada deve ser posterior à data de saída.");
+            throw new ExcecaoDeNegocio("A data de chegada deve ser posterior à data de saída.",422);
         }
         var motorista = await _motoristaRepositorio.ObterPorIdAsync(requisicao.MotoristaId)
-            ?? throw new KeyNotFoundException("Motorista não encontrado.");
+            ?? throw new ExcecaoDeNegocio("Motorista não encontrado.");
 
         var onibus = await _onibusRepositorio.ObterPorIdAsync(requisicao.OnibusId)
-            ?? throw new KeyNotFoundException("Ônibus não encontrado.");
+            ?? throw new ExcecaoDeNegocio("Ônibus não encontrado.");
         
         //var rota = await _viagemRepositorio.ObterRotaPorIdAsync(requisicao.RotaId)
         //    ?? throw new KeyNotFoundException("Rota não encontrada.");
@@ -44,12 +45,12 @@ public class CriarViagemCasoDeUso : ICriarViagemCasoDeUso
 
         if (await _viagemRepositorio.MotoristaTemViagemNoPeriodoAsync(requisicao.MotoristaId, saida, chegada))
         {
-            throw new InvalidOperationException("O motorista já possui uma viagem nesse período.");
+            throw new ExcecaoDeNegocio("O motorista já possui uma viagem nesse período.",422);
         }
 
         if (await _viagemRepositorio.OnibusTemViagemNoPeriodoAsync(requisicao.OnibusId, saida, chegada))
         {
-            throw new InvalidOperationException("O ônibus já está em outra viagem nesse período.");
+            throw new ExcecaoDeNegocio("O ônibus já está em outra viagem nesse período.",422);
         }
 
         var viagem = new Viagem

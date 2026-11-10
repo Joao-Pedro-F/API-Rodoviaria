@@ -5,6 +5,7 @@ using API_Rodoviaria.Application.DTO_s.Requisicao.ReservaRequisicaoDTO;
 using API_Rodoviaria.Application.UseCase;
 using API_Rodoviaria.Application.UseCase.ReservaCasosDeUso.VerReservas;
 using API_Rodoviaria.Domain.Constantes;
+using API_Rodoviaria.Domain.Exceptions;
 using API_Rodoviaria.Domain.Interfaces.IReserva;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
@@ -39,7 +40,7 @@ public class ReservasController : ControllerBase
     {
         var idTexto = User.FindFirstValue(ClaimTypes.NameIdentifier);
         return int.TryParse(idTexto, out var id) ? id : throw new
-        UnauthorizedAccessException();
+        ExcecaoDeNegocio("Id inválido");
     }
     [HttpPost]
     public async Task<IActionResult> Criar([FromBody] RequisicaoCriarReservaDTO request)

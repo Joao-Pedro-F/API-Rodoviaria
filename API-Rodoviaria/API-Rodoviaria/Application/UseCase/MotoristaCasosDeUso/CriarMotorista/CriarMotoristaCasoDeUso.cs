@@ -26,7 +26,7 @@ public class CriarMotoristaCasoDeUso : ICriarMotoristaCasoDeUso
     {
         if (await _repositorioMotorista.ExisteAsync(requisicao.Cpf,
         requisicao.Cnh))
-            throw new ExcecaoDeNegocio("Já existe um motorista com esse CPF ou CNH.", 409);
+            throw new ExcecaoDeNegocio("Já existe um motorista com esse CPF ou CNH.", 400);
             var motorista = new Motorista
             {
                 Nome = requisicao.Nome.Trim(),
@@ -45,7 +45,7 @@ public class CriarMotoristaCasoDeUso : ICriarMotoristaCasoDeUso
 
     public Task<RespostaCriarOnibusDTO> ExecutarAsync(RequisicaoCriarOnibusDTO requisicao)
     {
-        throw new NotImplementedException();
+        throw new ExcecaoDeNegocio("Não foi possível criar o ônibus.");
     }
 }
 

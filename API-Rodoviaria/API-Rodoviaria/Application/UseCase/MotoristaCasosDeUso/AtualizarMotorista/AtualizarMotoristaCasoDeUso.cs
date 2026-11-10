@@ -17,10 +17,10 @@ public class AtualizarMotoristaCasoDeUso : IAtualizarMotoristaCasoDeUso
 
     public async Task<RequisicaoCriarMotoristaDTO> Executar(int Id, RequisicaoAtualizarMotoristaDTO requisicao)
     {
-        var motorista = await _motoristaRepositorio.ObterPorIdAsync(Id) ?? throw new KeyNotFoundException("Motorista não encontrado");
+        var motorista = await _motoristaRepositorio.ObterPorIdAsync(Id) ?? throw new ExcecaoDeNegocio("Motorista não encontrado", 400);
 
         if (await _motoristaRepositorio.ExisteAsync(requisicao.Cpf, requisicao.Cnh,Id))
-            throw new ExcecaoDeNegocio("Já existe outro motorista com o mesmo CPF ou CNH.");
+            throw new ExcecaoDeNegocio("Já existe outro motorista com o mesmo CPF ou CNH.",400);
 
         if (string.IsNullOrWhiteSpace(requisicao.Nome)) requisicao.Nome = motorista.Nome;
         if(string.IsNullOrWhiteSpace(requisicao.Cpf)) requisicao.Cpf=motorista.Cpf;

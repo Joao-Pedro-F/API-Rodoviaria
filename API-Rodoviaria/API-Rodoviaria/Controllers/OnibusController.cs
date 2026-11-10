@@ -51,7 +51,7 @@ public class OnibusController : ControllerBase
     }
 
     [HttpPut("{id:int}")]
-    public async Task<IActionResult> Atualizar(int id, [FromBody] RequisicaoCriarOnibusDTO requisicao)
+    public async Task<IActionResult> Atualizar(int id, [FromBody] RequisicaoAtualizarOnibusDTO requisicao)
     {
         return Ok(await _atualizarOnibus.ExecutarAsync(id, requisicao));
     }

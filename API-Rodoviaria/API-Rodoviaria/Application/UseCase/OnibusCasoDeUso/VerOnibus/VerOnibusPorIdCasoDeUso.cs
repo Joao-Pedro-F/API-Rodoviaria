@@ -1,4 +1,5 @@
 ﻿using API_Rodoviaria.Application.DTO_s.Resposta.OnibusRespostaDTO;
+using API_Rodoviaria.Domain.Exceptions;
 using API_Rodoviaria.Domain.Interfaces.IOnibus;
 using API_Rodoviaria.Infrastructure.DataAccess.Repository.RepositorioOnibus;
 
@@ -13,7 +14,7 @@ namespace API_Rodoviaria.Application.UseCase.OnibusCasoDeUso.VerOnibus
         }
         public async Task<RespostaCriarOnibusDTO> ExecutarAsync(int Id)
         {
-            var onibus = await _onibusRepositorio.ObterPorIdAsync(Id)?? throw new KeyNotFoundException($"Ônibus com ID {Id} não encontrado.");
+            var onibus = await _onibusRepositorio.ObterPorIdAsync(Id)?? throw new ExcecaoDeNegocio($"Ônibus com ID {Id} não encontrado.");
 
             return new RespostaCriarOnibusDTO
             {

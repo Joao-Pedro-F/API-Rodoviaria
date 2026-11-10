@@ -1,6 +1,7 @@
 ﻿namespace API_Rodoviaria.Infrastructure.DataAccess.Repository.RepositorioOnibus;
 
 using API_Rodoviaria.Application.DTO_s.Resposta.OnibusRespostaDTO;
+using API_Rodoviaria.Domain.Exceptions;
 using API_Rodoviaria.Domain.Models;
 using Microsoft.AspNetCore.Mvc.ModelBinding.Validation;
 using Microsoft.EntityFrameworkCore;
@@ -16,7 +17,7 @@ public class RepositorioOnibus : IRepositorioOnibus
 
     public Task AdicionarAsync(Perfil perfil)
     {
-        throw new NotImplementedException();
+        throw new ExcecaoDeNegocio("Não foi possível adicionar o ônibus.");
     }
 
     public async Task<bool> ExistePlacaAsync(string placa, int? idExcluir=null)
@@ -26,11 +27,13 @@ public class RepositorioOnibus : IRepositorioOnibus
 
     public Task<Perfil> ObterPorNomeAsync(string nomeCargo)
     {
-        throw new NotImplementedException();
+        throw new ExcecaoDeNegocio("Não foi possível obter o ônibus por nome.");
     }
     public async Task<Onibus?> ObterPorIdAsync(int id)
     {
         return await _context.Onibus.AsNoTracking()
+            .Include(v=> v.Viagens)
+            .ThenInclude(m=>m.Motorista)
             .Include(o => o.Cadeiras)
             .FirstOrDefaultAsync(o=> o.Id == id);
     }

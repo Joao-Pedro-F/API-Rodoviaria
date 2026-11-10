@@ -1,4 +1,5 @@
-﻿using API_Rodoviaria.Domain.Interfaces.IUsuario;
+﻿using API_Rodoviaria.Domain.Exceptions;
+using API_Rodoviaria.Domain.Interfaces.IUsuario;
 using API_Rodoviaria.Infrastructure.DataAccess.Repository.RepositorioUsuario;
 
 namespace API_Rodoviaria.Application.UseCase.UsuarioCasosDeUso.DeletarUsuario
@@ -15,11 +16,11 @@ namespace API_Rodoviaria.Application.UseCase.UsuarioCasosDeUso.DeletarUsuario
         public async Task ExecutarAsync(int id)
         {
             if (await _repositorioUsuario.TemReservasAsync(id))
-                throw new InvalidOperationException("Esse usuário tem reservas e não pode ser removido");
+                throw new ExcecaoDeNegocio("Esse usuário tem reservas e não pode ser removido");
             
             var removeu= await _repositorioUsuario.RemoverAsync(id);
             if (!removeu)
-                throw new KeyNotFoundException("Usuário não encontrado.");
+                throw new ExcecaoDeNegocio("Usuário não encontrado.");
         }
     }
 
