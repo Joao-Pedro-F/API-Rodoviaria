@@ -10,7 +10,7 @@ let idViajem;
 let dataStatus;
 let paginaAtualGlobal = 1;
 let totalPaginasGlobal = 1;
-const tamanhoPagina = 10;
+let tamanhoPagina = 10;
 
 var tableViagensHtml = `
     <div class="table-responsive">

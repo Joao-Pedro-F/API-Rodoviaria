@@ -125,8 +125,10 @@ async function consultarTabela(pagina = 1) {
             headers: { 'Content-Type': 'application/json' },
         });
 
+        const response = await res.json();
+
         if (!res.ok) {
-            mostrarToast("Não foi possível consultar");
+            mostrarToast(`Não foi possível consultar. ${response.erro}`);
             return;
         }
 
@@ -235,8 +237,10 @@ async function deletar() {
             headers: { 'Content-Type': 'application/json' },
         });
 
+        const response = await res.json();
+
         if (!res.ok) {
-            mostrarToast("Não foi possível excluir.");
+            mostrarToast(`Não foi possível excluir. ${response.erro}`);
             return;
         }
         const modal = bootstrap.Modal.getInstance(document.getElementById('modalExcluir'));
@@ -396,8 +400,10 @@ async function editar() {
             body: JSON.stringify(payload),
         });
 
+        const response = await res.json();
+
         if (!res.ok) {
-            mostrarToast("Não foi possível editar.");
+            mostrarToast(`Não foi possível editar. ${response.erro}`);
             return
         };
 
@@ -425,7 +431,7 @@ async function renderMotoristas() {
         motorista.innerHTML = selectLista;
 
         if (!res.ok) {
-            mostrarToast("Não foi possível renderizar motoristas")
+            mostrarToast("Não foi possível renderizar motoristas.")
             return
         }
 

@@ -1,9 +1,9 @@
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.RazorPages;
 
-namespace Front.Views.Home
+namespace Front.Views.Cadastros
 {
-    public class cadOnibusViewModel : PageModel
+    public class cadViagensViewModel : PageModel
     {
         public void OnGet()
         {

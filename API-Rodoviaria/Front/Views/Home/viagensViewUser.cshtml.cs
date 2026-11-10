@@ -3,7 +3,7 @@ using Microsoft.AspNetCore.Mvc.RazorPages;
 
 namespace Front.Views.Home
 {
-    public class cadMotoristasViewModel : PageModel
+    public class viagensViewUserModel : PageModel
     {
         public void OnGet()
         {
