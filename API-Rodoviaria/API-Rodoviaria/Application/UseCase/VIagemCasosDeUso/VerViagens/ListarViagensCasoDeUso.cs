@@ -1,6 +1,7 @@
 ﻿using API_Rodoviaria.Application.DTO_s.Resposta;
 using API_Rodoviaria.Application.DTO_s.Resposta.RotaRespostaDTO;
 using API_Rodoviaria.Application.DTO_s.Resposta.ViagemRespostaDTO;
+using API_Rodoviaria.Domain.Exceptions;
 using API_Rodoviaria.Domain.Interfaces.IViagem;
 using API_Rodoviaria.Infrastructure.DataAccess.Repository.RepositorioViagem;
 namespace API_Rodoviaria.Application.UseCase.ViagemCasosDeUso.VerViagens;
@@ -16,7 +17,7 @@ public class ListarViagensCasoDeUso : IListarViagensCasoDeUso
 
     public async Task<RespostaCriarViagemDTO> ExecutarAsync(int id) {
 
-        var v = await _repositorioViagem.ObterPorIdAsync(id) ?? throw new KeyNotFoundException("Viagem não encontrada. ");
+        var v = await _repositorioViagem.ObterPorIdAsync(id) ?? throw new ExcecaoDeNegocio("Viagem não encontrada. ");
 
         return new RespostaCriarViagemDTO
         {

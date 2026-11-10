@@ -1,4 +1,5 @@
 ﻿using API_Rodoviaria.Application.DTO_s.Resposta.ReservaRespostaDTO;
+using API_Rodoviaria.Domain.Exceptions;
 using API_Rodoviaria.Domain.Interfaces.IReserva;
 using API_Rodoviaria.Infrastructure.DataAccess.Repository.RepositorioReserva;
 
@@ -13,7 +14,7 @@ namespace API_Rodoviaria.Application.UseCase.ReservaCasosDeUso.VerReservas
         }
         public async Task<RespostaCriarReservaDTO> ExecutarAsync(int idReserva)
         {
-            var r = await _repositorioReserva.ObterPorIdAsync(idReserva)   ?? throw new KeyNotFoundException("Reserva não  encontrada.");
+            var r = await _repositorioReserva.ObterPorIdAsync(idReserva)   ?? throw new ExcecaoDeNegocio("Reserva não  encontrada.");
         return new RespostaCriarReservaDTO
         {
             Id = r.Id,

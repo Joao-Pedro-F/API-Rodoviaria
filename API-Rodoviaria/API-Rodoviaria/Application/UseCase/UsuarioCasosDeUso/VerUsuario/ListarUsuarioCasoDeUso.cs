@@ -1,4 +1,5 @@
 ﻿using API_Rodoviaria.Application.DTO_s.Resposta.UsuarioRespostaDTO;
+using API_Rodoviaria.Domain.Exceptions;
 using API_Rodoviaria.Domain.Interfaces.IUsuario;
 using API_Rodoviaria.Infrastructure.DataAccess.Repository.RepositorioUsuario;
 
@@ -16,7 +17,7 @@ namespace API_Rodoviaria.Application.UseCase.UsuarioCasosDeUso.VerUsuario
     
        public async Task<RespostaCriarUsuarioDTO> ExecutarAsync(int id)
         {
-            var usuario = await _repositorioUsuario.ObterPorIdAsync(id) ?? throw new KeyNotFoundException("Usuário não encontrado.");
+            var usuario = await _repositorioUsuario.ObterPorIdAsync(id) ?? throw new ExcecaoDeNegocio("Usuário não encontrado.");
 
             return new RespostaCriarUsuarioDTO
             {

@@ -5,6 +5,6 @@ namespace API_Rodoviaria.Domain.Interfaces.IOnibus
 {
     public interface IAtualizarOnibusCasoDeUso
     {
-        Task<RespostaCriarOnibusDTO> ExecutarAsync(int id, RequisicaoCriarOnibusDTO requisicao);
+        Task<RespostaCriarOnibusDTO> ExecutarAsync(int id, RequisicaoAtualizarOnibusDTO requisicao);
     }
 }

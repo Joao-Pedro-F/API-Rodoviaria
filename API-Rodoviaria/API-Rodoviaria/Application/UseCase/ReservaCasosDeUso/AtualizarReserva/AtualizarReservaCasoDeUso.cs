@@ -1,6 +1,7 @@
 ﻿using System.Runtime.Intrinsics.X86;
 using API_Rodoviaria.Application.DTO_s.Requisicao.ReservaRequisicaoDTO;
 using API_Rodoviaria.Application.DTO_s.Resposta.ReservaRespostaDTO;
+using API_Rodoviaria.Domain.Exceptions;
 using API_Rodoviaria.Domain.Interfaces.IReserva;
 using API_Rodoviaria.Domain.Models;
 using API_Rodoviaria.Infrastructure.DataAccess.Repository.RepositorioOnibus;
@@ -21,23 +22,22 @@ namespace API_Rodoviaria.Application.UseCase.ReservaCasosDeUso.AtualizarReserva
         public async Task<RespostaCriarReservaDTO> ExecutarAsync(int idUsuario, int
         idReserva, RequisicaoAtualizarReservaDTO request)
         {
-            var reserva = await _repositorioReserva.ObterPorIdAsync(idReserva)?? throw new KeyNotFoundException("Reserva não encontrada.");
+            var reserva = await _repositorioReserva.ObterPorIdAsync(idReserva)?? throw new ExcecaoDeNegocio("Reserva não encontrada.");
            
         if (reserva.FkUsuario != idUsuario)
-                throw new UnauthorizedAccessException("Essa reserva não  pertence a esse usuário.");
+                throw new ExcecaoDeNegocio("Essa reserva não  pertence a esse usuário.",401);
 
                 var numeros = request.IdsCadeiras.Distinct().ToList();
                 var onibusDaViagem = reserva.Viagem.FkOnibus;
                 var cadeiras = await _repositorioOnibus.ObterCadeirasPorNumeroAsync(onibusDaViagem,numeros);
 
             if (cadeiras.Count != numeros.Count)
-                throw new ArgumentException("Uma ou mais cadeiras não existem nesse ônibus.");
+                throw new ExcecaoDeNegocio("Uma ou mais cadeiras não existem nesse ônibus.");
 
                 var idsCadeiras = cadeiras.Select(c => c.Id).ToList();
 
             if (!await _repositorioReserva.AtualizarCadeirasSeLivresAsync(idReserva,  idsCadeiras))
-                throw new InvalidOperationException("Uma ou mais cadeiras já foram reservadas nessa viagem.");
-
+                throw new ExcecaoDeNegocio("Uma ou mais cadeiras já foram reservadas nessa viagem.");
                 var atualizada = await  _repositorioReserva.ObterPorIdAsync(idReserva);
 
             return new RespostaCriarReservaDTO

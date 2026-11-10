@@ -2,6 +2,7 @@
 using API_Rodoviaria.Application.DTO_s.Requisicao.ViagemRequisicaoDTO;
 using API_Rodoviaria.Application.DTO_s.Resposta;
 using API_Rodoviaria.Application.DTO_s.Resposta.ViagemRespostaDTO;
+using API_Rodoviaria.Domain.Exceptions;
 using API_Rodoviaria.Domain.Interfaces;
 using API_Rodoviaria.Domain.Interfaces.IViagem;
 using API_Rodoviaria.Infrastructure.DataAccess.Repository.RepositorioMotorista;
@@ -23,27 +24,26 @@ public class AtualizarViagemCasoDeUso : IAtualizarViagemCasoDeUso
     {
         if (requisicao.DataChegada <= requisicao.DataSaida)
         {
-            throw new ArgumentException("A data de chegada deve ser posterior à data de saída.");
+            throw new ExcecaoDeNegocio("A data de chegada deve ser posterior à data de saída.");
         }
 
         var viagem = await _viagemRepositorio.ObterPorIdAsync(id)
-            ?? throw new KeyNotFoundException($"Viagem não encontrada.");
+            ?? throw new ExcecaoDeNegocio($"Viagem não encontrada.");
 
         var motorista = await _motoristaRepositorio.ObterPorIdAsync(viagem.FkMotorista)
-            ?? throw new KeyNotFoundException("Motorista não encontrado.");
-
+            ?? throw new ExcecaoDeNegocio("Motorista não encontrado.");
         var saida = requisicao.DataSaida;
         var chegada = requisicao.DataChegada;
 
 
         if (await _viagemRepositorio.MotoristaTemViagemNoPeriodoAsync(requisicao.FkMotorista!.Value, saida, chegada, id))
         {
-            throw new InvalidOperationException("O motorista já possui uma viagem nesse período.");
+            throw new ExcecaoDeNegocio("O motorista já possui uma viagem nesse período.");
         }
 
         if(await _viagemRepositorio.OnibusTemViagemNoPeriodoAsync(viagem.FkOnibus, saida, chegada, id))
         {
-            throw new InvalidOperationException("O ônibus já está em outra viagem nesse período.");
+            throw new ExcecaoDeNegocio("O ônibus já está em outra viagem nesse período.");
         }
 
 
@@ -52,10 +52,11 @@ public class AtualizarViagemCasoDeUso : IAtualizarViagemCasoDeUso
             viagem.FkMotorista = requisicao.FkMotorista.Value;
           
         }
+        if (requisicao.DataSaida != DateTime.MinValue)
+            viagem.DataSaida = requisicao.DataSaida;
 
-        if (requisicao.DataSaida == DateTime.MinValue) viagem.DataSaida = requisicao.DataSaida;
-        if (requisicao.DataChegada == DateTime.MinValue) viagem.DataChegada = requisicao.DataChegada;
-
+        if (requisicao.DataChegada != DateTime.MinValue)
+            viagem.DataChegada = requisicao.DataChegada;
 
 
 

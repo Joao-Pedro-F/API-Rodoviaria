@@ -1,4 +1,5 @@
 ﻿using API_Rodoviaria.Application.DTO_s.Resposta.MotoristaRespostaDTO;
+using API_Rodoviaria.Domain.Exceptions;
 using API_Rodoviaria.Domain.Interfaces.IMotorista;
 using API_Rodoviaria.Infrastructure.DataAccess.Repository.RepositorioMotorista;
 namespace API_Rodoviaria.Application.UseCase.MotoristaCasosDeUso.VerMotorista;
@@ -13,7 +14,7 @@ public class VerMotoristaPorIdCasoDeUso : IVerMotoristaPorIdCasoDeUso
     public async Task<RespostaCriarMotoristaDTO> ExecutarAsync(int Id)
     {
         var motorista = await _motoristaRepositorio.ObterPorIdAsync(Id)
-           ?? throw new KeyNotFoundException("Motorista não encontrado.");
+           ?? throw new ExcecaoDeNegocio("Motorista não encontrado.");
         
         return new RespostaCriarMotoristaDTO
         {

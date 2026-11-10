@@ -25,7 +25,7 @@ namespace API_Rodoviaria.Application.UseCase.CadeiraCasosDeUso.ListarCadeira
         idViagem)
         {
             var viagem = await _repositorioViagem.ObterPorIdAsync(idViagem)
-            ?? throw new ExcecaoDeNegocio("Viagem não encontrada.", 404);
+            ?? throw new ExcecaoDeNegocio("Viagem não encontrada.", 400);
             var cadeiras = await
             _repositorioCadeira.ObterPorOnibusAsync(viagem.FkOnibus);
             var ocupadas = (await
