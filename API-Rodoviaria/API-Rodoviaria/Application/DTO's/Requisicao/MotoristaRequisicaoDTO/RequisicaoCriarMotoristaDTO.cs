@@ -9,11 +9,12 @@ using System.ComponentModel.DataAnnotations;
     //[Required(ErrorMessage = "O campo CPF é obrigatório.")]
     //[StringLength(11, ErrorMessage = "O campo CPF deve ter no máximo 11 caracteres.")]
     [Required, RegularExpression(@"^[0-9]{3}\.[0-9]{3}\.[0-9]{3}\-[0-9]{2}$", ErrorMessage = "CPF inválido.")]
-    public string Cpf { get; set; }
-      //\  [Required(ErrorMessage = "O campo CNH é obrigatório.")]
-        //[StringLength(11, ErrorMessage = "O campo CNH deve ter no máximo 11 caracteres.")]
-    [Required, RegularExpression(@"^[0-9]{3}\.[0-9]{3}\.[0-9]{3}\-[0-9]{2}$", ErrorMessage = "CNH inválido.")]
-    public string Cnh { get; set; }
-        
-    }
+    public string? Cpf { get; set; }
+    //\  [Required(ErrorMessage = "O campo CNH é obrigatório.")]
+    //[StringLength(11, ErrorMessage = "O campo CNH deve ter no máximo 11 caracteres.")]
+    [RegularExpression(@"^\d{11}$", ErrorMessage = "CNH inválida. Digite exatamente 11 números.")]
+    public string? Cnh { get; set; }
+
+
+}
 

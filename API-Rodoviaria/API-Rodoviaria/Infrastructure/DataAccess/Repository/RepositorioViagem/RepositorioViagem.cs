@@ -19,7 +19,7 @@ public class RepositorioViagem : IRepositorioViagem
 
     public async Task<Viagem?> ObterPorIdAsync(int Id)
     {
-        return await _context.Viagem.AsNoTracking()
+        return await _context.Viagem
             .Include(v => v.Rota) 
             .Include(v => v.Onibus)
             .Include(v => v.Motorista)
@@ -39,6 +39,7 @@ public class RepositorioViagem : IRepositorioViagem
     public async Task AtualizarAsync(Viagem viagem)
     {
         _context.Viagem.Update(viagem);
+         
         await _context.SaveChangesAsync();
     }
 
@@ -77,6 +78,7 @@ public class RepositorioViagem : IRepositorioViagem
     public async Task<Viagem?> ObterComDetalhesAsync(int id)
     {
         return await _context.Viagem
+            .AsNoTracking()
             .Include(v => v.Motorista)
             .Include(v => v.Rota)
             .Include(v => v.Onibus)
