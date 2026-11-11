@@ -14,6 +14,14 @@ namespace Front.Atributos
             {
                 context.Result = new RedirectToActionResult("loginView", "Login", null);
             }
+
+            var actionName = context.RouteData.Values["action"]?.ToString();
+
+            if (perfil == "Cliente" && actionName != "viagensViewUser")
+            {
+                context.Result = new RedirectToActionResult("viagensViewUser", "Home", null);
+                return;
+            } 
         }
     }
 }

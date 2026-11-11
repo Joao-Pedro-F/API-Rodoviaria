@@ -57,3 +57,13 @@ function mostrarToast(msg) {
     const toast = new bootstrap.Toast(toastElemento, { delay: 4000 });
     toast.show();
 } 
+
+cpf.addEventListener('input', () => {
+    let valor = cpf.value.replace(/\D/g, '').slice(0, 11);
+
+    valor = valor.replace(/^(\d{3})(\d)/, '$1.$2');
+    valor = valor.replace(/^(\d{3})\.(\d{3})(\d)/, '$1.$2.$3');
+    valor = valor.replace(/\.(\d{3})(\d)/, '.$1-$2');
+
+    cpf.value = valor;
+});

@@ -259,10 +259,10 @@ function mostrarToast(msg) {
 }
 
 //CHAMADA (FUNÇÕES)
-document.addEventListener("DOMContentLoaded", () => {
-    containerTabela.innerHTML = tableViagensHtml;
-    renderViajens(1);
-});
+// document.addEventListener("DOMContentLoaded", () => {
+//     containerTabela.innerHTML = tableViagensHtml;
+//     renderViajens(1);
+// });
 
 btnReservar.addEventListener('click', async () => {
     await reservarCadeiras()
@@ -312,4 +312,15 @@ document.addEventListener('change', async (event) => {
             event.target.value = "";
         }
     }
+});
+
+document.addEventListener("DOMContentLoaded", () => {
+    const mensagemSucesso = localStorage.getItem('toastSucesso');
+
+    if (mensagemSucesso) {
+        mostrarToast(mensagemSucesso);
+        localStorage.removeItem('toastSucesso');
+    }
+    containerTabela.innerHTML = tableViagensHtml;
+    renderViajens(1);
 });
