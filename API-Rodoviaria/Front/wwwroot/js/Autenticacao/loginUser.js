@@ -36,6 +36,9 @@ async function fazerLogin() {
 
         const resLogar = await fetch(`https://localhost:7217/Login/Logar`, {
             method: 'POST',
+            headers: {'Content-Type': 'application/json'},
+            credentials: 'include',
+            body: JSON.stringify({perfil: response.perfil}),
         })
 
         localStorage.setItem('toastSucesso', 'Login realizado com sucesso!');
@@ -46,7 +49,7 @@ async function fazerLogin() {
         window.location.href = "/Home/viagensViewUser";
 
     } catch (error) {
-        mostrarToast("Não foi possível fazer login.")
+        mostrarToast(`Não foi possível fazer login. ${response.erro}`);
         throw error
     }
 }

@@ -132,8 +132,6 @@ async function consultarTabela(pagina = 1) {
             return;
         }
 
-        var response = await res.json();
-
         paginaAtualGlobal = response.paginaAtual;
         totalPaginasGlobal = response.totalPaginas;
 

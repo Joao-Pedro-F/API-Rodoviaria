@@ -8,6 +8,7 @@ namespace Front.Atributos
         public override void OnActionExecuting(ActionExecutingContext context)
         {
             var logado = context.HttpContext.Session.GetString("logado");
+            var perfil = context.HttpContext.Session.GetString("Usuario");
 
             if (logado != "true")
             {
