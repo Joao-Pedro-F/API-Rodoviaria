@@ -61,7 +61,7 @@ public class RodoviariaDbContext :DbContext
 
         #endregion
 
-        #region Mororista 1->N Viagem
+        #region Motorista 1->N Viagem
         mb.Entity<Motorista>(e => {            
             
             e.ToTable("Motorista");
