@@ -33,6 +33,7 @@ async function fazerLogin() {
 
         localStorage.setItem("Expira", response.expiraEm);
         localStorage.setItem("Usuario", response.perfil);
+        localStorage.setItem("User", response.id);
 
         const resLogar = await fetch(`https://localhost:7217/Login/Logar`, {
             method: 'POST',

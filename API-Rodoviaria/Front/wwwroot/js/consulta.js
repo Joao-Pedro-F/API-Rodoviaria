@@ -282,36 +282,10 @@ function renderEdit() {
                         <input type="text" maxlength="7" class="form-control shadow-none" id="inputPlaca" value="${placa}"/>
                         <label for="inputPlaca">Placa do Veículo:</label>
                     </div>
-                    <div class="form-floating">
-                        <input type="number" class="form-control shadow-none" id="inputCapacidade" value="${capacidade}"/>
-                        <label for="inputCapacidade">Capacidade do Veículo:</label>
-                    </div>
-                    <div class="form-floating">
-                        <select id="selectMotoristas" class="form-select" aria-label="Default select example">
-                        </select>
-                        <label for="selectMotoristas">Selecione um Motorista:</label>
-                    </div>
-                    <div class="form-floating">
-                        <input type="text" class="form-control shadow-none" id="inputEnderecoI" value="${enderecoI}"/>
-                        <label for="inputEnderecoI">Endereço Inicial:</label>
-                    </div>
-                    <div class="form-floating">
-                        <input type="text" class="form-control shadow-none" id="inputEnderecoF" value="${enderecoF}"/>
-                        <label for="inputEnderecoF">Endereço Final:</label>
-                    </div>
-                    <div class="form-floating">
-                        <input type="datetime-local" class="form-control shadow-none" id="inputDataS" value="${dSaida}"/>
-                        <label for="inputDataS">Data e hora Saída:</label>
-                    </div>
-                    <div class="form-floating">
-                        <input type="datetime-local" class="form-control shadow-none" id="inputDataC" value="${dChegada}"/>
-                        <label for="inputDataC">Data e Hora Chegada:</label>
-                    </div>   
                 </div>
                 <button id="btnAtualizar" type="button" class="btn btn-secondary shadow-none w-100">Atualizar</button>
             `;
             conteudoViagens.innerHTML = render;
-            renderMotoristas();
             break;
 
         case "Rota":
@@ -368,12 +342,6 @@ async function editar() {
             case "Onibus":
                 payload = {
                     placa: document.getElementById("inputPlaca").value,
-                    capacidadeTotal: document.getElementById("inputCapacidade").value,
-                    fkMotorista: document.getElementById("selectMotoristas").value,
-                    enderecoInicio: document.getElementById("inputEnderecoI").value,
-                    enderecoFim: document.getElementById("inputEnderecoF").value,
-                    dataSaida: new Date(document.getElementById("inputDataS").value).toISOString(),
-                    dataChegada: new Date(document.getElementById("inputDataC").value).toISOString()
                 };
                 break;
             case "Rota":
