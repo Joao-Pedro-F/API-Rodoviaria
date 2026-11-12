@@ -34,7 +34,6 @@
     <Folder Include="Application\UseCase\VIagemCasosDeUso\CriarViagem\" />
     <Folder Include="Domain\Enums\" />
     <Folder Include="Domain\Interfaces\IReservaCadeira\" />
-    <Folder Include="Infrastructure\DataAccess\Repository\NovaPasta\" />
     <Folder Include="Infrastructure\DataAccess\Repository\RepositorioReservaCadeira\" />
   </ItemGroup>
 

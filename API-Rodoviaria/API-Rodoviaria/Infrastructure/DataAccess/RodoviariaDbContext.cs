@@ -106,7 +106,7 @@ public class RodoviariaDbContext :DbContext
             e.HasOne(c => c.Onibus)
              .WithMany(o => o.Cadeiras)
              .HasForeignKey(c => c.FkOnibus)
-             .OnDelete(DeleteBehavior.Restrict);
+             .OnDelete(DeleteBehavior.Cascade);
             e.HasIndex(c=> new { c.FkOnibus, c.Numero }).IsUnique();
 
         });
