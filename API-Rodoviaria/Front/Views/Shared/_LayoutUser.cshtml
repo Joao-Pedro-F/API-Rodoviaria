@@ -69,6 +69,7 @@
                 try {
                     localStorage.removeItem("Expira");
                     localStorage.removeItem("Usuario");
+                    localStorage.removeItem("User");
 
                     await fetch("https://localhost:7217/Login/Deslogar", {
                         method: 'POST'

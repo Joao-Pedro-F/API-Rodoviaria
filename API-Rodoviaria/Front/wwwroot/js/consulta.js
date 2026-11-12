@@ -235,12 +235,11 @@ async function deletar() {
             headers: { 'Content-Type': 'application/json' },
         });
 
-        const response = await res.json();
-
         if (!res.ok) {
             mostrarToast(`Não foi possível excluir. ${response.erro}`);
             return;
         }
+
         const modal = bootstrap.Modal.getInstance(document.getElementById('modalExcluir'));
         consultarTabela(1);
         modal.hide();
