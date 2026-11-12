@@ -292,7 +292,7 @@ namespace API_Rodoviaria.Migrations
                     b.HasOne("API_Rodoviaria.Domain.Models.Onibus", "Onibus")
                         .WithMany("Cadeiras")
                         .HasForeignKey("FkOnibus")
-                        .OnDelete(DeleteBehavior.Restrict)
+                        .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
 
                     b.Navigation("Onibus");

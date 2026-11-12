@@ -36,7 +36,9 @@ namespace API_Rodoviaria.Application.UseCase.UsuarioCasosDeUso.Login
 
             return new RespostaLoginDTO
             {
+              //  
                 Token = token.Token,
+                Id = usuario.Id,
                 Username = usuario.Username,
                 Perfil = usuario.Perfil.Cargo,
                 ExpiraEm = token.ExpiraEm
